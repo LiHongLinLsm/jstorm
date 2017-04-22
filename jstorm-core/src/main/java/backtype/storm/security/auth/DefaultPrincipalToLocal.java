@@ -28,7 +28,7 @@ public class DefaultPrincipalToLocal implements IPrincipalToLocal {
     /**
      * Invoked once immediately after construction
      * 
-     * @param conf Storm configuration
+     * @param ：conf Storm configuration
      */
     public void prepare(Map storm_conf) {
     }

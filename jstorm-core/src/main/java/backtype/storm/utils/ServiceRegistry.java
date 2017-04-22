@@ -22,6 +22,7 @@ import java.util.UUID;
 
 // this class should be combined with RegisteredGlobalState
 public class ServiceRegistry {
+    //uuid-->drpc
     private static HashMap<String, Object> _services = new HashMap<String, Object>();
     private static final Object _lock = new Object();
 

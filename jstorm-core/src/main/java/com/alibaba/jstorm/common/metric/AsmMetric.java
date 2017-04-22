@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+//之前的metric是old版本，自己写的，此时新版本。。直接基于codhale上
 public abstract class AsmMetric<T extends Metric> {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -60,8 +61,11 @@ public abstract class AsmMetric<T extends Metric> {
     protected boolean aggregate = true;
     protected boolean attached = false;
     protected AtomicBoolean enabled = new AtomicBoolean(true);
+    //初始化代码 。。。。。。。。。。。。。。写得也太那个啥了。。。含义的确是上次更新窗口的时间。
     protected volatile long lastFlushTime = TimeUtils.current_time_secs() - AsmWindow.M1_WINDOW;
+    //key:windwos index,val:上次窗口滚动时间，即窗口左侧时间。
     protected Map<Integer, Long> rollingTimeMap = new ConcurrentHashMap<>();
+    //窗口是否移动了。
     protected Map<Integer, Boolean> rollingDirtyMap = new ConcurrentHashMap<>();
 
     protected final Map<Integer, AsmSnapshot> snapshots = new ConcurrentHashMap<Integer, AsmSnapshot>();
@@ -199,12 +203,13 @@ public abstract class AsmMetric<T extends Metric> {
         this.lastFlushTime = TimeUtils.current_time_secs();
     }
 
-    public List<Integer> rollWindows(long time, List<Integer> windows) {
+    //返回，需要移动的窗口
+    public List<Integer> rollWindows(long currenttime, List<Integer> windows) {
         List<Integer> rolling = new ArrayList<>();
         for (Integer win : windows) {
             long rollingTime = rollingTimeMap.get(win);
             // might delay somehow, so add extra 5 sec bias
-            if (time - rollingTime >= win - 5) {
+            if (currenttime - rollingTime >= win - 5) {
                 rolling.add(win);
                 rollingDirtyMap.put(win, true);     //mark this window has been passed
                 rollingTimeMap.put(win, (long) TimeUtils.current_time_secs());

@@ -32,11 +32,12 @@ import com.alipay.dw.jstorm.example.sequence.SequenceTopologyDef;
 import com.alipay.dw.jstorm.example.sequence.bean.Pair;
 import com.alipay.dw.jstorm.example.sequence.bean.PairMaker;
 import com.alipay.dw.jstorm.example.sequence.bean.TradeCustomer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SequenceSpout implements IRichSpout {
     private static final long serialVersionUID = 1L;
@@ -64,7 +65,7 @@ public class SequenceSpout implements IRichSpout {
     
     private long SPOUT_MAX_SEND_NUM;
     
-    private int    bufferLen = 0;
+    private int bufferLen = 0;
     private Random random;
     
     private boolean isSendCtrlMsg = false;

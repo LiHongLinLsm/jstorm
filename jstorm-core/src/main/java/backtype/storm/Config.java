@@ -180,7 +180,8 @@ public class Config extends HashMap<String, Object> {
      */
     public static final String STORM_EXHIBITOR_PORT = "storm.exhibitor.port";
     /**
-     * A directory on the local filesystem used by Storm for any local filesystem usage it needs. The directory must exist and the Storm daemons must have
+     * A directory on the local filesystem used by Storm for any local filesystem usage it needs.
+     * The directory must exist and the Storm daemons must have
      * permission to read/write from this location.
      */
     public static final String STORM_LOCAL_DIR = "storm.local.dir";
@@ -753,7 +754,7 @@ public class Config extends HashMap<String, Object> {
     public static final Object DRPC_AUTHORIZER_ACL_STRICT_SCHEMA = Boolean.class;
 
     /**
-     * DRPC thrift server worker threads
+     * DRPC thrift server worker threads。drpc服务器进程中处理请求的线程数目。
      */
     public static final String DRPC_WORKER_THREADS = "drpc.worker.threads";
     public static final Object DRPC_WORKER_THREADS_SCHEMA = ConfigValidation.IntegerValidator;
@@ -1020,8 +1021,8 @@ public class Config extends HashMap<String, Object> {
     public static final String TOPOLOGY_COMPONENT_CPU_PCORE_PERCENT = "topology.component.cpu.pcore.percent";
 
     /**
-     * The class name of the {@link org.apache.storm.state.StateProvider} implementation. If not specified
-     * defaults to {@link org.apache.storm.state.InMemoryKeyValueStateProvider}. This can be overridden
+     * The class name of the {@link ：org.apache.storm.state.StateProvider} implementation. If not specified
+     * defaults to {@link： org.apache.storm.state.InMemoryKeyValueStateProvider}. This can be overridden
      * at the component level.
      */
     public static final String TOPOLOGY_STATE_PROVIDER = "topology.state.provider";
@@ -1054,7 +1055,8 @@ public class Config extends HashMap<String, Object> {
      * How many executors to spawn for ackers.
      * <p/>
      * <p>
-     * If this is set to 0, then Storm will immediately ack tuples as soon as they come off the spout, effectively disabling reliability.
+     * If this is set to 0, then Storm will immediately ack tuples as soon as they come off the spout,
+     * effectively disabling reliability.
      * </p>
      */
     public static final String TOPOLOGY_ACKER_EXECUTORS = "topology.acker.executors";
@@ -1390,7 +1392,9 @@ public class Config extends HashMap<String, Object> {
     public static final Object TRANSACTIONAL_ZOOKEEPER_ROOT_SCHEMA = String.class;
 
     /**
-     * The list of zookeeper servers in which to keep the transactional state. If null (which is default), will use storm.zookeeper.servers
+     * The list of zookeeper servers in which to keep the transactional state.
+     * If null (which is default),
+     * will use storm.zookeeper.servers
      */
     public static final String TRANSACTIONAL_ZOOKEEPER_SERVERS = "transactional.zookeeper.servers";
     public static final Object TRANSACTIONAL_ZOOKEEPER_SERVERS_SCHEMA = ConfigValidation.StringsValidator;

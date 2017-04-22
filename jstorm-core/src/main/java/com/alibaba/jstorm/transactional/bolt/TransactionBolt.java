@@ -63,6 +63,7 @@ public class TransactionBolt implements IProtoBatchBolt {
     protected volatile State boltStatus;
     // Information of current in progress batches
     protected BatchTracker currentBatchTracker;
+    //key:groupId ...val:batchId
     protected ConcurrentHashMap<Integer, Long> lastSuccessfulBatch;
     protected HashMap<Integer, Map<Long, BatchTracker>> processingBatches;
     protected BatchCache batchCache;

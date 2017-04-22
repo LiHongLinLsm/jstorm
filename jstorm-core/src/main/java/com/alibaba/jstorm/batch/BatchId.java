@@ -17,15 +17,20 @@
  */
 package com.alibaba.jstorm.batch;
 
-import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicLong;
+
+/**
+ * 此类两个ID,一个id为对象独立
+ * 一个staticID为类共有。
+ */
 public class BatchId implements Serializable {
     private static final long serialVersionUID = 5720810158625748049L;
     protected long id;
+    private static AtomicLong staticId = new AtomicLong(0);
 
     // this is just for kryo
     protected BatchId() {
@@ -67,12 +72,15 @@ public class BatchId implements Serializable {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
-    private static AtomicLong staticId = new AtomicLong(0);
+
 
     public static void updateId(long id) {
         staticId.set(id);
     }
 
+    /**
+     * @return id增加一的一个新batchID对象
+     */
     public static BatchId mkInstance() {
         long id = staticId.incrementAndGet();
 

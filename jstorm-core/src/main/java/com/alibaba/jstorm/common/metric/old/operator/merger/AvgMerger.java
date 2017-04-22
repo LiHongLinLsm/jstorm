@@ -24,6 +24,7 @@ import java.util.Collection;
 public class AvgMerger implements Merger<Histogram.HistorgramPair> {
     private static final long serialVersionUID = -3892281208959055221L;
 
+    //就是高加高，底加底。。。。。。。。
     @Override
     public Histogram.HistorgramPair merge(Collection<Histogram.HistorgramPair> objs, Histogram.HistorgramPair unflushed, Object... others) {
         // TODO Auto-generated method stub

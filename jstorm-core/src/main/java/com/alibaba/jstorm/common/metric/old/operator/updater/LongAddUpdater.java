@@ -19,6 +19,7 @@ package com.alibaba.jstorm.common.metric.old.operator.updater;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+//finished reading
 public class LongAddUpdater implements Updater<AtomicLong> {
     private static final long serialVersionUID = -2185639264737912405L;
 

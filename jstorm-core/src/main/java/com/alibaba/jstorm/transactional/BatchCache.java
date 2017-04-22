@@ -26,11 +26,17 @@ import com.alibaba.jstorm.utils.JStormUtils;
 public class BatchCache extends RocksDBCache {
     public static Logger LOG = LoggerFactory.getLogger(BatchCache.class);
 
+    //实际上就是一个缓存，保存了tuple相关的信息。
     protected class PendingBatch {
+        //格式为：groupId+batchId...
         public String cacheKeyPrefix;
+        //cache的tuple的个数。。
         public volatile int cacheNum = 0;
+        //读取tuple队列的索引。
         public int cacheReadIndex = 0;
+        //一批当中，所有tuple被序列化的数据。
         public List<byte[]> tuples = new ArrayList<byte[]>();
+        //以字节为单位记录，缓存的tuple序列化后的大小。
         private int cacheSize = 0;
         private Object lock = new Object();
         private boolean isActive = true;
@@ -46,10 +52,7 @@ public class BatchCache extends RocksDBCache {
                 tuples = new ArrayList<byte[]>();
                 cacheSize = 0;
             }
-        }/*
-        public void addData(byte[] data) {
-            tuples.add(data);
-        }*/
+        }
 
         public boolean addTuples(byte[] data) {
             synchronized (lock) {
@@ -91,18 +94,7 @@ public class BatchCache extends RocksDBCache {
                 }
             }
             return cacheBatch;
-        }/*
-        public List<byte[]> getTuples() {
-            List<byte[]> ret;
-            synchronized (lock) {
-                if (isActive) {
-                    isActive = false;
-                }
-                ret = tuples;
-                tuples = null;
-            }
-            return ret;
-        }*/
+        }
 
         public void removeTuples() {
             synchronized (lock) {
@@ -113,13 +105,7 @@ public class BatchCache extends RocksDBCache {
                 tuples = new ArrayList<byte[]>();
                 isActive = false;
             }
-        }/*
-        public void removeTuples() {
-            synchronized (lock) {
-                tuples = null;
-                isActive = false;
-            }
-        }*/
+        }
 
         @Override
         public String toString() {
@@ -128,14 +114,19 @@ public class BatchCache extends RocksDBCache {
     }
 
     protected Map stormConf;
+    //本机work工作目录，用于本地进程之间通信。
     protected String workerDir;
+    //位于workerDir子目录中,是rockDB的本地数据目录。
     protected String cacheDir;
     protected int taskId;
 
     protected boolean isExactlyOnceMode;
+    //key:groupId...val-->key:batchId_>pendingBatch
     protected Map<Integer, Map<Long, PendingBatch>> pendingBatches;
+    //用于保存上流spout的groupID
     protected List<Integer> pendingBatchGroups;
     protected int pendingBatchGroupIndex = 0;
+    //default : 64k..，内存中缓存的序列化的tuple字节大于此值，就持久化到rockDB中。。
     protected int maxFlushSize;
 
     protected KryoTupleSerializer serializer;
@@ -226,7 +217,8 @@ public class BatchCache extends RocksDBCache {
         }
 
         if (isExactlyOnceMode) {
-            // If it is not the same group with current in progress batch, just put incoming tuple into pending queue
+            // If it is not the same group with current in progress batch,
+            // just put incoming tuple into pending queue
             Long successBatchId = lastSuccessfulBatch.get(batchGroupId.groupId);
             if (batchGroupId.batchId > successBatchId + 1) {
                 ret = true;

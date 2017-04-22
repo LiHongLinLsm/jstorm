@@ -19,6 +19,7 @@ package com.alibaba.jstorm.client.spout;
 
 import com.alibaba.jstorm.task.master.ctrlevent.TopoMasterCtrlEvent;
 
+//finished....
 public interface ICtrlMsgSpout {
     void procCtrlMsg(TopoMasterCtrlEvent event);
 }

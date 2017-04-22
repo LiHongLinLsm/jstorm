@@ -19,8 +19,11 @@ package backtype.storm.transactional;
 
 import java.math.BigInteger;
 
+//finihsed ...
 public class TransactionAttempt {
+    //事务ID
     BigInteger _txid;
+    //事务重发后该值++,表示发送版本。。
     long _attemptId;
 
     // for kryo compatibility

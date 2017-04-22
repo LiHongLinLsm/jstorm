@@ -3,7 +3,8 @@ package com.jstorm.example.unittests.order;
 /**
  * Created by binyang.dby on 2016/7/9.
  *
- * I use endsWith to filter the user define metrics from all metrics. Make sure all the metrics ends with ".user.define"
+ * I use endsWith to filter the user define metrics from all metrics.
+ * Make sure all the metrics ends with ".user.define"
  */
 public class InOrderTestMetricsDef
 {

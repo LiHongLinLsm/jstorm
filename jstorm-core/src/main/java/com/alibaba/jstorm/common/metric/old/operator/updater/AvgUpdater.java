@@ -19,6 +19,9 @@ package com.alibaba.jstorm.common.metric.old.operator.updater;
 
 import com.alibaba.jstorm.common.metric.old.Histogram;
 
+/**
+ * 只是简单的将底+1，高加Number而已。。。
+ */
 public class AvgUpdater implements Updater<Histogram.HistorgramPair> {
     private static final long serialVersionUID = 2562836921724586449L;
 

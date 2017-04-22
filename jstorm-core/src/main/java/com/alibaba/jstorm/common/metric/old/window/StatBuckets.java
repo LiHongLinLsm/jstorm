@@ -90,7 +90,7 @@ public class StatBuckets {
     /**
      * Default is the latest result
      * 
-     * @param showStr
+     * @param： showStr
      * @return
      */
     public static String getShowTimeStr(Integer time) {

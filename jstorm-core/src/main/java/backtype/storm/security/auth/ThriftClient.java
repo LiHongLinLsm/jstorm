@@ -17,13 +17,9 @@
  */
 package backtype.storm.security.auth;
 
-import java.io.IOException;
-import java.security.InvalidParameterException;
-import java.util.List;
-import java.util.Map;
-
-import javax.security.auth.login.Configuration;
-
+import backtype.storm.Config;
+import backtype.storm.utils.Utils;
+import com.alibaba.jstorm.cluster.Cluster;
 import org.apache.commons.lang.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -33,11 +29,15 @@ import org.apache.thrift.transport.TTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.jstorm.cluster.Cluster;
+import javax.security.auth.login.Configuration;
+import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.Map;
 
-import backtype.storm.Config;
-import backtype.storm.utils.Utils;
-
+/**
+ * 客户端连接到nimbus主节点。
+ */
 public class ThriftClient {
     private static final Logger LOG = LoggerFactory.getLogger(ThriftClient.class);
     private TTransport _transport;
@@ -88,6 +88,7 @@ public class ThriftClient {
         reconnect();
     }
 
+    //从zk中找到nimbusMaster节点。
     public static String getMasterByZk(Map conf) throws Exception {
 
         CuratorFramework zkobj = null;
@@ -114,6 +115,7 @@ public class ThriftClient {
             }
         }
     }
+
 
     public void getMaster(Map conf, String host, Integer port) {
         if (StringUtils.isBlank(host) == false) {

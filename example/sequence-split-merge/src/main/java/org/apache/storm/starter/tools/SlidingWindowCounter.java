@@ -25,7 +25,7 @@ import java.util.Map;
  * <p/>
  * It is designed 1) to give multiple "producer" threads write access to the
  * counter, i.e. being able to increment counts of objects, and 2) to give a
- * single "consumer" thread (e.g. {@link PeriodicSlidingWindowCounter}) read
+ * single "consumer" thread (e.g. {@link: PeriodicSlidingWindowCounter}) read
  * access to the counter. Whenever the consumer thread performs a read
  * operation, this class will advance the head slot of the sliding window
  * counter. This means that the consumer thread indirectly controls where writes

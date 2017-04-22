@@ -21,8 +21,10 @@ import java.util.Map;
 public class InOrderTestSpout extends BaseRichSpout
 {
     private Logger LOG = LoggerFactory.getLogger(InOrderTestSpout.class);
+    //最多发送的个数。
     private long limit;
     private transient SpoutOutputCollector collector;
+    //taskIndex
     private int task;
     private int content;
     private transient MetricClient metricClient;

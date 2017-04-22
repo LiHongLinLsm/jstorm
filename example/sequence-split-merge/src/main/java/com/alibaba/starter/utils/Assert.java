@@ -1,12 +1,12 @@
 package com.alibaba.starter.utils;
 
-import java.io.File;
-import java.io.IOException;
-
 import com.alibaba.jstorm.utils.JStormUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Simple Assert, avoid include junit depenency
@@ -26,7 +26,6 @@ public class Assert {
             FileUtils.writeStringToFile(file, errMsg, true);
             FileUtils.writeStringToFile(file, "\n!!!!!!!!!!!!!!!!!!!!!!\n", true);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             LOG.error("Failed to dump " + errMsg, e);
         }
         

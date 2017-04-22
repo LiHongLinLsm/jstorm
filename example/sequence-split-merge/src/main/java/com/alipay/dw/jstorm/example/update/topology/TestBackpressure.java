@@ -30,7 +30,7 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
 public class TestBackpressure {
-    private static Logger      LOG                             = LoggerFactory.getLogger(FastWordCountTopology.class);
+    private static Logger  LOG  = LoggerFactory.getLogger(FastWordCountTopology.class);
     public final static String TOPOLOGY_SPOUT_PARALLELISM_HINT = "spout.parallel";
     public final static String TOPOLOGY_SPLIT_PARALLELISM_HINT = "split.parallel";
     public final static String TOPOLOGY_COUNT_PARALLELISM_HINT = "count.parallel";

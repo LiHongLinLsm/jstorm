@@ -24,6 +24,7 @@ import com.alibaba.jstorm.common.metric.old.operator.updater.Updater;
 
 import java.util.ArrayList;
 
+//此类中属性含义，参考rollingwindow类
 public class AllWindow<V> implements Sampling<V>, StartTime {
 
     private static final long serialVersionUID = -8523514907315740812L;
@@ -46,7 +47,6 @@ public class AllWindow<V> implements Sampling<V>, StartTime {
 
     @Override
     public void update(Number obj) {
-        // TODO Auto-generated method stub
         synchronized (this) {
             unflushed = updater.update(obj, unflushed);
         }
@@ -60,7 +60,6 @@ public class AllWindow<V> implements Sampling<V>, StartTime {
 
     @Override
     public V getSnapshot() {
-        // TODO Auto-generated method stub
         V ret = merger.merge(new ArrayList<V>(), unflushed, this);
         if (ret == null) {
             return defaultValue;
@@ -71,7 +70,6 @@ public class AllWindow<V> implements Sampling<V>, StartTime {
 
     @Override
     public long getStartTime() {
-        // TODO Auto-generated method stub
         return startTime;
     }
 

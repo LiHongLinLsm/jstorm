@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Random;
 import backtype.storm.utils.Utils;
 
+//该类为系统自动添加的bolt。作为top的第一个bolt。
 public class PrepareRequest extends BaseBasicBolt {
     public static final String ARGS_STREAM = Utils.DEFAULT_STREAM_ID;
     public static final String RETURN_STREAM = "ret";

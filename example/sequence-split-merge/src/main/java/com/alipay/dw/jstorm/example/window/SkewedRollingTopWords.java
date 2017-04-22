@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * words, and uses partialKeyGrouping to better balance the skewed load.
  */
 public class SkewedRollingTopWords {
-    private static final Logger LOG                        = LoggerFactory.getLogger(SkewedRollingTopWords.class);
+    private static final Logger LOG   = LoggerFactory.getLogger(SkewedRollingTopWords.class);
     private static final int    DEFAULT_RUNTIME_IN_SECONDS = 60;
     private static final int    TOP_N                      = 5;
     

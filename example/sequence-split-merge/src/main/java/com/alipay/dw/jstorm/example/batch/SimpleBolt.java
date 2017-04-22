@@ -17,17 +17,6 @@
  */
 package com.alipay.dw.jstorm.example.batch;
 
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.alibaba.jstorm.batch.BatchId;
-import com.alibaba.jstorm.batch.ICommitter;
-import com.alibaba.jstorm.utils.JStormUtils;
-import com.alibaba.jstorm.utils.TimeCacheMap;
-
 import backtype.storm.Config;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;
@@ -37,13 +26,26 @@ import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.utils.Utils;
+import com.alibaba.jstorm.batch.BatchId;
+import com.alibaba.jstorm.batch.ICommitter;
+import com.alibaba.jstorm.utils.JStormUtils;
+import com.alibaba.jstorm.utils.TimeCacheMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SimpleBolt implements IBasicBolt, ICommitter {
     private static final long   serialVersionUID = 5720810158625748042L;
-    private static final Logger LOG              = LoggerFactory.getLogger(SimpleBolt.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleBolt.class);
     
     public static final String COUNT_BOLT_NAME = "Count";
     public static final String SUM_BOLT_NAME   = "Sum";
+
+
+    private BatchId currentId;
+
     private Map                conf;
     
     private TimeCacheMap<BatchId, AtomicLong> counters;
@@ -85,9 +87,7 @@ public class SimpleBolt implements IBasicBolt, ICommitter {
     public Map<String, Object> getComponentConfiguration() {
         return null;
     }
-    
-    private BatchId currentId;
-    
+
     @Override
     public byte[] commit(BatchId id) throws FailedException {
         LOG.info("Receive BatchId " + id);

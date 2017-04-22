@@ -31,6 +31,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+//所有的metric都需要在component初始化中被设置。
+//注册metrics后，只是在定时进行记录metrics，但metrics该如何显示，
+// 这就取决于IMetricsConsumer，在Config中可以手动进行注册自定义的metricsConsumer，
+// 也可以直接使用storm中提供的记录日志的LoggingMetricsConsumer，该consumer会以日志的形式记录统计指标
 public class Metric<T, V> implements Sampling<Map<Integer, T>> {
     private static final long serialVersionUID = -1362345159511508074L;
     private static final Logger LOG = LoggerFactory.getLogger(Metric.class);
@@ -41,7 +45,9 @@ public class Metric<T, V> implements Sampling<Map<Integer, T>> {
         enable = e;
     }
 
+    //统计部分历史数据
     protected List<RollingWindow<V>> rollingWindows;
+    //统计所有历史数据
     protected AllWindow<V> allWindow;
 
     protected int[] windowSeconds = { StatBuckets.MINUTE_WINDOW, StatBuckets.HOUR_WINDOW, StatBuckets.DAY_WINDOW };
@@ -54,11 +60,14 @@ public class Metric<T, V> implements Sampling<Map<Integer, T>> {
 
     protected int interval; // unit is second
     protected IntervalCheck intervalCheck;
+    //由于所有的rollingWindows个数为3个（比如15,30,60分钟的），couterMetric只是记录couter信息，15,30,60分钟采样，
+    //所以，该值对所有窗口，只需要一个，而不是数组。
     protected V unflushed;
 
     public Metric() {
     }
 
+    //改方法求得所有inteval值得最大公约数。比如interval[]={4,8,6}，则结果为2.
     public int getInterval() {
         if (windowSeconds == null || windowSeconds.length == 0) {
             return StatBuckets.NUM_STAT_BUCKETS;
@@ -101,11 +110,10 @@ public class Metric<T, V> implements Sampling<Map<Integer, T>> {
             rollingWindows.clear();
             for (int windowSize : windowSeconds) {
                 RollingWindow<V> rollingWindow = new RollingWindow<V>(defaultValue, windowSize / bucketSize, windowSize, updater, merger);
-
                 rollingWindows.add(rollingWindow);
             }
-
         }
+
         allWindow = new AllWindow<V>(defaultValue, updater, merger);
 
         this.interval = getInterval();
@@ -141,15 +149,15 @@ public class Metric<T, V> implements Sampling<Map<Integer, T>> {
         unflushed = null;
     }
 
+    //key:窗口长度，比如15分钟，30分钟，val：统计数据。。
     @Override
     public Map<Integer, T> getSnapshot() {
-        // TODO Auto-generated method stub
         flush();
-
         Map<Integer, T> ret = new TreeMap<Integer, T>();
         for (RollingWindow<V> rollingWindow : rollingWindows) {
+            //getsnap中只是合并了小窗口，并没计算最终统计数值。
             V value = rollingWindow.getSnapshot();
-
+            //计算统计数据，由用户自定义convert转换得到。
             ret.put(rollingWindow.getWindowSecond(), convertor.convert(value));
         }
 

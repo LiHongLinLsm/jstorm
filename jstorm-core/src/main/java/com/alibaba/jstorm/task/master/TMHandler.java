@@ -1,5 +1,6 @@
 package com.alibaba.jstorm.task.master;
 
+//TopMasterHandler..
 public interface TMHandler {
     /**
      * Init TMHandler

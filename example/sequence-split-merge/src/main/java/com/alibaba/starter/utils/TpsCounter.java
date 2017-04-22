@@ -17,15 +17,15 @@
  */
 package com.alibaba.starter.utils;
 
-import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.alibaba.jstorm.utils.IntervalCheck;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicLong;
+
 public class TpsCounter implements Serializable {
-    
+
     private static final long serialVersionUID = 2177944366059817622L;
     private AtomicLong        total            = new AtomicLong(0);
     private AtomicLong        times            = new AtomicLong(0);
@@ -39,7 +39,7 @@ public class TpsCounter implements Serializable {
     public TpsCounter() {
         this("", TpsCounter.class);
     }
-    
+
     public TpsCounter(String id) {
         this(id, TpsCounter.class);
     }

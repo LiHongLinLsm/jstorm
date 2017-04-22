@@ -17,6 +17,9 @@
  */
 package com.alibaba.jstorm.batch.util;
 
+/**
+ * 此类只有三个类中用到。
+ */
 public enum BatchStatus {
     COMPUTING, PREPARE_COMMIT, COMMIT, REVERT_COMMIT, POST_COMMIT, ERROR;
 

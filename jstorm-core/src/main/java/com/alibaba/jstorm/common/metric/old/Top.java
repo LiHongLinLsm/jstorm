@@ -50,6 +50,7 @@ public class Top<T> extends Metric<List<T>, TreeSet<T>> {
         private static final long serialVersionUID = -3940041101182079146L;
 
         final protected Comparator<T> comparator;
+        //treeset缓存的最大条目数。
         final protected int n;
 
         public TopUpdator(Comparator<T> comparator, int n) {
@@ -59,6 +60,7 @@ public class Top<T> extends Metric<List<T>, TreeSet<T>> {
 
         @SuppressWarnings("unchecked")
         @Override
+        //将object跟新到cache中。保持cache中条目数目小与n.
         public TreeSet<T> update(Number object, TreeSet<T> cache, Object... others) {
             // TODO Auto-generated method stub
             if (cache == null) {
@@ -103,6 +105,7 @@ public class Top<T> extends Metric<List<T>, TreeSet<T>> {
             this.n = n;
         }
 
+        //将objs和unflushed中所有合并到treeSet中，然后取出前n条。
         @Override
         public TreeSet<T> merge(Collection<TreeSet<T>> objs, TreeSet<T> unflushed, Object... others) {
             // TODO Auto-generated method stub
@@ -134,6 +137,7 @@ public class Top<T> extends Metric<List<T>, TreeSet<T>> {
 
     }
 
+    //将Treeset转出成list
     public static class SetToList<T> implements Convertor<TreeSet<T>, List<T>> {
         private static final long serialVersionUID = 4968816655779625255L;
 

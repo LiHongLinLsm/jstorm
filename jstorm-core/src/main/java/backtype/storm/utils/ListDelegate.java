@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+//finished~~
 public class ListDelegate implements List<Object> {
     private List<Object> _delegate;
 

@@ -35,18 +35,28 @@ public class RollingWindow<V> implements Sampling<V>, StartTime {
     private static final long serialVersionUID = 3794478417380003279L;
     private static final Logger LOG = LoggerFactory.getLogger(RollingWindow.class);
 
+    //窗口最左侧时间（窗口有长度，所以，这里是左侧时间，不是窗口创建的时间）
     protected long startTime;
+    //未进行checkInterval时的当前时间，即窗口右侧时间。
     protected Integer currBucketTime;
+    //窗口单位时间长度，也是检测时间单位
     protected int interval; // unit is second
+    //窗口长度
     protected int windowSecond;
     protected IntervalCheck intervalCheck;
 
+    //窗口数据存储结构，key：时间戳，v:用户自定义的数据
     protected TreeMap<Integer, V> buckets;
+    //treeMap的长度
     protected Integer bucketNum;
+    //窗口右侧以外，未写入到窗口的数据。。
     protected V unflushed;
+    //getSnapshot中如果没有数据，则返回该值。，该值是统计最终的默认值。
     protected V defaultValue;
 
+    //用户自定义如何将数据更新到treemap的val中。
     protected Updater<V> updater;
+    //将窗口内数据合并的策略。。。即如何将treemap中的val合并得到用户要的结果。
     protected Merger<V> merger;
 
     RollingWindow(V defaultValue, int interval, int windowSecond, Updater<V> updater, Merger<V> merger) {
@@ -70,7 +80,6 @@ public class RollingWindow<V> implements Sampling<V>, StartTime {
 
     @Override
     public void update(Number obj) {
-        // TODO Auto-generated method stub
 
         if (intervalCheck.check()) {
             rolling();
@@ -186,4 +195,6 @@ public class RollingWindow<V> implements Sampling<V>, StartTime {
     private Integer getCurrBucketTime() {
         return (TimeUtils.current_time_secs() / interval) * interval;
     }
+
+
 }

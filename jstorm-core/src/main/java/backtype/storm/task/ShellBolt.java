@@ -39,8 +39,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import java.io.Serializable;
-
 /**
  * A bolt that shells out to another process to process tuples. ShellBolt communicates with that process over stdio using a special protocol. An ~100 line
  * library is required to implement that protocol, and adapter libraries currently exist for Ruby and Python.
@@ -66,6 +64,16 @@ import java.io.Serializable;
  *     }
  * }
  * </pre>
+ */
+/*
+该bolt通过接收命令后，单独启动进程，与进程通信，实行stdin和stdout读写的方式，兼容其他语言，
+使得早期开发的异构系统能无缝结合到storm平台中来。
+缺点：
+1.通信效率低下：通过socket改进。
+2.僵尸进程存在。如果task太多，即bolt的并发度高。那么启动很多进程。在退出时，需要关闭。解决方案，启动进程时，记录进程号，
+退出时，将其kill。
+
+shellProcess为其与生成的进程之间的通信代理。
  */
 public class ShellBolt implements IBolt {
     public static final String HEARTBEAT_STREAM_ID = "__heartbeat";

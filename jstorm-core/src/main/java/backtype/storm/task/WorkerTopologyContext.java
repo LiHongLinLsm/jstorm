@@ -19,14 +19,13 @@ package backtype.storm.task;
 
 import backtype.storm.generated.StormTopology;
 import backtype.storm.tuple.Fields;
+import com.alibaba.jstorm.cluster.StormConfig;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-
-import com.alibaba.jstorm.cluster.StormConfig;
 
 public class WorkerTopologyContext extends GeneralTopologyContext {
     public static final String SHARED_EXECUTOR = "executor";
@@ -76,7 +75,8 @@ public class WorkerTopologyContext extends GeneralTopologyContext {
     }
 
     /**
-     * Gets the location of the external resources for this worker on the local filesystem. These external resources typically include bolts implemented in
+     * Gets the location of the external resources for this worker on the local filesystem.
+     * These external resources typically include bolts implemented in
      * other languages, such as Ruby or Python.
      */
     public String getCodeDir() {

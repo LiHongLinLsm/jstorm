@@ -60,8 +60,8 @@ public class FixedBatchSpout implements IBatchSpout {
         List<List<Object>> batch = this.batches.get(batchId);
         if(batch == null){
             batch = new ArrayList<List<Object>>();
-            if(index>=outputs.length && cycle) {
-                index = 0;
+                if(index>=outputs.length && cycle) {
+                    index = 0;
             }
             for(int i=0; index < outputs.length && i < maxBatchSize; index++, i++) {
                 batch.add(outputs[index]);

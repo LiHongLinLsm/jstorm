@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author JohnFang (xiaojian.fxj@alibaba-inc.com).
  */
+//simple .....just make a delegate to func
 public abstract class SpoutOutputCollectorCb implements ISpoutOutputCollector{
     protected ISpoutOutputCollector delegate;
 

@@ -26,7 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * metric registry. generally methods of this class should not be exposed, wrapper methods in @see JStormMonitorMetrics should be called.
+ * metric registry. generally methods of this class should not be exposed,
+ * wrapper methods in @see JStormMonitorMetrics should be called.
  *
  * @author Cody (weiyue.wy@alibaba-inc.com)
  * @since 2.0.5

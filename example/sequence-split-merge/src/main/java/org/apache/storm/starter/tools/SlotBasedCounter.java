@@ -32,6 +32,7 @@ import java.util.Set;
  * @param <T>
  *            The type of those objects we want to count.
  */
+//finished~~
 public final class SlotBasedCounter<T> implements Serializable {
     
     private static final long serialVersionUID = 4858185737378394432L;

@@ -22,23 +22,22 @@ import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Tuple;
-import backtype.storm.tuple.TupleImplExt;
 import backtype.storm.utils.TupleHelpers;
 import com.alibaba.jstorm.common.metric.AsmCounter;
 import com.alibaba.jstorm.common.metric.AsmGauge;
 import com.alibaba.jstorm.common.metric.AsmHistogram;
 import com.alibaba.jstorm.common.metric.AsmMeter;
+import com.alibaba.jstorm.common.metric.old.Gauge;
 import com.alibaba.jstorm.metric.MetricClient;
 import com.alibaba.jstorm.utils.JStormUtils;
 import com.alibaba.starter.utils.TpsCounter;
 import com.alipay.dw.jstorm.example.sequence.SequenceTopologyDef;
 import com.alipay.dw.jstorm.example.sequence.bean.TradeCustomer;
-import com.alibaba.jstorm.metrics.Gauge;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This document demonstrate how to do user-define metrics and how to report one warning
@@ -47,7 +46,6 @@ import org.slf4j.LoggerFactory;
  */
 public class TotalCount implements IRichBolt {
     public static Logger LOG = LoggerFactory.getLogger(TotalCount.class);
-
     private OutputCollector collector;
     private TopologyContext context;
     private TpsCounter tpsCounter;
@@ -80,13 +78,12 @@ public class TotalCount implements IRichBolt {
         Gauge<Double> gauge = new Gauge<Double>() {
             private Random random = new Random();
 
-            @Override
             public Double getValue() {
                 return random.nextDouble();
             }
 
         };
-        myGauge = metricClient.registerGauge("myGauge", gauge);
+        myGauge = metricClient.registerGauge("myGauge", (com.codahale.metrics.Gauge<Double>) gauge);
         myCounter = metricClient.registerCounter("myCounter");
         myMeter = metricClient.registerMeter("myMeter");
         myJStormHistogram = metricClient.registerHistogram("myHistogram");

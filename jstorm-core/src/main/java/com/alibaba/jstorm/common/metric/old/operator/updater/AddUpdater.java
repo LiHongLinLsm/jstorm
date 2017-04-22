@@ -19,6 +19,7 @@ package com.alibaba.jstorm.common.metric.old.operator.updater;
 
 import com.alibaba.jstorm.utils.JStormUtils;
 
+//加法跟新器，主要用于将传入新值跟现在有的值想家。
 public class AddUpdater<T extends Number> implements Updater<T> {
     private static final long serialVersionUID = -7955740095421752763L;
 

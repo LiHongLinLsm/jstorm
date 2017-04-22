@@ -103,6 +103,7 @@ public class TopologyMaster implements IBolt, IDynamicComponent {
         handlers.put(UPDATE_CONFIG_NAME, hbHandler);
 
         // update metric data
+        //由worker将自己的metricInfo发送到topMaster.
         TMHandler metricUpdater = new MetricsUpdater();
         metricUpdater.init(tmContext);
         handlers.put(Common.TOPOLOGY_MASTER_METRICS_STREAM_ID, metricUpdater);

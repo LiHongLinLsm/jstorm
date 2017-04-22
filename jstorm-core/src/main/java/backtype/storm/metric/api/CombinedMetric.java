@@ -17,6 +17,7 @@
  */
 package backtype.storm.metric.api;
 
+//此类中的combiner没有实现类，所以，此类基本没用。
 public class CombinedMetric implements IMetric {
     private final ICombiner _combiner;
     private Object _value;

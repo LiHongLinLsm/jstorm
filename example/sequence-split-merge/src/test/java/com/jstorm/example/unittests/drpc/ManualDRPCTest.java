@@ -34,6 +34,7 @@ public class ManualDRPCTest {
         JStormUnitTestValidator validator = new JStormUnitTestDRPCValidator(localDRPC) {
             @Override
             public boolean validate(Map config) {
+                System.out.println("callback~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 assertEquals("hello!!!", executeLocalDRPC("exclamation", "hello"));
                 assertEquals("good bye!!!", executeLocalDRPC("exclamation", "good bye"));
                 return true;

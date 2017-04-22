@@ -17,7 +17,9 @@ import java.util.Map;
  */
 public class InOrderTestBolt extends BaseBasicBolt
 {
-    private Map<Integer, Integer> expected = new HashMap<>();   //store the taskIndex and the content has received before.
+    //store the taskIndex and the content has received before.
+    private Map<Integer, Integer> expected = new HashMap<>();
+
     private transient MetricClient metricClient;
     private transient AsmCounter successCounter;
     private transient AsmCounter failCounter;

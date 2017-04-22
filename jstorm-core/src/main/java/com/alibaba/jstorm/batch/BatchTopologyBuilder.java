@@ -41,6 +41,8 @@ public class BatchTopologyBuilder {
         topologyBuilder = new TopologyBuilder();
 
         System.setProperty(ConfigExtension.TASK_BATCH_TUPLE, "false");
+        //此处系统自动为我们添加了一个Trigger类型的spout。
+        //这个类是关键。输入源。
         spoutDeclarer = topologyBuilder.setSpout(BatchDef.SPOUT_TRIGGER, new BatchSpoutTrigger(), 1);
     }
 
@@ -53,6 +55,7 @@ public class BatchTopologyBuilder {
     }
 
     public BoltDeclarer setBolt(String id, IBasicBolt bolt, int paralel) {
+        //重点类。。。。。。。。。。
         CoordinatedBolt coordinatedBolt = new CoordinatedBolt(bolt);
 
         BoltDeclarer boltDeclarer = topologyBuilder.setBolt(id, coordinatedBolt, paralel);

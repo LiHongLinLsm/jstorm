@@ -30,6 +30,7 @@ public class TopologyMetricContext {
     private final ReentrantLock lock = new ReentrantLock();
     private Set<ResourceWorkerSlot> workerSet;
     private int taskNum = 1;
+    //workSlot-->metriinfo
     private ConcurrentMap<String, MetricInfo> memCache = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, Long> memMeta = new ConcurrentHashMap<>();
     private final AtomicBoolean isMerging = new AtomicBoolean(false);

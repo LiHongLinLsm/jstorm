@@ -17,18 +17,19 @@
  */
 package com.alibaba.jstorm.drpc;
 
-import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import backtype.storm.Config;
+import backtype.storm.daemon.Shutdownable;
+import backtype.storm.generated.DRPCExecutionException;
+import backtype.storm.generated.DRPCRequest;
+import backtype.storm.generated.DistributedRPC;
+import backtype.storm.generated.DistributedRPCInvocations;
+import com.alibaba.jstorm.callback.AsyncLoopRunnable;
+import com.alibaba.jstorm.callback.AsyncLoopThread;
+import com.alibaba.jstorm.cluster.StormConfig;
 import com.alibaba.jstorm.utils.DefaultUncaughtExceptionHandler;
 import com.alibaba.jstorm.utils.JStormServerUtils;
+import com.alibaba.jstorm.utils.JStormUtils;
+import com.alibaba.jstorm.utils.TimeUtils;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.THsHaServer;
@@ -36,21 +37,13 @@ import org.apache.thrift.transport.TNonblockingServerSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import backtype.storm.Config;
-import backtype.storm.daemon.Shutdownable;
-import backtype.storm.generated.DRPCExecutionException;
-import backtype.storm.generated.DRPCRequest;
-import backtype.storm.generated.DistributedRPC;
-import backtype.storm.generated.DistributedRPCInvocations;
-
-import com.alibaba.jstorm.callback.AsyncLoopRunnable;
-import com.alibaba.jstorm.callback.AsyncLoopThread;
-import com.alibaba.jstorm.cluster.StormConfig;
-import com.alibaba.jstorm.utils.JStormUtils;
-import com.alibaba.jstorm.utils.TimeUtils;
+import java.util.Map;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Drpc
+ * Drpc服务器代码。thrift作为rpc框架。
  * 
  * @author yannian
  * 
@@ -195,11 +188,18 @@ public class Drpc implements DistributedRPC.Iface, DistributedRPCInvocations.Ifa
     }
 
     private AtomicInteger ctr = new AtomicInteger(0);
+
+    //requestId-->semaphore
     private ConcurrentHashMap<String, Semaphore> idtoSem = new ConcurrentHashMap<String, Semaphore>();
+    //requestID-->result
     private ConcurrentHashMap<String, Object> idtoResult = new ConcurrentHashMap<String, Object>();
+    //requestID-->startTime
     private ConcurrentHashMap<String, Integer> idtoStart = new ConcurrentHashMap<String, Integer>();
+    //requestsID-->functions
     private ConcurrentHashMap<String, String> idtoFunction = new ConcurrentHashMap<String, String>();
+    //id-->request(generated)
     private ConcurrentHashMap<String, DRPCRequest> idtoRequest = new ConcurrentHashMap<String, DRPCRequest>();
+    //funName-->(requset...)
     private ConcurrentHashMap<String, ConcurrentLinkedQueue<DRPCRequest>> requestQueues = new ConcurrentHashMap<String, ConcurrentLinkedQueue<DRPCRequest>>();
 
     public void cleanup(String id) {

@@ -25,6 +25,7 @@ import backtype.storm.topology.SpoutDeclarer;
 import backtype.storm.topology.TopologyBuilder;
 
 public class TransactionTopologyBuilder extends TopologyBuilder {
+    //上流与下流的关联key:spout-->spolts...
     private Map<String, Set<String>> upToDownstreamComponentsMap = new HashMap<String, Set<String>>();
 
     @Override

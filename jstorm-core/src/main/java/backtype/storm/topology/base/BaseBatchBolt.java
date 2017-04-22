@@ -19,7 +19,7 @@ package backtype.storm.topology.base;
 
 import backtype.storm.coordination.IBatchBolt;
 import java.util.Map;
-
+//批处理基础类，，，为BaseTransactionalBolt提供了基础。。
 public abstract class BaseBatchBolt<T> extends BaseComponent implements IBatchBolt<T> {
 
 }

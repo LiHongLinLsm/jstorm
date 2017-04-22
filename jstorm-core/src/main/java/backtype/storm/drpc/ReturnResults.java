@@ -18,8 +18,8 @@
 package backtype.storm.drpc;
 
 import backtype.storm.Config;
-import backtype.storm.generated.DistributedRPCInvocations;
 import backtype.storm.generated.AuthorizationException;
+import backtype.storm.generated.DistributedRPCInvocations;
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
@@ -27,15 +27,16 @@ import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.utils.ServiceRegistry;
 import backtype.storm.utils.Utils;
+import org.apache.thrift.TException;
+import org.apache.thrift.transport.TTransportException;
+import org.json.simple.JSONValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.thrift.TException;
-import org.apache.thrift.transport.TTransportException;
-import org.json.simple.JSONValue;
 
 public class ReturnResults extends BaseRichBolt {
     // ANY CHANGE TO THIS CODE MUST BE SERIALIZABLE COMPATIBLE OR THERE WILL BE PROBLEMS
@@ -123,5 +124,6 @@ public class ReturnResults extends BaseRichBolt {
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
+
     }
 }

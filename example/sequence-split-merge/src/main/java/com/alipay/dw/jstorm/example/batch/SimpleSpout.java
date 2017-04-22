@@ -26,15 +26,16 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 import com.alibaba.jstorm.batch.BatchId;
 import com.alibaba.jstorm.batch.IBatchSpout;
-import java.util.Map;
-import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+import java.util.Random;
+
 public class SimpleSpout implements IBatchSpout {
-    private static final Logger LOG       = LoggerFactory.getLogger(SimpleSpout.class);
-    private Random              rand;
-    private int                 batchSize = 100;
+    private static final Logger LOG  = LoggerFactory.getLogger(SimpleSpout.class);
+    private Random   rand;
+    private int  batchSize = 100;
     
     @Override
     public void prepare(Map stormConf, TopologyContext context) {

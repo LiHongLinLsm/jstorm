@@ -49,7 +49,8 @@ import backtype.storm.utils.TimeCacheMap;
 import backtype.storm.utils.Utils;
 
 /**
- * Coordination requires the request ids to be globally unique for awhile. This is so it doesn't get confused in the case of retries.
+ * Coordination requires the request ids to be globally unique for awhile.
+ * This is so it doesn't get confused in the case of retries.
  */
 public class CoordinatedBolt implements IRichBolt {
     public static Logger LOG = LoggerFactory.getLogger(CoordinatedBolt.class);

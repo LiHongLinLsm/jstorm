@@ -27,7 +27,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * counter wrapper. note that counter is a little special, every snapshot we only return the delta value instead of
+ * counter wrapper. note that counter is a little special, every snapshot
+ * we only return the delta value instead of
  * total value, which prevents data loss if certain tasks are killed.
  */
 public class AsmCounter extends AsmMetric<Counter> {

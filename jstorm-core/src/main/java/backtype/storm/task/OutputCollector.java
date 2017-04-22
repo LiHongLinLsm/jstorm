@@ -19,15 +19,14 @@ package backtype.storm.task;
 
 import backtype.storm.tuple.Tuple;
 import backtype.storm.utils.Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 /**
- * This output collector exposes the API for emitting tuples from an IRichBolt. This is the core API for emitting tuples. For a simpler API, and a more
+ * This output collector exposes the API for emitting tuples from an IRichBolt.
+ * This is the core API for emitting tuples. For a simpler API, and a more
  * restricted form of stream processing, see IBasicBolt and BasicOutputCollector.
  */
 public class OutputCollector extends OutputCollectorCb {
@@ -78,8 +77,8 @@ public class OutputCollector extends OutputCollectorCb {
     }
 
     /**
-     * Emits a new tuple to a specific stream with a single anchor. The emitted
-     * values must be immutable.
+     * Emits a new tuple to a specific stream with a single anchor.
+     * The emitted  values must be immutable.
      *
      * @param streamId the stream to emit to
      * @param anchor the tuple to anchor to

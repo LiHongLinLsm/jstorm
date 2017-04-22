@@ -19,7 +19,21 @@ package com.alibaba.jstorm.utils;
 
 import java.io.Serializable;
 
+/**
+ * 返回时间间隔，如果大于interval的话。否则为null.
+ */
 public class IntervalCheck implements Serializable {
+
+
+    public static void main(String[] args) throws  Exception {
+        IntervalCheck check = new IntervalCheck();
+        Thread.sleep(2000);
+
+        System.out.println(check.checkAndGet());
+        System.out.println(check.checkAndGet());
+        Thread.sleep(2000);
+        System.out.println(check.checkAndGet());
+    }
     private static final long serialVersionUID = 8952971673547362883L;
 
     long lastCheck = 0;

@@ -17,24 +17,6 @@
  */
 package com.alipay.dw.jstorm.example.sequence;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.alibaba.starter.utils.JStormHelper;
-import com.alibaba.jstorm.utils.JStormUtils;
-import com.alipay.dw.jstorm.example.sequence.bean.Pair;
-import com.alipay.dw.jstorm.example.sequence.bean.TradeCustomer;
-import com.alipay.dw.jstorm.example.sequence.bolt.MergeRecord;
-import com.alipay.dw.jstorm.example.sequence.bolt.PairCount;
-import com.alipay.dw.jstorm.example.sequence.bolt.SplitRecord;
-import com.alipay.dw.jstorm.example.sequence.spout.SequenceSpout;
-import com.alipay.dw.jstorm.example.userdefined.kryo.PairSerializer;
-import com.alipay.dw.jstorm.example.userdefined.kryo.TradeCustomerSerializer;
-import com.alipay.dw.jstorm.example.userdefined.metrics.TotalCount;
-
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
@@ -44,6 +26,22 @@ import backtype.storm.generated.TopologyAssignException;
 import backtype.storm.topology.BoltDeclarer;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
+import com.alibaba.jstorm.utils.JStormUtils;
+import com.alibaba.starter.utils.JStormHelper;
+import com.alipay.dw.jstorm.example.sequence.bean.Pair;
+import com.alipay.dw.jstorm.example.sequence.bean.TradeCustomer;
+import com.alipay.dw.jstorm.example.sequence.bolt.MergeRecord;
+import com.alipay.dw.jstorm.example.sequence.bolt.PairCount;
+import com.alipay.dw.jstorm.example.sequence.bolt.SplitRecord;
+import com.alipay.dw.jstorm.example.sequence.spout.SequenceSpout;
+import com.alipay.dw.jstorm.example.userdefined.kryo.PairSerializer;
+import com.alipay.dw.jstorm.example.userdefined.kryo.TradeCustomerSerializer;
+import com.alipay.dw.jstorm.example.userdefined.metrics.TotalCount;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SequenceTopology {
     private static Logger LOG = LoggerFactory.getLogger(SequenceTopology.class);
@@ -55,7 +53,7 @@ public class SequenceTopology {
         
         int spout_Parallelism_hint = JStormUtils.parseInt(conf.get(TOPOLOGY_SPOUT_PARALLELISM_HINT), 1);
         int bolt_Parallelism_hint = JStormUtils.parseInt(conf.get(TOPOLOGY_BOLT_PARALLELISM_HINT), 2);
-        
+
         builder.setSpout(SequenceTopologyDef.SEQUENCE_SPOUT_NAME, new SequenceSpout(), spout_Parallelism_hint);
         
         boolean isEnableSplit = JStormUtils.parseBoolean(conf.get("enable.split"), false);

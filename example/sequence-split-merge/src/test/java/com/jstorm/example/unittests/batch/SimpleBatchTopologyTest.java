@@ -13,6 +13,7 @@ public class SimpleBatchTopologyTest
     @Test
     public void testSimpleBatchTopology() {
         BatchTopologyBuilder batchTopologyBuilder = new BatchTopologyBuilder("SimpleBatchTopology");
+        //实际上添加的是bolt.因为系统在BatchTopologyBuilder构造函数中自动添加了spoutTrigger.
         batchTopologyBuilder.setSpout("batchSpout", new SimpleBatchTestSpout(), 1);
         batchTopologyBuilder.setBolt("batchBolt", new SimpleBatchTestBolt(), 2).shuffleGrouping("batchSpout");
 

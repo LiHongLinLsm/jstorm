@@ -43,7 +43,9 @@ public class TransactionTestTopology {
     
     public static class Spout implements ITransactionSpoutExecutor {
         SpoutOutputCollector collector;
+        //发送个数，tuple一共发了多少。。
         int                  index = 0;
+        //发送次数，发送一批，该值+1
         long                 sendingCount;
         long                 startTime;
         boolean              isStatEnable;
@@ -108,11 +110,12 @@ public class TransactionTestTopology {
         public void fail(Object msgId) {
         
         }
-        
+
+        //TransactionSpout中被调用。。尼玛
         @Override
-        public void initState(Object state) {
-            if (state != null) {
-                index = (Integer) state;
+        public void initState(Object user_state) {
+            if (user_state != null) {
+                index = (Integer) user_state;
             }
             LOG.info("initState, index=" + index);
         }

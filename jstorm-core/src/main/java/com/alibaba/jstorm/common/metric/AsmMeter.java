@@ -26,7 +26,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * one meter & one snapshot for all windows. since meter is window-sliding, there's no need to recreate new ones.
+ * one meter & one snapshot for all windows. since meter is window-sliding,
+ * there's no need to recreate new ones.
  */
 public class AsmMeter extends AsmMetric<Meter> {
     private static final long UPDATE_INTERVAL_MS = 3000L;

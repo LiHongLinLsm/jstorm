@@ -70,6 +70,7 @@ import com.alibaba.jstorm.utils.JStormUtils;
  * @author Johnfang (xiaojian.fxj@alibaba-inc.com)
  */
 
+//该类为管理节点中的重要管理进程代表类。
 @SuppressWarnings({"unchecked", "unused"})
 public class Supervisor {
 
@@ -84,9 +85,9 @@ public class Supervisor {
      * @param conf          : configuration (default.yaml & storm.yaml)
      * @param sharedContext : null (right now)
      * @return SupervisorManger: which is used to shutdown all workers and supervisor
-     */
-    @SuppressWarnings("rawtypes")
-    public SupervisorManger mkSupervisor(Map conf, IContext sharedContext) throws Exception {
+                */
+        @SuppressWarnings("rawtypes")
+        public SupervisorManger mkSupervisor(Map conf, IContext sharedContext) throws Exception {
 
         LOG.info("Starting Supervisor with conf " + conf);
 

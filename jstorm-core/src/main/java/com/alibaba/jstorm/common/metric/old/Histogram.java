@@ -25,7 +25,8 @@ import com.alibaba.jstorm.common.metric.old.window.Metric;
 /**
  * Meter is used to compute tps
  * 
- * Attention: 1.
+ * Attention: 1.histogram意思是柱状图。
+ * 2.
  * 
  * @author zhongyan.feng
  * 
@@ -45,6 +46,7 @@ public class Histogram extends Metric<Double, Histogram.HistorgramPair> {
     public static class HistogramConvertor implements Convertor<HistorgramPair, Double> {
         private static final long serialVersionUID = -1569170826785657226L;
 
+        //高/底的比值。可以模拟网站的历史平均性能等。。
         @Override
         public Double convert(HistorgramPair from) {
             // TODO Auto-generated method stub
@@ -66,7 +68,6 @@ public class Histogram extends Metric<Double, Histogram.HistorgramPair> {
         private long times;
 
         public HistorgramPair() {
-
         }
 
         public HistorgramPair(double sum, long times) {

@@ -29,7 +29,9 @@ public class TransactionSpoutOutputCollector extends SpoutOutputCollectorCb {
 
     private int groupId;
     private long currBatchId;
+    //key:taskId-->发送了多少个tuple
     private Map<Integer, Integer> msgCount;
+
     private BatchInfo currBatchInfo;
 
     private ReadWriteLock lock;
@@ -175,6 +177,7 @@ public class TransactionSpoutOutputCollector extends SpoutOutputCollectorCb {
         delegate.reportError(error);
     }
 
+    //提交的时候，调用
     public BatchInfo flushBarrier() {
         BatchInfo ret = null;
         try {
@@ -205,6 +208,7 @@ public class TransactionSpoutOutputCollector extends SpoutOutputCollectorCb {
         currBatchInfo.batchId = currBatchId;
     }
 
+    //master告诉该spout，应该回滚时，调用此函数。
     public void flushInitBarrier() {
         try {
             lock.writeLock().lock();

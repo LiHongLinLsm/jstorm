@@ -41,6 +41,8 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.*;
 
+//该类为系统自动添加的一个spout，主要作用是与drpc类实例（即drpc服务器组件）
+//通信，并且取得请求，封装returnMap。以供PrepareRequest这个系统bolt消费。
 public class DRPCSpout extends BaseRichSpout {
     // ANY CHANGE TO THIS CODE MUST BE SERIALIZABLE COMPATIBLE OR THERE WILL BE PROBLEMS
     static final long serialVersionUID = 2387848310969237877L;
@@ -52,10 +54,14 @@ public class DRPCSpout extends BaseRichSpout {
     transient LinkedList<Future<?>> _futures = null;
     transient ExecutorService _backround = null;
     String _function;
+    //serviceRegistry中hash保存有：uuid--》rpcServer实例。此处为该rpc的uuid(本地模式有效)
+    //如果此值为null，则是远程drpc。
     String _local_drpc_id = null;
 
     private static class DRPCMessageId {
+        //drpc服务器生成的requestID
         String id;
+        //drpc服务器的索引，有可能有多个drpc服务器。
         int index;
 
         public DRPCMessageId(String id, int index) {
@@ -108,6 +114,8 @@ public class DRPCSpout extends BaseRichSpout {
         }));
     }
 
+    //主要作用1.初始化属性
+    //2.连接到drpcServer:即drpc类的实例。以便fetchRequest和sendResult.
     @Override
     public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
         _collector = collector;
@@ -117,6 +125,7 @@ public class DRPCSpout extends BaseRichSpout {
             _futures = new LinkedList<Future<?>>();
 
             int numTasks = context.getComponentTasks(context.getThisComponentId()).size();
+            //得到当前spout中所有task中，当前进程排序后的索引。ie:此taskID排在老几。
             int index = context.getThisTaskIndex();
 
             int port = Utils.getInt(conf.get(Config.DRPC_INVOCATIONS_PORT));
@@ -131,6 +140,7 @@ public class DRPCSpout extends BaseRichSpout {
                     _futures.add(_backround.submit(new Adder(s, port, conf)));
                 }
             } else {
+                //负载均衡
                 int i = index % servers.size();
                 _futures.add(_backround.submit(new Adder(servers.get(i), port, conf)));
             }
@@ -148,6 +158,7 @@ public class DRPCSpout extends BaseRichSpout {
     @Override
     public void nextTuple() {
         boolean gotRequest = false;
+        //集群模式
         if (_local_drpc_id == null) {
             int size = 0;
             synchronized (_clients) {
@@ -174,16 +185,18 @@ public class DRPCSpout extends BaseRichSpout {
                     }
                 } catch (AuthorizationException aze) {
                     reconnect(client);
-                    LOG.error("Not authorized to fetch DRPC result from DRPC server", aze);
+                    LOG.error("Not authorized to fetch DRPC request from DRPC server", aze);
                 } catch (TException e) {
                     reconnect(client);
-                    LOG.error("Failed to fetch DRPC result from DRPC server", e);
+                    LOG.error("Failed to fetch DRPC request from DRPC server", e);
                 } catch (Exception e) {
-                    LOG.error("Failed to fetch DRPC result from DRPC server", e);
+                    LOG.error("Failed to fetch DRPC request from DRPC server", e);
                 }
             }
             JStormServerUtils.checkFutures(_futures);
+        //本地模式。
         } else {
+            //名字没取好~~~
             DistributedRPCInvocations.Iface drpc = (DistributedRPCInvocations.Iface) ServiceRegistry.getService(_local_drpc_id);
             if (drpc != null) { // can happen during shutdown of drpc while topology is still up
                 try {

@@ -22,6 +22,7 @@ public class RollingTopWordsTest
     {
         TopologyBuilder topologyBuilder = new TopologyBuilder();
         topologyBuilder.setSpout("windowTestWordSpout", new WindowTestWordSpout(), 5);
+
         topologyBuilder.setBolt("windowTestRollingCountBolt", new WindowTestRollingCountBolt(9, 3), 4)
                 .fieldsGrouping("windowTestWordSpout", new Fields("word")).addConfiguration(Config.TOPOLOGY_TICK_TUPLE_FREQ_SECS, 3);
         topologyBuilder.setBolt("windowTestIntermediateRankingBolt", new WindowTestIntermediateRankingBolt(DEFAULT_COUNT), 4)

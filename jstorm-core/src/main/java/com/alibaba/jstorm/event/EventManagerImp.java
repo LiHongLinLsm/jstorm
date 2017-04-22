@@ -17,13 +17,12 @@
  */
 package com.alibaba.jstorm.event;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import com.alibaba.jstorm.callback.RunnableCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.jstorm.callback.RunnableCallback;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Event Manager, drop one event from queue, then execute the event.
@@ -64,7 +63,6 @@ public class EventManagerImp extends RunnableCallback implements EventManager {
         try {
             RunnableCallback r = queue.take();
             if (r == null) {
-
                 return;
             }
 

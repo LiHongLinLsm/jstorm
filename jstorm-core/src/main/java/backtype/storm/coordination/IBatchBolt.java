@@ -23,6 +23,7 @@ import backtype.storm.tuple.Tuple;
 import java.io.Serializable;
 import java.util.Map;
 
+//显著特点是，该bolt必须有个finishBatch方法。。。
 public interface IBatchBolt<T> extends Serializable, IComponent {
     void prepare(Map conf, TopologyContext context, BatchOutputCollector collector, T id);
 

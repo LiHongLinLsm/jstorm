@@ -25,9 +25,9 @@ import backtype.storm.utils.Utils;
 public class TestReachTopology {
     
     /**
-     * @param args
-     * @throws DRPCExecutionException
-     * @throws TException
+     * @param： args
+     * @throws： DRPCExecutionException
+     * @throws： TException
      */
     public static void main(String[] args) throws Exception {
         

@@ -17,17 +17,14 @@
  */
 package backtype.storm.testing;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.net.Socket;
-import java.util.Collection;
-import java.util.Map;
-import java.io.OutputStream;
-
 import backtype.storm.metric.api.IMetricsConsumer;
 import backtype.storm.task.IErrorReporter;
 import backtype.storm.task.TopologyContext;
+
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.Collection;
+import java.util.Map;
 
 /*
  * Listens for all metrics, dumps them as text to a configured host:port
@@ -50,7 +47,8 @@ public class ForwardingMetricsConsumer implements IMetricsConsumer {
     OutputStream out;
 
     @Override
-    public void prepare(Map stormConf, Object registrationArgument, TopologyContext context, IErrorReporter errorReporter) {
+    public void prepare(Map stormConf, Object registrationArgument, TopologyContext context,
+                        IErrorReporter errorReporter) {
         String[] parts = ((String) registrationArgument).split(":", 2);
         host = parts[0];
         port = Integer.valueOf(parts[1]);

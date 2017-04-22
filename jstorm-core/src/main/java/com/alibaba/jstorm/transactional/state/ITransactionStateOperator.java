@@ -18,14 +18,14 @@ public interface ITransactionStateOperator extends Serializable {
 
     /**
      * 
-     * @param The user state Data
+     * @param: The user state Data
      * @return snapshot state which is used to retrieve the persistent user state
      */
     public Object commit(BatchGroupId id, Object state);
 
     /**
      * 
-     * @param user state for rollback
+     * @param :user state for rollback
      */
     public void rollBack(Object userState);
 

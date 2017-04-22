@@ -36,6 +36,7 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
 import backtype.storm.utils.Utils;
 
+//每个transactionTop中，只要build中构建一个spout，都会被该类包装。
 public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
     private static final long serialVersionUID = 8289040804669685438L;
 
@@ -49,8 +50,10 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
     protected TopologyContext topologyContext;
     protected String topologyId;
     protected int taskId;
+    //参考GeneralTopologyContext.用于发送统计消息。。是一个系统设置的名字为_mater_的component的第一个task
     protected int topologyMasterId;
     protected String componentId;
+    //下游所有的task
     protected Set<Integer> downstreamTasks;
 
     protected ITransactionSpoutExecutor spoutExecutor;
@@ -60,9 +63,12 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
 
     protected IntervalCheck initRetryCheck;
 
+    //妈的，居然意思是：比如top中有spout分别为：a,b,c
+    //如果，此spout为b系列，则groupId为2.
     protected int groupId;
     protected TransactionState currState;
 
+    //本地缓存，用于保存提交的batch，如果已经commit，则从该treeset中移除。
     protected SortedSet<Long> committingBatches;
     protected volatile boolean isMaxPending;
     protected int MAX_PENDING_BATCH_NUM;   

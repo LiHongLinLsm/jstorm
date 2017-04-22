@@ -2,14 +2,10 @@ package com.alipay.dw.jstorm.example.userdefined.kryo;
 
 import com.alipay.dw.jstorm.example.sequence.bean.Pair;
 import com.alipay.dw.jstorm.example.sequence.bean.TradeCustomer;
-import com.alibaba.jstorm.esotericsoftware.kryo.Kryo;
-import com.alibaba.jstorm.esotericsoftware.kryo.Serializer;
-import com.alibaba.jstorm.esotericsoftware.kryo.io.Input;
-import com.alibaba.jstorm.esotericsoftware.kryo.io.Output;
-//import com.esotericsoftware.kryo.Kryo;
-//import com.esotericsoftware.kryo.Serializer;
-//import com.esotericsoftware.kryo.io.Input;
-//import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.Serializer;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 
 /**
  * @author JohnFang (xiaojian.fxj@alibaba-inc.com).

@@ -34,6 +34,10 @@ public class Gauge<T extends Number> extends Metric<Number, Number> {
         init();
     }
 
+    public Gauge() {
+
+    }
+
     @Override
     public void init() {
 

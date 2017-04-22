@@ -51,6 +51,14 @@ import backtype.storm.tuple.Values;
  */
 public class UserDefinedHostsTopology {
     static List<AtomicLong> counters = new ArrayList<>();
+    static boolean isLocal = true;
+    static Config  conf    = JStormHelper.getConfig(null);
+
+    public static void main(String[] args) throws Exception {
+        isLocal = false;
+        conf = JStormHelper.getConfig(args);
+        test();
+    }
     
     public static class ExclamationLoggingBolt extends BaseRichBolt {
         OutputCollector _collector;
@@ -96,10 +104,7 @@ public class UserDefinedHostsTopology {
             declarer.declare(new Fields("word"));
         }
     }
-    
-    static boolean isLocal = true;
-    static Config  conf    = JStormHelper.getConfig(null);
-    
+
     public static void test() {
         TopologyBuilder builder = new TopologyBuilder();
         
@@ -179,9 +184,5 @@ public class UserDefinedHostsTopology {
         
     }
     
-    public static void main(String[] args) throws Exception {
-        isLocal = false;
-        conf = JStormHelper.getConfig(args);
-        test();
-    }
+
 }

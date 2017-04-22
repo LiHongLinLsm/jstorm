@@ -31,12 +31,14 @@ public class SimpleBatchTestSpout implements IBatchSpout
     public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
 
         BatchId batchId = (BatchId) tuple.getValue(0);
+        //只能发射大于100个batchId.
         if(batchId.getId() > 100)
         {
             JStormUtils.sleepMs(1000);
             return;
         }
 
+        //每次接受到一个batchId，就发射30次，模拟批处理？？？？
         for (int i = 0; i < BATCH_SIZE; i++) {
             long value = random.nextInt(100);
             basicOutputCollector.emit(new Values(batchId, value));

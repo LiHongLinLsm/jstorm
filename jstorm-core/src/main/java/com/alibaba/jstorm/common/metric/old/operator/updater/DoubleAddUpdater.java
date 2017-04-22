@@ -19,6 +19,7 @@ package com.alibaba.jstorm.common.metric.old.operator.updater;
 
 import com.google.common.util.concurrent.AtomicDouble;
 
+//与addUpdater类似。。。
 public class DoubleAddUpdater implements Updater<AtomicDouble> {
     private static final long serialVersionUID = -1293565961076552462L;
 

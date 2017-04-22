@@ -39,15 +39,21 @@ import org.slf4j.LoggerFactory;
  */
 public class RollingTopWords {
     
-    private static final Logger LOG                        = LoggerFactory.getLogger(RollingTopWords.class);
+    private static final Logger LOG   = LoggerFactory.getLogger(RollingTopWords.class);
     private static final int    DEFAULT_RUNTIME_IN_SECONDS = 60;
-    private static final int    TOP_N                      = 5;
+    private static final int    TOP_N     = 5;
     
     private final TopologyBuilder builder;
     private final String          topologyName;
     private final Config          topologyConfig;
     private final int             runtimeInSeconds;
-    
+    static boolean isLocal = true;
+
+    public static void main(String[] args) throws Exception {
+        isLocal = false;
+        test();
+    }
+
     public RollingTopWords(String topologyName) throws InterruptedException {
         builder = new TopologyBuilder();
         this.topologyName = topologyName;
@@ -119,14 +125,14 @@ public class RollingTopWords {
      * storm jar storm-starter-jar-with-dependencies.jar
      * org.apache.storm.starter.RollingTopWords production-topology remote ```
      *
-     * @param args
+     * @param :args
      *            First positional argument (optional) is topology name, second
      *            positional argument (optional) defines whether to run the
      *            topology locally ("local") or remotely, i.e. on a real cluster
      *            ("remote").
      * @throws Exception
      */
-    static boolean isLocal = true;
+
     
     public static void test() {
         
@@ -144,8 +150,5 @@ public class RollingTopWords {
         }
     }
     
-    public static void main(String[] args) throws Exception {
-        isLocal = false;
-        test();
-    }
+
 }

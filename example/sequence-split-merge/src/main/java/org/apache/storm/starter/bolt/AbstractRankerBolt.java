@@ -82,6 +82,7 @@ public abstract class AbstractRankerBolt extends BaseBasicBolt {
     @Override
     public final void execute(Tuple tuple, BasicOutputCollector collector) {
         if (TupleUtils.isTick(tuple)) {
+            //if I design this , to print to console the rankings is more simply-beautiful
             getLogger().debug("Received tick tuple, triggering emit of current rankings");
             emitRankings(collector);
         } else {

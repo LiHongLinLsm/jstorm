@@ -43,7 +43,7 @@ import backtype.storm.windowing.TupleWindow;
 
 /**
  * A sample topology that demonstrates the usage of
- * {@link org.apache.storm.topology.IWindowedBolt} to calculate sliding window
+ * {@link: org.apache.storm.topology.IWindowedBolt} to calculate sliding window
  * sum.
  */
 public class SlidingWindowTopology {

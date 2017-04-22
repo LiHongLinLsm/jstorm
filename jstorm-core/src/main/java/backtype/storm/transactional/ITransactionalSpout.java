@@ -24,14 +24,21 @@ import java.math.BigInteger;
 import java.util.Map;
 
 public interface ITransactionalSpout<T> extends IComponent {
+    /**用于为对应spout的事务做资源管理。。
+    **1.初始化事务meta（写入zk,用于replay,主要表示可以从哪个point恢复数据）
+    **2.通过该spout注册的kryo进行的序列话
+    **3.包括方法：初始化事务meta，判断事务是否就绪，清理资源。
+     */
     public interface Coordinator<X> {
         /**
-         * Create metadata for this particular transaction id which has never been emitted before. The metadata should contain whatever is necessary to be able
+         * Create metadata for this particular transaction id which has never been emitted before.
+         * The metadata should contain whatever is necessary to be able
          * to replay the exact batch for the transaction at a later point.
          * 
          * The metadata is stored in Zookeeper.
          * 
-         * Storm uses the Kryo serializations configured in the component configuration for this spout to serialize and deserialize the metadata.
+         * Storm uses the Kryo serializations configured in the component configuration for this spout
+         * to serialize and deserialize the metadata.
          * 
          * @param txid The id of the transaction.
          * @param prevMetadata The metadata of the previous transaction
@@ -52,18 +59,24 @@ public interface ITransactionalSpout<T> extends IComponent {
         void close();
     }
 
+    /**
+     *
+     * @param <X>
+     */
+
     public interface Emitter<X> {
         /**
-         * Emit a batch for the specified transaction attempt and metadata for the transaction. The metadata was created by the Coordinator in the
-         * initializeTranaction method. This method must always emit the same batch of tuples across all tasks for the same transaction id.
-         * 
+         * Emit a batch for the specified transaction attempt and metadata for the transaction.
+         * The metadata was created by the Coordinator in the
+         * initializeTranaction method. This method must always emit the same batch of tuples across
+         * all tasks for the same transaction id.
          * The first field of all emitted tuples must contain the provided TransactionAttempt.
-         * 
          */
         void emitBatch(TransactionAttempt tx, X coordinatorMeta, BatchOutputCollector collector);
 
         /**
-         * Any state for transactions prior to the provided transaction id can be safely cleaned up, so this method should clean up that state.
+         * Any state for transactions prior to the provided transaction id can be safely cleaned up,
+         * so this method should clean up that state.
          */
         void cleanupBefore(BigInteger txid);
 
@@ -74,13 +87,16 @@ public interface ITransactionalSpout<T> extends IComponent {
     }
 
     /**
-     * The coordinator for a TransactionalSpout runs in a single thread and indicates when batches of tuples should be emitted and when transactions should
-     * commit. The Coordinator that you provide in a TransactionalSpout provides metadata for each transaction so that the transactions can be replayed.
+     * The coordinator for a TransactionalSpout runs in a single thread and indicates when batches of
+     * tuples should be emitted and when transactions should
+     * commit. The Coordinator that you provide in a TransactionalSpout provides metadata
+     * for each transaction so that the transactions can be replayed.
      */
     Coordinator<T> getCoordinator(Map conf, TopologyContext context);
 
     /**
-     * The emitter for a TransactionalSpout runs as many tasks across the cluster. Emitters are responsible for emitting batches of tuples for a transaction and
+     * The emitter for a TransactionalSpout runs as many tasks across the cluster.
+     * Emitters are responsible for emitting batches of tuples for a transaction and
      * must ensure that the same batch of tuples is always emitted for the same transaction id.
      */
     Emitter<T> getEmitter(Map conf, TopologyContext context);

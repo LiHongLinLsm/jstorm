@@ -17,47 +17,38 @@
  */
 package com.alibaba.jstorm.task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import backtype.storm.task.GeneralTopologyContext;
-
-import com.alibaba.jstorm.client.ConfigExtension;
-import com.lmax.disruptor.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.alibaba.jstorm.callback.AsyncLoopRunnable;
-import com.alibaba.jstorm.callback.AsyncLoopThread;
-import com.alibaba.jstorm.callback.RunnableCallback;
-import com.alibaba.jstorm.common.metric.AsmGauge;
-import com.alibaba.jstorm.common.metric.AsmHistogram;
-import com.alibaba.jstorm.common.metric.QueueGauge;
-import com.alibaba.jstorm.daemon.worker.WorkerData;
-import com.alibaba.jstorm.metric.JStormHealthCheck;
-import com.alibaba.jstorm.metric.JStormMetrics;
-import com.alibaba.jstorm.metric.MetricDef;
-import com.alibaba.jstorm.metric.MetricType;
-import com.alibaba.jstorm.metric.MetricUtils;
-import com.alibaba.jstorm.utils.JStormUtils;
-import com.lmax.disruptor.dsl.ProducerType;
-
 import backtype.storm.Config;
 import backtype.storm.messaging.IConnection;
 import backtype.storm.messaging.TaskMessage;
 import backtype.storm.scheduler.WorkerSlot;
 import backtype.storm.serialization.KryoTupleSerializer;
+import backtype.storm.task.GeneralTopologyContext;
 import backtype.storm.tuple.ITupleExt;
 import backtype.storm.tuple.TupleExt;
 import backtype.storm.utils.DisruptorQueue;
 import backtype.storm.utils.Utils;
 import backtype.storm.utils.WorkerClassLoader;
+import com.alibaba.jstorm.callback.AsyncLoopRunnable;
+import com.alibaba.jstorm.callback.AsyncLoopThread;
+import com.alibaba.jstorm.callback.RunnableCallback;
+import com.alibaba.jstorm.client.ConfigExtension;
+import com.alibaba.jstorm.common.metric.AsmGauge;
+import com.alibaba.jstorm.common.metric.AsmHistogram;
+import com.alibaba.jstorm.common.metric.QueueGauge;
+import com.alibaba.jstorm.daemon.worker.WorkerData;
+import com.alibaba.jstorm.metric.*;
+import com.alibaba.jstorm.utils.JStormUtils;
+import com.lmax.disruptor.*;
+import com.lmax.disruptor.dsl.ProducerType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Sending entrance
@@ -75,6 +66,7 @@ public class TaskTransfer {
     protected Map stormConf;
     protected DisruptorQueue transferControlQueue;
 /*    protected KryoTupleSerializer serializer;*/
+//key:taskId to send to , v:
     protected Map<Integer, DisruptorQueue> innerTaskTransfer;
     protected Map<Integer, DisruptorQueue> controlQueues;
     protected DisruptorQueue serializeQueue;

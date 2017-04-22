@@ -71,6 +71,7 @@ public class TaskHeartbeatUpdater implements TMHandler {
     private TopologyContext context;
 
     //TODO: topologyTasks will be changed when update topology!
+    //key is taskID.
     private ConcurrentHashMap<Integer, TaskStatus> boltsExecutorStatusMap; //exception of topology master task
     private ConcurrentHashMap<Integer, TaskStatus> spoutsExecutorStatusMap;
 
@@ -171,6 +172,7 @@ public class TaskHeartbeatUpdater implements TMHandler {
         }
     }
 
+    //get it from zk...!
     public void initTaskHb() {
         this.taskHbs = new TopologyTaskHbInfo(this.topologyId, this.taskId);
         ConcurrentHashMap<Integer, TaskHeartbeat> tmpTaskHbMap = new ConcurrentHashMap<>();

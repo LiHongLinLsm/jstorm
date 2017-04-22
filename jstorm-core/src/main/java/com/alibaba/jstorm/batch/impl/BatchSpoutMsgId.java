@@ -17,17 +17,17 @@
  */
 package com.alibaba.jstorm.batch.impl;
 
-import java.io.Serializable;
-
+import com.alibaba.jstorm.batch.BatchId;
+import com.alibaba.jstorm.batch.util.BatchStatus;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-import com.alibaba.jstorm.batch.BatchId;
-import com.alibaba.jstorm.batch.util.BatchStatus;
+import java.io.Serializable;
 
 public class BatchSpoutMsgId implements Serializable {
 
-    /**  */
+    /**
+     *  */
     private static final long serialVersionUID = 2899009971479957517L;
 
     private final BatchId batchId;
@@ -38,6 +38,9 @@ public class BatchSpoutMsgId implements Serializable {
         this.batchStatus = batchStatus;
     }
 
+    /**
+     * @return 一个新的batchMsgId对象，该对象batchID++，并且状态是computing.
+     */
     public static BatchSpoutMsgId mkInstance() {
         BatchId batchId = BatchId.mkInstance();
         BatchStatus batchStatus = BatchStatus.COMPUTING;

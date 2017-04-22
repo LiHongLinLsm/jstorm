@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 package com.alibaba.jstorm.task;
-
+//finished!
 public class TaskStatus {
     // task is alive, and it will run BaseExecutor's run
     public static final byte RUN = 0;

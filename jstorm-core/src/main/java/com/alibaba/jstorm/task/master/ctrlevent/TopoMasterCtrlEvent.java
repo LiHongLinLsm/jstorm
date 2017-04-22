@@ -28,6 +28,7 @@ import java.util.List;
  * @author Basti Liu 
  */
 
+//finished
 public class TopoMasterCtrlEvent implements Serializable {
 
     private static final long serialVersionUID = 5929540385279089750L;
@@ -37,6 +38,7 @@ public class TopoMasterCtrlEvent implements Serializable {
     }
 
     private EventType eventType;
+    //里面装的是TransactionState，或者batchGroupId（master通知提交了的时候）
     private List<Object> eventValue;
 
     public TopoMasterCtrlEvent() {

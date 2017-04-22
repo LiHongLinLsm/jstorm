@@ -22,8 +22,19 @@ import backtype.storm.task.TopologyContext;
 import java.util.Collection;
 import java.util.Map;
 
+//统计信息消费者实现接口。在top的conf中进行注册。
 public interface IMetricsConsumer {
+
+    //有很多task中都注册了metric时，每个metric统计时间间隔不同，所以不同时间段，收到不同task的统计信息。
+    //所以，有必要设计个taskInfo来记录
     public static class TaskInfo {
+        public String srcWorkerHost;
+        public int srcWorkerPort;
+        public String srcComponentId;
+        public int srcTaskId;
+        public long timestamp;
+        public int updateIntervalSecs;
+
         public TaskInfo() {
         }
 
@@ -36,12 +47,7 @@ public interface IMetricsConsumer {
             this.updateIntervalSecs = updateIntervalSecs;
         }
 
-        public String srcWorkerHost;
-        public int srcWorkerPort;
-        public String srcComponentId;
-        public int srcTaskId;
-        public long timestamp;
-        public int updateIntervalSecs;
+
     }
 
     public static class DataPoint {

@@ -17,14 +17,10 @@
  */
 package com.alibaba.jstorm.batch.impl;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import backtype.storm.task.OutputCollector;
+import backtype.storm.task.TopologyContext;
+import backtype.storm.topology.*;
+import backtype.storm.tuple.Tuple;
 import com.alibaba.jstorm.batch.BatchId;
 import com.alibaba.jstorm.batch.ICommitter;
 import com.alibaba.jstorm.batch.IPostCommit;
@@ -34,16 +30,10 @@ import com.alibaba.jstorm.batch.util.BatchDef;
 import com.alibaba.jstorm.batch.util.BatchStatus;
 import com.alibaba.jstorm.cluster.ClusterState;
 import com.alibaba.jstorm.utils.TimeCacheMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import backtype.storm.task.OutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.BasicOutputCollector;
-import backtype.storm.topology.FailedException;
-import backtype.storm.topology.IBasicBolt;
-import backtype.storm.topology.IRichBolt;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.ReportedFailedException;
-import backtype.storm.tuple.Tuple;
+import java.util.*;
 
 public class CoordinatedBolt implements IRichBolt {
     private static final long serialVersionUID = 5720810158625748046L;
@@ -70,6 +60,7 @@ public class CoordinatedBolt implements IRichBolt {
     // use static variable to reduce zk connection
     private static ClusterState zkClient = null;
 
+    //在zk中创建文件夹，用于保存commit后的transactionID.
     public void mkCommitDir(Map conf) {
 
         try {
@@ -106,6 +97,9 @@ public class CoordinatedBolt implements IRichBolt {
 
     }
 
+    /*
+    *保留最大三个batchID.
+     */
     public void removeUseless(String path, int reserveSize) throws Exception {
         List<String> childs = zkClient.get_children(path, false);
         Collections.sort(childs, new Comparator<String>() {
@@ -133,6 +127,7 @@ public class CoordinatedBolt implements IRichBolt {
         return zkCommitPath + BatchDef.ZK_SEPERATOR + id.getId();
     }
 
+    //将batchID写到zk中。调用removeUseless.
     public void updateToZk(Object id, byte[] commitResult) {
         try {
 
@@ -164,9 +159,16 @@ public class CoordinatedBolt implements IRichBolt {
         }
     }
 
+
+    /**
+     * 此处对应的是batch事务中的computing流的处理方法
+     * @param tuple
+     */
     public void handleRegular(Tuple tuple) {
+        //此处设置context后，能够保证anchor住上一个InputTuple.
         basicCollector.setContext(tuple);
         try {
+            //此处是用的basicCollector，所以能够保证anchor机制。
             delegate.execute(tuple, basicCollector);
             collector.ack(tuple);
         } catch (FailedException e) {
@@ -177,6 +179,7 @@ public class CoordinatedBolt implements IRichBolt {
         }
 
     }
+
 
     public void handlePrepareCommit(Tuple tuple) {
         basicCollector.setContext(tuple);

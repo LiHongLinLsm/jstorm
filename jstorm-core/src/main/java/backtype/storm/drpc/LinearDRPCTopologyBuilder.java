@@ -47,6 +47,7 @@ import java.util.Map;
 @Deprecated
 public class LinearDRPCTopologyBuilder {
     String _function;
+    //componet中全是bolt
     List<Component> _components = new ArrayList<Component>();
 
     public LinearDRPCTopologyBuilder(String function) {
@@ -109,6 +110,7 @@ public class LinearDRPCTopologyBuilder {
                 source.put(boltId(i - 1), SourceArgs.all());
             }
             IdStreamSpec idSpec = null;
+
             if (i == _components.size() - 1 && component.bolt instanceof FinishedCallback) {
                 idSpec = IdStreamSpec.makeDetectSpec(PREPARE_ID, PrepareRequest.ID_STREAM);
             }
@@ -150,7 +152,8 @@ public class LinearDRPCTopologyBuilder {
         List<String> fields = streams.get(outputStream).get_output_fields();
         if (fields.size() != 2) {
             throw new RuntimeException(
-                    "Output stream of last component in LinearDRPCTopology must contain exactly two fields. The first should be the request id, and the second should be the result.");
+                    "Output stream of last component in LinearDRPCTopology must contain exactly two fields. " +
+                            "The first should be the request id, and the second should be the result.");
         }
 
         builder.setBolt("JoinResult", new JoinResult(PREPARE_ID)).fieldsGrouping(boltId(i - 1), outputStream, new Fields(fields.get(0)))

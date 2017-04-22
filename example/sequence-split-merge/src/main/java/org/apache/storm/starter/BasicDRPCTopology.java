@@ -17,6 +17,7 @@
  */
 package org.apache.storm.starter;
 
+import backtype.storm.topology.IBasicBolt;
 import com.alibaba.starter.utils.Assert;
 
 import backtype.storm.Config;
@@ -83,7 +84,7 @@ public class BasicDRPCTopology {
     }
     
     public static void main(String[] args) throws Exception {
-        
+        IBasicBolt basicBolt = null;
         testDrpc();
     }
 }

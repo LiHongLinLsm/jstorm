@@ -17,23 +17,15 @@
  */
 package com.alibaba.starter.utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.alibaba.jstorm.utils.JStormUtils;
-import com.alibaba.jstorm.utils.LoadConf;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import backtype.storm.Config;
+import backtype.storm.LocalCluster;
+import backtype.storm.StormSubmitter;
+import backtype.storm.generated.*;
+import backtype.storm.utils.NimbusClient;
+import backtype.storm.utils.NimbusClientWrapper;
+import backtype.storm.utils.Utils;
 import com.alibaba.jstorm.callback.Callback;
 import com.alibaba.jstorm.cluster.Cluster;
-
 import com.alibaba.jstorm.cluster.StormConfig;
 import com.alibaba.jstorm.cluster.StormZkClusterState;
 import com.alibaba.jstorm.metric.MetaType;
@@ -41,18 +33,14 @@ import com.alibaba.jstorm.metric.MetricDef;
 import com.alibaba.jstorm.schedule.Assignment;
 import com.alibaba.jstorm.task.error.ErrorConstants;
 import com.alibaba.jstorm.task.error.TaskError;
+import com.alibaba.jstorm.utils.JStormUtils;
+import com.alibaba.jstorm.utils.LoadConf;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import backtype.storm.Config;
-import backtype.storm.LocalCluster;
-import backtype.storm.StormSubmitter;
-import backtype.storm.generated.ClusterSummary;
-import backtype.storm.generated.KillOptions;
-import backtype.storm.generated.StormTopology;
-import backtype.storm.generated.SupervisorSummary;
-import backtype.storm.generated.TopologySummary;
-import backtype.storm.utils.NimbusClient;
-import backtype.storm.utils.NimbusClientWrapper;
-import backtype.storm.utils.Utils;
+import java.util.*;
+import java.util.Map.Entry;
 
 public final class JStormHelper {
     private final static Logger LOG = LoggerFactory.getLogger(JStormHelper.class);
@@ -382,7 +370,7 @@ public final class JStormHelper {
         String mode = (String) conf.get(Config.STORM_CLUSTER_MODE);
         if (mode != null) {
             if (mode.equals("local")) {
-                return true;
+                    return true;
             }
         }
         

@@ -57,10 +57,24 @@ import backtype.storm.utils.Utils;
  * This is a basic example of a Storm topology.
  */
 public class UserDefinedWorkerTopology {
-    
+
+    static boolean      isLocal      = true;
+    static int          workerNumber = 4;
+    static List<String> hosts;
+    static Config       conf         = JStormHelper.getConfig(null);
+
     private static final String SPOUT_NAME = "spout";
     private static final String BOLT1_NAME = "bolt1";
     private static final String BOLT2_NAME = "bolt2";
+
+    public static void main(String[] args) throws Exception {
+        isLocal = false;
+        conf = JStormHelper.getConfig(args);
+        if (args.length != 0) {
+            workerNumber = 5;
+        }
+        test();
+    }
     
     public static class RandomIntegerSpout extends BaseRichSpout {
         private static final Logger  LOG   = LoggerFactory.getLogger(RandomIntegerSpout.class);
@@ -105,6 +119,7 @@ public class UserDefinedWorkerTopology {
         OutputCollector _collector;
         String          ip;
         Integer         port;
+        //此处的diff指的是bolt和spout不在同一台机子上，而不是不同的bolt实例，被分配到一台机子上。。。
         boolean         differentNode;
         private TopologyContext topologyContext;
         
@@ -171,7 +186,6 @@ public class UserDefinedWorkerTopology {
         
         if (hosts.size() < 3) {
             Assert.fail("Failed to run current test due to too less supervisors");
-            
         }
         
         for (String host : hosts) {
@@ -216,11 +230,6 @@ public class UserDefinedWorkerTopology {
         
         ConfigExtension.setUserDefineAssignment(conf, userDefinedWorks);
     }
-    
-    static boolean      isLocal      = true;
-    static int          workerNumber = 4;
-    static List<String> hosts;
-    static Config       conf         = JStormHelper.getConfig(null);
     
     public static void test() {
         
@@ -414,13 +423,8 @@ public class UserDefinedWorkerTopology {
         }
         
     }
-    
-    public static void main(String[] args) throws Exception {
-        isLocal = false;
-        conf = JStormHelper.getConfig(args);
-        if (args.length != 0) {
-            workerNumber = 5;
-        }
-        test();
-    }
+
+
+
+
 }

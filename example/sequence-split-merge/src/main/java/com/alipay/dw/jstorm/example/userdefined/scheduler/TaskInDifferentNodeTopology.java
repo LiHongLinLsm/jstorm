@@ -100,9 +100,7 @@ public class TaskInDifferentNodeTopology {
         /*********
          * 
          * This make sure the tasks will run on different nodes
-         * 
-         * 
-         * 
+         *
          */
         Map<String, Object> componentMap = new HashMap<>();
         ConfigExtension.setTaskOnDifferentNode(componentMap, true);

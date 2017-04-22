@@ -2,6 +2,7 @@ package com.alibaba.jstorm.transactional;
 
 import java.io.Serializable;
 
+//finised
 public class BatchGroupId implements Serializable {
     private static final long serialVersionUID = 6836131129337696538L;
 

@@ -33,6 +33,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class DRPCInvocationsClient extends ThriftClient implements DistributedRPCInvocations.Iface {
     public static Logger LOG = LoggerFactory.getLogger(DRPCInvocationsClient.class);
     private final AtomicReference<DistributedRPCInvocations.Client> client = new AtomicReference<DistributedRPCInvocations.Client>();
+    //drpc服务器的host
     private String host;
     private int port;
 
