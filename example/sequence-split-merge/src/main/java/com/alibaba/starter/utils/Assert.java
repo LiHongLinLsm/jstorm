@@ -14,6 +14,7 @@ import java.io.IOException;
  * @author longda
  *        
  */
+//finished~~
 public class Assert {
     public static Logger LOG = LoggerFactory.getLogger(Assert.class);
     public static String ERROR_FILE_NAME = "error.msg";
