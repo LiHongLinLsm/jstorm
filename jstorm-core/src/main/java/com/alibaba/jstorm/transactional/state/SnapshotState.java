@@ -28,6 +28,9 @@ public class SnapshotState implements Serializable {
     private transient Set<Integer> nonStatefulTasks;
     private transient Set<Integer> endTasks;
 
+    //比如：batchId
+    //      1  2  3  4
+    //如果1和2已经成功提交了，那么，lastSuccessfulSnapshot.getBatchId = 2.
     private BatchStateTracker lastSuccessfulSnapshot;
     private transient RotatingMap<Long, BatchStateTracker> inprogressSnapshots;
 
@@ -113,13 +116,6 @@ public class SnapshotState implements Serializable {
             if (state.equals(State.ACTIVE) && batchId != TransactionCommon.INIT_BATCH_ID) {
                 if (receivedSpoutMsgCount == spouts.size() && receivedStatefulBoltMsgCount == statefulBolts.size() &&
                         receivedEndBoltMsgCount == endBolts.size()) {
-                    /*long expectedNextBatchId = getNextExpectedSuccessfulBatch();
-                    if (batchId == expectedNextBatchId) {
-                        return true;
-                    } else {
-                        LOG.info("Unexpected forward batch-{} was finished. But the expected is batch-{}", batchId, expectedNextBatchId);
-                        return false;
-                    }*/
                     return true;
                 } else {
                     return false;

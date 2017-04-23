@@ -75,6 +75,7 @@ public class TransactionCommon {
         return components;
     }
 
+    //finished~~
     public static Set<Integer> getDownstreamTasks(String componentId, TopologyContext context) {
         Set<Integer> tasks = new HashSet<Integer>();
         StormTopology topology = context.getRawTopology();

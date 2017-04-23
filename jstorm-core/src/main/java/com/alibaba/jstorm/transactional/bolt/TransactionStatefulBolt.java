@@ -1,5 +1,6 @@
 package com.alibaba.jstorm.transactional.bolt;
 
+
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -113,6 +114,7 @@ public class TransactionStatefulBolt extends TransactionBolt {
             LOG.error("Error when committing for batch {}", committingBatch, e);
             fail(committingBatch.getBatchGroupId());
         }
+
     }
 
     @Override

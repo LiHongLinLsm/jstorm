@@ -140,10 +140,12 @@ public class SpoutBatchCollector extends SpoutCollector {
         return null;
     }
 
+    //finished!!
     public List<Integer> sendBatch(String outStreamId, String outTaskId, List<MsgInfo> batchTobeFlushed) {
         long startTime = emitTotalTimer.getTime();
         try {
             List<Integer> ret = null;
+            //now , key changes to be taskId.
             Map<Object, List<MsgInfo>> outTasks;
 
             if (outTaskId != null) {

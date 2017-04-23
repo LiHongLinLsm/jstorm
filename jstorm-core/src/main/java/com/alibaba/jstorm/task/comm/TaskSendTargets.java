@@ -40,6 +40,7 @@ import com.alibaba.jstorm.utils.JStormUtils;
  * @author yannian/Longda
  * 
  */
+//finished~~~~~
 public class TaskSendTargets {
     private static Logger LOG = LoggerFactory.getLogger(TaskSendTargets.class);
 

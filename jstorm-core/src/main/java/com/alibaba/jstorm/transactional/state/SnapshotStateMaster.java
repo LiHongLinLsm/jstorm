@@ -70,7 +70,7 @@ public class SnapshotStateMaster {
             stateOperator = (ITopologyStateOperator) Utils.newInstance(topologyStateOpClassName);
         }
         stateOperator.init(conf);
- 
+
         topologySnapshotState = new HashMap<Integer, SnapshotState>();
         Set<String> spoutNames = topology.get_spouts().keySet();
         groupIds = TransactionCommon.groupIds(spoutNames);
@@ -94,7 +94,7 @@ public class SnapshotStateMaster {
                 nonStatefulBoltTasks.addAll(context.getComponentsTasks(downstreamComponents));
                 // Get end bolt tasks
                 Set<String> endBolts = TransactionCommon.getEndBolts(topology, spoutName);
-                endBoltTasks.addAll(context.getComponentsTasks(endBolts));  
+                endBoltTasks.addAll(context.getComponentsTasks(endBolts));
             }
             topologySnapshotState.put(groupId, new SnapshotState(groupId, spoutTasks, statefulBoltTasks, nonStatefulBoltTasks, endBoltTasks));
         }
@@ -116,7 +116,7 @@ public class SnapshotStateMaster {
             @Override
             public void run() {
                 expiredCheck();
-            } 
+            }
         }, batchSnapshotTimeout, batchSnapshotTimeout / 2, TimeUnit.SECONDS);
     }
 
@@ -148,7 +148,7 @@ public class SnapshotStateMaster {
                     if (state != null) {
                         TopoMasterCtrlEvent initStateResp = new TopoMasterCtrlEvent(EventType.transactionInitState);
                         initStateResp.addEventValue(state);
-                        ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(taskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null, 
+                        ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(taskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null,
                                 new Values(initStateResp));
                     }
                 }
@@ -208,7 +208,7 @@ public class SnapshotStateMaster {
             // Ack the init or commit request from spout and stateful bolt
             LOG.debug("Send ack to spouts-{}, event={}", statefulTasks, resp);
             for (Integer spoutTask : statefulTasks) {
-                ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(spoutTask, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null, 
+                ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(spoutTask, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null,
                         new Values(resp));
             }
         }
@@ -235,8 +235,8 @@ public class SnapshotStateMaster {
             for (int taskId : context.getComponentTasks(spoutName)) {
                 TopoMasterCtrlEvent stop = new TopoMasterCtrlEvent(EventType.transactionStop);
                 stop.addEventValue(groupId);
-                ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(taskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null, 
-                    new Values(stop));
+                ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(taskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null,
+                        new Values(stop));
             }
         }
         LOG.info("Stop spouts={}, tasks={}", spoutNames, context.getComponentsTasks(new HashSet<String>(spoutNames)));
@@ -257,7 +257,7 @@ public class SnapshotStateMaster {
             TransactionState state = tasksToStates.get(taskId) != null ? tasksToStates.get(taskId) : new TransactionState(groupId, 0, null, null);
             TopoMasterCtrlEvent rollbackRequest = new TopoMasterCtrlEvent(EventType.transactionRollback);
             rollbackRequest.addEventValue(state);
-            ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(taskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null, 
+            ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(taskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null,
                     new Values(rollbackRequest));
         }
         LOG.info("Send rollback request to group:{}, tasks:{}", groupIdToNames.get(groupId), tasksToStates.keySet());
@@ -268,7 +268,7 @@ public class SnapshotStateMaster {
         TopoMasterCtrlEvent rollbackRequest = new TopoMasterCtrlEvent(EventType.transactionRollback);
         rollbackRequest.addEventValue(state);
         for (Integer nonStatefulTaskId : snapshot.getNonStatefulTasks()) {
-            ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(nonStatefulTaskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null, 
+            ((BoltCollector) (outputCollector.getDelegate())).emitDirectCtrl(nonStatefulTaskId, Common.TOPOLOGY_MASTER_CONTROL_STREAM_ID, null,
                     new Values(rollbackRequest));
         }
     }

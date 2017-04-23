@@ -50,7 +50,7 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
     protected TopologyContext topologyContext;
     protected String topologyId;
     protected int taskId;
-    //参考GeneralTopologyContext.用于发送统计消息。。是一个系统设置的名字为_mater_的component的第一个task
+    //参考GeneralTopologyContext.用于发送统计消息。。是一个系统设置的名字为_mater_的bolt的第一个task
     protected int topologyMasterId;
     protected String componentId;
     //下游所有的task

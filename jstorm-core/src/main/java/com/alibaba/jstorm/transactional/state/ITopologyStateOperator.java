@@ -2,6 +2,7 @@ package com.alibaba.jstorm.transactional.state;
 
 import java.util.Map;
 
+//finished~~
 public interface ITopologyStateOperator {
     public void init(Map conf);
 
