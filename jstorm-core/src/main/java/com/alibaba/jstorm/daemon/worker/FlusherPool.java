@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class FlusherPool {
     private Timer _timer = new Timer("flush-trigger", true);
     private ThreadPoolExecutor _exec;
+    //key:flushInterval.
     private HashMap<Long, ArrayList<Flusher>> _pendingFlush = new HashMap<>();
     private HashMap<Long, TimerTask> _tt = new HashMap<>();
 

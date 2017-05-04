@@ -35,6 +35,7 @@ import storm.trident.util.TridentUtils;
 
 public class GroupedStream implements IAggregatableStream, GlobalAggregationScheme<GroupedStream> {
     Fields _groupFields;
+    //分组流的父流。
     Stream _stream;
 
     public GroupedStream(Stream stream, Fields groupFields) {

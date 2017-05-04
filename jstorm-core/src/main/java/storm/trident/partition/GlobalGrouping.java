@@ -25,6 +25,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
+//每次流入到component的第一个task。
 public class GlobalGrouping implements CustomStreamGrouping {
 
     List<Integer> target;

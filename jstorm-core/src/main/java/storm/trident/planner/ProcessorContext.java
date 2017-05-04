@@ -17,6 +17,9 @@
  */
 package storm.trident.planner;
 
+//finished~~
+//该类在subTopologyBolt中被初始化。。
+//与TridentContext对应于单个tridentProcessor上下文相比，该类为一个Bolt中所以处理节点的上下文。。
 public class ProcessorContext {
     public Object batchId;
     public Object[] state;

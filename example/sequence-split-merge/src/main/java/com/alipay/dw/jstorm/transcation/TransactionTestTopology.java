@@ -43,10 +43,10 @@ public class TransactionTestTopology {
     
     public static class Spout implements ITransactionSpoutExecutor {
         SpoutOutputCollector collector;
-        //发送个数，tuple一共发了多少。。
-        int                  index = 0;
+        //发送数组所以，tuple一共发了多少。。最大值为choice.len-1
+        int    index = 0;
         //发送次数，发送一批，该值+1
-        long                 sendingCount;
+        long    sendingCount;
         long                 startTime;
         boolean              isStatEnable;
         int                  sendNumPerNexttuple;
@@ -285,7 +285,6 @@ public class TransactionTestTopology {
             JStormHelper.runTopology(builder.createTopology(), topologyName, conf, 120,
                     new JStormHelper.CheckAckedFail(conf), isLocal);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             Assert.fail("Failed");
         }

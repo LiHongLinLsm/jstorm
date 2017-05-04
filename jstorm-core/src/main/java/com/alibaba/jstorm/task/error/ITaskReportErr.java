@@ -23,6 +23,7 @@ package com.alibaba.jstorm.task.error;
  * @author yannian
  * 
  */
+//finished~~
 public interface ITaskReportErr {
     public void report(Throwable error);
 

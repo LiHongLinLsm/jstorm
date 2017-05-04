@@ -31,8 +31,33 @@ import storm.trident.tuple.TridentTuple;
 
 public class JoinerMultiReducer implements GroupedMultiReducer<JoinState> {
 
+    /**
+     * 父类进行连接操作的数据结构
+     */
+    public static class JoinState {
+        //表示每个流已经收到的消息。
+        List<List>[] sides;
+        int numSidesReceived = 0;
+        int[] indices;
+        TridentTuple group;
+
+        public JoinState(int numSides, TridentTuple group) {
+            sides = new List[numSides];
+            indices = new int[numSides];
+            this.group = group;
+            for (int i = 0; i < numSides; i++) {
+                sides[i] = new ArrayList<List>();
+            }
+        }
+    }
+
+    /**
+     * 流的类型，决定连接时处理方式，该list个数与流个数等。
+     */
     List<JoinType> _types;
+    //每一个参加连接的流的模式。
     List<Fields> _sideFields;
+    //连接键的数目。
     int _numGroupFields;
     ComboList.Factory _factory;
 
@@ -57,6 +82,14 @@ public class JoinerMultiReducer implements GroupedMultiReducer<JoinState> {
         return new JoinState(_types.size(), group);
     }
 
+    /**
+     * 用于完成内连接
+     * @param state
+     * @param streamIndex
+     * @param group
+     * @param input
+     * @param collector
+     */
     @Override
     public void execute(JoinState state, int streamIndex, TridentTuple group, TridentTuple input, TridentCollector collector) {
         // TODO: do the inner join incrementally, emitting the cross join with this tuple, against all other sides
@@ -71,7 +104,7 @@ public class JoinerMultiReducer implements GroupedMultiReducer<JoinState> {
             emitCrossJoin(state, collector, streamIndex, input);
         }
     }
-
+//用于完成外链接
     @Override
     public void complete(JoinState state, TridentTuple group, TridentCollector collector) {
         List<List>[] sides = state.sides;
@@ -139,20 +172,6 @@ public class JoinerMultiReducer implements GroupedMultiReducer<JoinState> {
         return true;
     }
 
-    public static class JoinState {
-        List<List>[] sides;
-        int numSidesReceived = 0;
-        int[] indices;
-        TridentTuple group;
 
-        public JoinState(int numSides, TridentTuple group) {
-            sides = new List[numSides];
-            indices = new int[numSides];
-            this.group = group;
-            for (int i = 0; i < numSides; i++) {
-                sides[i] = new ArrayList<List>();
-            }
-        }
-    }
 
 }

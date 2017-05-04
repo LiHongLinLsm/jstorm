@@ -17,6 +17,7 @@
  */
 package storm.trident.operation;
 
+//finished~~
 public interface EachOperation extends Operation {
 
 }

@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class IndexHashGrouping implements CustomStreamGrouping {
+
     public static int objectToIndex(Object val, int numPartitions) {
         if (val == null)
             return 0;

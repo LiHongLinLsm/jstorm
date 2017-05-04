@@ -29,6 +29,7 @@ import storm.trident.tuple.TridentTupleView.OperationOutputFactory;
 public class AppendCollector implements TridentCollector {
     OperationOutputFactory _factory;
     TridentContext _triContext;
+    //消息的前缀
     TridentTuple tuple;
     ProcessorContext context;
 

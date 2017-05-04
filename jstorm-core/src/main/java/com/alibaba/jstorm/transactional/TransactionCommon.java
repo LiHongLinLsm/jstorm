@@ -143,11 +143,13 @@ public class TransactionCommon {
         return ++batchId;
     }
 
+    //finisshed~~
     public static int groupIndex(StormTopology topology, String spoutName) {
         Set<String> spoutComponents = topology.get_spouts().keySet();
         return groupIds(spoutComponents).get(spoutName);
     }
 
+    ///finished~~~
     public static Map<String, Integer> groupIds(Set<String> names) {
         Collections.sort(new ArrayList<String>(names));
         Map<String, Integer> ret = new HashMap<String, Integer>();

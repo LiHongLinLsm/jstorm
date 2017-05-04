@@ -20,6 +20,7 @@ package storm.trident.state;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class TransactionalValue<T> {
+    //表示事务处理的结果。
     T val;
     Long txid;
 

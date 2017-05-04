@@ -32,9 +32,13 @@ import storm.trident.tuple.TridentTuple;
 import storm.trident.tuple.TridentTuple.Factory;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
+/**
+ * 该类将prcossor处理的事务结果存储到_state对象中
+ */
 public class PartitionPersistProcessor implements TridentProcessor {
     StateUpdater _updater;
     State _state;
+    //用来获取_state对象。
     String _stateId;
     TridentContext _context;
     Fields _inputFields;

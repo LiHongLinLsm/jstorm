@@ -34,13 +34,15 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * A TopologyContext is given to bolts and spouts in their "prepare" and "open" methods, respectively. This object provides information about the component's
+ * A TopologyContext is given to bolts and spouts in their "prepare" and "open" methods,
+ *      respectively. This object provides information about the component's
  * place within the topology, such as task ids, inputs and outputs, etc.
  * 
  * <p>
  * The TopologyContext is also used to declare ISubscribedState objects to synchronize state with StateSpouts this object is subscribed to.
  * </p>
  */
+
 public class TopologyContext extends WorkerTopologyContext implements IMetricsContext {
     private Integer _taskId;
     private Map<String, Object> _taskData = new HashMap<String, Object>();

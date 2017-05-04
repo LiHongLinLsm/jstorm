@@ -56,9 +56,13 @@ public class ChainedAggregatorDeclarer implements ChainedFullAggregatorDeclarer,
         }
     }
 
+    //存储链中的聚集器。
     List<AggSpec> _aggs = new ArrayList<AggSpec>();
+    //这些聚集器将要处理的流
     IAggregatableStream _stream;
+    //聚集类型
     AggType _type = null;
+    //在聚集类型为全局时有效
     GlobalAggregationScheme _globalScheme;
 
     public ChainedAggregatorDeclarer(IAggregatableStream stream, GlobalAggregationScheme globalScheme) {
@@ -93,6 +97,8 @@ public class ChainedAggregatorDeclarer implements ChainedFullAggregatorDeclarer,
 
         Fields inFields = new Fields(new ArrayList<String>(allInFields));
         Fields outFields = new Fields(allOutFields);
+
+        //以上为下行实例化作准备。
         Aggregator combined = new ChainedAggregatorImpl(aggs, inputFields, new ComboList.Factory(outSizes));
 
         if (_type != AggType.FULL) {

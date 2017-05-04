@@ -23,12 +23,19 @@ import java.util.List;
 import storm.trident.planner.TupleReceiver;
 import storm.trident.tuple.TridentTuple.Factory;
 
+/**
+ * 对应于bolt中单个tridentProcessor的上下文。
+ * 一个bolt对应多个processor。
+ */
 public class TridentContext {
+    //该处理节点，新产生的field.
     Fields selfFields;
     List<Factory> parentFactories;
     List<String> parentStreams;
+    //表示哪些处理节点将接受该节点的消息。
     List<TupleReceiver> receivers;
     String outStreamId;
+    //该处理节点的编号，为subtopBolt中的统一编号。
     int stateIndex;
     BatchOutputCollector collector;
     

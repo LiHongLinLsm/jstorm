@@ -44,6 +44,7 @@ public class BasicBoltExecutor implements IRichBolt {
     }
 
     public void execute(Tuple input) {
+        //消息跟踪重要步骤。。
         _collector.setContext(input);
         try {
             _bolt.execute(input, _collector);

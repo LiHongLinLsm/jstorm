@@ -31,7 +31,7 @@ import storm.trident.planner.Node;
 import storm.trident.util.IndexedEdge;
 import storm.trident.util.TridentUtils;
 
-
+//一个bolt中可以有多个group,一个group中Node.有多个Node.
 public class Group implements ITridentResource {
     public final Set<Node> nodes = new HashSet<>();
     private final DirectedGraph<Node, IndexedEdge> graph;
@@ -46,12 +46,14 @@ public class Group implements ITridentResource {
         this(graph, Arrays.asList(n));
     }
 
+    //用于合并两个节点组。
     public Group(Group g1, Group g2) {
         this.graph = g1.graph;
         nodes.addAll(g1.nodes);
         nodes.addAll(g2.nodes);
     }
-    
+
+    //注意：该set可能包含节点组内的节点，也可以是外面的节点。
     public Set<Node> outgoingNodes() {
         Set<Node> ret = new HashSet<Node>();
         for (Node n : nodes) {

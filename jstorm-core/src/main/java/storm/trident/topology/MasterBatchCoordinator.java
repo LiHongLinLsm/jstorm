@@ -47,21 +47,26 @@ public class MasterBatchCoordinator extends BaseRichSpout {
     public static final String COMMIT_STREAM_ID = "$commit";
     public static final String SUCCESS_STREAM_ID = "$success";
 
+    //zk中元数据的路径
     private static final String CURRENT_TX = "currtx";
     private static final String CURRENT_ATTEMPTS = "currattempts";
-    
+
+    //存储每个spout节点的事务元数据
     private List<TransactionalState> _states = new ArrayList();
-    
+    //保存每个事务的尝试状态
     TreeMap<Long, TransactionStatus> _activeTx = new TreeMap<Long, TransactionStatus>();
+    //保存每个事务当前的尝试
     TreeMap<Long, Integer> _attemptIds;
     
     private SpoutOutputCollector _collector;
+    //下一个需要提交的事务
     Long _currTransaction;
     int _maxTransactionActive;
-    
+
+    //保存管理的spout节点的batchCoordinators
     List<ITridentSpout.BatchCoordinator> _coordinators = new ArrayList();
     
-    
+    //该master管理的spout节点的txID
     List<String> _managedSpoutIds;
     List<ITridentSpout> _spouts;
     WindowedTimeThrottler _throttler;
@@ -96,6 +101,7 @@ public class MasterBatchCoordinator extends BaseRichSpout {
         for(String spoutId: _managedSpoutIds) {
             _states.add(TransactionalState.newCoordinatorState(conf, spoutId));
         }
+        //从zk中取得最大事务ID
         _currTransaction = getStoredCurrTransaction();
 
         _collector = collector;
@@ -125,6 +131,7 @@ public class MasterBatchCoordinator extends BaseRichSpout {
     public synchronized void nextTuple() {
         sync();
     }
+
 
     @Override
     public synchronized void ack(Object msgId) {
@@ -166,11 +173,13 @@ public class MasterBatchCoordinator extends BaseRichSpout {
         declarer.declareStream(COMMIT_STREAM_ID, new Fields("tx"));
         declarer.declareStream(SUCCESS_STREAM_ID, new Fields("tx"));
     }
-    
+
+    //用于产生新的事务
     private void sync() {
         // note that sometimes the tuples active may be less than max_spout_pending, e.g.
         // max_spout_pending = 3
-        // tx 1, 2, 3 active, tx 2 is acked. there won't be a commit for tx 2 (because tx 1 isn't committed yet),
+        // tx 1, 2, 3 active, tx 2 is acked. there won't be a commit for tx 2
+        //                                  (because tx 1 isn't committed yet),
         // and there won't be a batch for tx 4 because there's max_spout_pending tx active
         TransactionStatus maybeCommit = _activeTx.get(_currTransaction);
         if(maybeCommit!=null && maybeCommit.status == AttemptStatus.PROCESSED) {
@@ -178,7 +187,7 @@ public class MasterBatchCoordinator extends BaseRichSpout {
             LOG.debug("send commit stream {}", maybeCommit);
             _collector.emit(COMMIT_STREAM_ID, new Values(maybeCommit.attempt), maybeCommit.attempt);
         }
-        
+        //用于判断是否产生一个新的事务
         if(_active) {
             if(_activeTx.size() < _maxTransactionActive) {
                 Long curr = _currTransaction;
@@ -201,6 +210,7 @@ public class MasterBatchCoordinator extends BaseRichSpout {
                         TransactionAttempt attempt = new TransactionAttempt(curr, attemptId);
                         _activeTx.put(curr, new TransactionStatus(attempt));
                         LOG.debug("send batch stream {}", attempt);
+                        //发送初始化事务消息
                         _collector.emit(BATCH_STREAM_ID, new Values(attempt), attempt);
                         _throttler.markEvent();
                     }
@@ -253,6 +263,7 @@ public class MasterBatchCoordinator extends BaseRichSpout {
         return id + 1;
     }  
     
+    //从zk中拿出最大的transactionID
     private Long getStoredCurrTransaction() {
         Long ret = INIT_TXID;
         for(TransactionalState state: _states) {

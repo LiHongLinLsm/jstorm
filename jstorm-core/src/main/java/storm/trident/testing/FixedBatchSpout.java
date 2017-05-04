@@ -33,6 +33,7 @@ import storm.trident.spout.IBatchSpout;
 public class FixedBatchSpout implements IBatchSpout {
 
     Fields fields;
+    //相当于tuple.
     List<Object>[] outputs;
     int maxBatchSize;
     HashMap<Long, List<List<Object>>> batches = new HashMap<Long, List<List<Object>>>();
@@ -60,7 +61,7 @@ public class FixedBatchSpout implements IBatchSpout {
         List<List<Object>> batch = this.batches.get(batchId);
         if(batch == null){
             batch = new ArrayList<List<Object>>();
-                if(index>=outputs.length && cycle) {
+            if(index>=outputs.length && cycle) {
                     index = 0;
             }
             for(int i=0; index < outputs.length && i < maxBatchSize; index++, i++) {

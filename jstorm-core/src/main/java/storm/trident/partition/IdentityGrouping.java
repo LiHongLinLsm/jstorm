@@ -27,11 +27,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//上游task个数和下游相同时，可以一一映射。
 public class IdentityGrouping implements CustomStreamGrouping {
 
     List<Integer> ret = new ArrayList<Integer>();
     Map<Integer, List<Integer>> _precomputed = new HashMap();
 
+    /**
+     *
+     * @param context
+     * @param stream
+     * @param tasks:接收端taskIDs.
+     */
     @Override
     public void prepare(WorkerTopologyContext context, GlobalStreamId stream, List<Integer> tasks) {
         List<Integer> sourceTasks = new ArrayList<Integer>(context.getComponentTasks(stream.get_componentId()));
@@ -52,7 +59,8 @@ public class IdentityGrouping implements CustomStreamGrouping {
     public List<Integer> chooseTasks(int task, List<Object> values) {
         List<Integer> ret = _precomputed.get(task);
         if (ret == null) {
-            throw new RuntimeException("Tuple emitted by task that's not part of this component. Should be impossible");
+            throw new RuntimeException("Tuple emitted by task that's not part of this component." +
+                    " Should be impossible");
         }
         return ret;
     }

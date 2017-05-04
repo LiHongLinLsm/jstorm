@@ -57,6 +57,7 @@ public interface ITridentSpout<T> extends ITridentDataSource {
          * @param txid the id of the transaction
          * @return true, if the spout is ready for the given transaction id
          */
+        //this method is executed in MasterBatchCoordinator
         boolean isReady(long txid);
 
         /**

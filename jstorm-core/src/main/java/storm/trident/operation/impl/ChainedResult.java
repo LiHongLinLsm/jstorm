@@ -22,6 +22,7 @@ import storm.trident.operation.TridentCollector;
 
 //for ChainedAggregator
 public class ChainedResult {
+
     Object[] objs;
     TridentCollector[] collectors;
 

@@ -29,6 +29,9 @@ import org.jgrapht.DirectedGraph;
 import storm.trident.planner.Node;
 import storm.trident.util.IndexedEdge;
 
+/**
+ * 提供节点组的基本操作和合并。
+ */
 public class GraphGrouper {
     final DirectedGraph<Node, IndexedEdge> graph;
     final Set<Group> currGroups;
@@ -95,6 +98,11 @@ public class GraphGrouper {
         }
     }
 
+    /**
+     *
+     * @param g
+     * @return:不包括自己组。
+     */
     public Collection<Group> outgoingGroups(Group g) {
         Set<Group> ret = new HashSet<>();
         for(Node n: g.outgoingNodes()) {

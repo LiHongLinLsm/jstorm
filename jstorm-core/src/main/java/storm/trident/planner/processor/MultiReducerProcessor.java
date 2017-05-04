@@ -34,6 +34,7 @@ import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 public class MultiReducerProcessor implements TridentProcessor {
     MultiReducer _reducer;
     TridentContext _context;
+
     Map<String, Integer> _streamToIndex;
     List<Fields> _projectFields;
     ProjectionFactory[] _projectionFactories;

@@ -37,6 +37,7 @@ public class TridentTupleView extends AbstractList<Object> implements TridentTup
     Map<String, ValuePointer> _fieldIndex;
     IPersistentVector _delegates;
 
+    //该工厂不产生新的消息，只是投射而已
     public static class ProjectionFactory implements Factory {
         Map<String, ValuePointer> _fieldIndex;
         ValuePointer[] _index;
@@ -65,6 +66,7 @@ public class TridentTupleView extends AbstractList<Object> implements TridentTup
 
         @Override
         public int numDelegates() {
+            //返回parent工厂的IpersistentVector个数，表面该类不会产生新的列。。
             return _parent.numDelegates();
         }
 
@@ -73,7 +75,7 @@ public class TridentTupleView extends AbstractList<Object> implements TridentTup
             return indexToFieldsList(_index);
         }
     }
-    
+    //该工厂产生新的消息
     public static class FreshOutputFactory  implements Factory {
         Map<String, ValuePointer> _fieldIndex;
         ValuePointer[] _index;
@@ -106,7 +108,7 @@ public class TridentTupleView extends AbstractList<Object> implements TridentTup
             return indexToFieldsList(_index);
         }        
     }
-    
+    //该工厂产生新的消息，将输入消息和添加的消息连接成新的消息
     public static class OperationOutputFactory implements Factory {
         Map<String, ValuePointer> _fieldIndex;
         ValuePointer[] _index;
@@ -156,7 +158,8 @@ public class TridentTupleView extends AbstractList<Object> implements TridentTup
             return indexToFieldsList(_index);
         }
     }
-    
+
+    //与storm原生API适配的工厂，将tuple转换成tupleView。是入口工厂，为上面三个工厂提供消息
     public static class RootFactory implements Factory {
         ValuePointer[] index;
         Map<String, ValuePointer> fieldIndex;
@@ -201,7 +204,8 @@ public class TridentTupleView extends AbstractList<Object> implements TridentTup
     
     public static final TridentTupleView EMPTY_TUPLE = new TridentTupleView(null, new ValuePointer[0], new HashMap());
 
-    // index and fieldIndex are precomputed, delegates built up over many operations using persistent data structures
+    // index and fieldIndex are precomputed,
+    // delegates built up over many operations using persistent data structures
     public TridentTupleView(IPersistentVector delegates, ValuePointer[] index, Map<String, ValuePointer> fieldIndex) {
         _delegates = delegates;
         _index = index;

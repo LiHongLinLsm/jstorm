@@ -22,7 +22,8 @@ import java.util.Map;
 import java.io.Serializable;
 
 /**
- * An IBolt represents a component that takes tuples as input and produces tuples as output. An IBolt can do everything from filtering to joining to functions
+ * An IBolt represents a component that takes tuples as input and produces tuples as output.
+ * An IBolt can do everything from filtering to joining to functions
  * to aggregations. It does not have to process a tuple immediately and may hold onto tuples to process later.
  * 
  * <p>
@@ -30,22 +31,30 @@ import java.io.Serializable;
  * </p>
  * 
  * <p>
- * IBolt object created on client machine. The IBolt is serialized into the topology (using Java serialization) and submitted to the master machine of the
- * cluster (Nimbus). Nimbus then launches workers which deserialize the object, call prepare on it, and then start processing tuples.
+ * IBolt object created on client machine.
+ * The IBolt is serialized into the topology (using Java serialization) and
+ * submitted to the master machine of the cluster (Nimbus).
+ * Nimbus then launches workers which deserialize the object,
+ * call prepare on it, and then start processing tuples.
  * </p>
  * 
  * <p>
- * If you want to parameterize an IBolt, you should set the parameters through its constructor and save the parameterization state as instance variables (which
+ * If you want to parameterize an IBolt,
+ *    you should set the parameters through its constructor and save the parameterization state
+ *    as instance variables (which
  * will then get serialized and shipped to every task executing this bolt across the cluster).
  * </p>
  * 
  * <p>
- * When defining bolts in Java, you should use the IRichBolt interface which adds necessary methods for using the Java TopologyBuilder API.
+ * When defining bolts in Java,
+ * you should use the IRichBolt interface which adds necessary
+ * methods for using the Java TopologyBuilder API.
  * </p>
  */
 public interface IBolt extends Serializable {
     /**
-     * Called when a task for this component is initialized within a worker on the cluster. It provides the bolt with the environment in which the bolt
+     * Called when a task for this component is initialized within a worker on the cluster.
+     * It provides the bolt with the environment in which the bolt
      * executes.
      * 
      * <p>

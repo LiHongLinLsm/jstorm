@@ -88,7 +88,9 @@ import storm.trident.windowing.config.WindowConfig;
 
 // TODO: need to be able to replace existing fields with the function fields (like Cascading Fields.REPLACE)
 public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
+    //stream上游的Node.
     final Node _node;
+    //等于其上游的node的name
     final String _name;
     private final TridentTopology _topology;
 
@@ -149,7 +151,8 @@ public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
     }
 
     /**
-     * Filters out fields from a stream, resulting in a Stream containing only the fields specified by `keepFields`.
+     * Filters out fields from a stream, resulting in a Stream containing only the fields specified
+     * by `keepFields`.
      *
      * For example, if you had a Stream `mystream` containing the fields `["a", "b", "c","d"]`, calling"
      *
@@ -165,7 +168,9 @@ public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
      */
     public Stream project(Fields keepFields) {
         projectionValidation(keepFields);
-        return _topology.addSourcedNode(this, new ProcessorNode(_topology.getUniqueStreamId(), _name, keepFields, new Fields(), new ProjectedProcessor(keepFields)));
+        return _topology.addSourcedNode(this,
+                new ProcessorNode(_topology.getUniqueStreamId(), _name, keepFields, new Fields(),
+                                    new ProjectedProcessor(keepFields)));
     }
 
     /**
@@ -214,8 +219,8 @@ public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
     /**
      * ## Repartitioning Operation
      *
-     * Use random round robin algorithm to evenly redistribute tuples across all target partitions, with a preference
-     * for local tasks.
+     * Use random round robin algorithm to evenly redistribute tuples across all target partitions,
+     * with a preference for local tasks.
      *
      * @return
      */
@@ -239,7 +244,8 @@ public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
     /**
      * ## Repartitioning Operation
      *
-     *  All tuples in the batch are sent to the same partition. Different batches in the stream may go to different
+     *  All tuples in the batch are sent to the same partition.
+     *  Different batches in the stream may go to different
      *  partitions.
      *
      * @return
@@ -274,7 +280,7 @@ public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
      * ## Repartitioning Operation
      *
      * This method takes in a custom partitioning function that implements
-     * {@link org.apache.storm.grouping.CustomStreamGrouping}
+     * {@link: org.apache.storm.grouping.CustomStreamGrouping}
      *
      * @param grouping
      * @return
@@ -290,7 +296,7 @@ public class Stream implements IAggregatableStream, ResourceDeclarer<Stream> {
     /**
      * Applies an `Assembly` to this `Stream`.
      *
-     * @see org.apache.storm.trident.operation.Assembly
+     * @see :org.apache.storm.trident.operation.Assembly
      * @param assembly
      * @return
      */

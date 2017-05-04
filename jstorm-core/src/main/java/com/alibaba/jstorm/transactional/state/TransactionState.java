@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.alibaba.jstorm.transactional.BatchGroupId;
 
+//finished~~
 public class TransactionState implements Serializable {
     private static final long serialVersionUID = 1124196216381387618L;
 
@@ -13,6 +14,8 @@ public class TransactionState implements Serializable {
 
     protected BatchGroupId batchGroupId;
     protected Object systemCheckpoint;
+
+    //比如：spou中的index值。。参考Spout
     protected Object userCheckpoint;
 
     public TransactionState() {

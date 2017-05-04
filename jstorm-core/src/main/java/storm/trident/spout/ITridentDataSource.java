@@ -22,5 +22,6 @@ import java.io.Serializable;
 /**
  * ITridentDataSource marks all spouts that provide data into Trident.
  */
+//finishe~~~~~~~~~~~~
 public interface ITridentDataSource extends Serializable {
 }

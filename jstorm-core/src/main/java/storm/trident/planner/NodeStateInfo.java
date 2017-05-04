@@ -21,6 +21,7 @@ import java.io.Serializable;
 import storm.trident.state.StateSpec;
 
 public class NodeStateInfo implements Serializable {
+   //通过该id可以找到state存储对象。
     public String id;
     public StateSpec spec;
 

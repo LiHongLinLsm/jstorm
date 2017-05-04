@@ -65,6 +65,7 @@ public class RichSpoutBatchExecutor implements ITridentSpout {
         int _maxBatchSize;
         boolean prepared = false;
         CaptureCollector _collector;
+        //key:txid.  val:msgIDS
         RotatingMap<Long, List<Object>> idsMap;
         Map _conf;
         TopologyContext _context;
@@ -165,10 +166,12 @@ public class RichSpoutBatchExecutor implements ITridentSpout {
         public void close() {
         }
     }
-    
+
+    //collector接口适配器的类
     static class CaptureCollector implements ISpoutOutputCollector {
 
         TridentCollector _collector;
+        //记录消息号MSGID.
         public List<Object> ids;
         public int numEmitted;
         public long pendingCount;

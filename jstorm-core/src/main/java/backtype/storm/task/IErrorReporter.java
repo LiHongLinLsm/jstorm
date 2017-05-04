@@ -17,6 +17,7 @@
  */
 package backtype.storm.task;
 
+//finished！！
 public interface IErrorReporter {
     void reportError(Throwable error);
 }

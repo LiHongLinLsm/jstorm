@@ -28,6 +28,10 @@ public interface TridentTuple extends ITuple, List<Object> {
     public static interface Factory extends Serializable {
         Map<String, ValuePointer> getFieldIndex();
         List<String> getOutputFields();
+
+        /**
+         * @return:返回实际的IpersisentVector数目。
+         */
         int numDelegates();
     }
 

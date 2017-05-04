@@ -28,14 +28,16 @@ import storm.trident.operation.DefaultResourceDeclarer;
 
 public class Node extends DefaultResourceDeclarer<Node> implements Serializable {
     private static final AtomicInteger INDEX = new AtomicInteger(0);
-    
+    //节点的全局唯一标识。
     private String nodeId;
 
     public String name = null;
     public Fields allOutputFields;
     public String streamId;
+
     public Integer parallelismHint = null;
     public NodeStateInfo stateInfo = null;
+	//根据该值，可以确定top排序。
     public int creationIndex;
 
     public Node(String streamId, String name, Fields allOutputFields) {

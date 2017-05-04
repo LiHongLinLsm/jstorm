@@ -19,6 +19,7 @@ package storm.trident.planner;
 
 import backtype.storm.tuple.Fields;
 
+//finished~~
 public class SpoutNode extends Node {
     public static enum SpoutType {
         DRPC, BATCH

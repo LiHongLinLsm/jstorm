@@ -28,6 +28,7 @@ import backtype.storm.tuple.Fields;
 import storm.trident.tuple.TridentTuple;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
+//finished!! so easy~~
 public class TridentOperationContext implements IMetricsContext {
     TridentTuple.Factory _factory;
     TopologyContext _topoContext;
@@ -45,6 +46,7 @@ public class TridentOperationContext implements IMetricsContext {
         return new ProjectionFactory(_factory, fields);
     }
 
+    //task个数。。
     public int numPartitions() {
         return _topoContext.getComponentTasks(_topoContext.getThisComponentId()).size();
     }

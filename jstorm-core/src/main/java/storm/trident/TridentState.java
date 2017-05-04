@@ -23,6 +23,7 @@ import storm.trident.planner.Node;
 
 public class TridentState implements ResourceDeclarer<TridentState> {
     TridentTopology _topology;
+    //表示该连接操作终结节点。
     Node _node;
 
     protected TridentState(TridentTopology topology, Node node) {

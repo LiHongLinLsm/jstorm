@@ -25,7 +25,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import storm.trident.util.TridentUtils;
-
+//partion分区实际就是指的task.
 public class PartitionNode extends Node {
     public transient Grouping thriftGrouping;
 

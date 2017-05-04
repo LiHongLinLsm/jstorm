@@ -1,0 +1,8 @@
+1.storm的分发策略是同一个组件内不同task之间的接收方式。以wordcount为例：fieldGrouping
+  后，同一个单词将被分发到同一个task中。
+
+2.Nimbus与worker通信通过zk。Nimbus会在内存中保持最近一次的信息，如果，心跳时间到了，发现zk中worker信息没变，则认为挂了。
+
+3.com.alibaba.jstorm包中类是对clojure改成的Java类。
+
+4.

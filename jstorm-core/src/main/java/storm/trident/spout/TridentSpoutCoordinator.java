@@ -83,6 +83,10 @@ public class TridentSpoutCoordinator implements IBasicBolt {
         declarer.declareStream(MasterBatchCoordinator.BATCH_STREAM_ID, new Fields("tx", "metadata"));
     }
 
+    /**
+     * 表明并行度为1
+     * @return
+     */
     @Override
     public Map<String, Object> getComponentConfiguration() {
         Config ret = new Config();

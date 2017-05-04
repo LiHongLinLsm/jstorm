@@ -43,6 +43,18 @@ import storm.trident.testing.MemoryMapState;
 import storm.trident.tuple.TridentTuple;
 
 public class TridentWordCount {
+
+    static boolean   isLocal = true;
+    static LocalDRPC drpc    = null;
+    static Config    conf    = JStormHelper.getConfig(null);
+
+    public static void main(String[] args) throws Exception {
+
+        isLocal = false;
+        conf = JStormHelper.getConfig(args);
+        test();
+    }
+
     public static class Split extends BaseFunction {
         @Override
         public void execute(TridentTuple tuple, TridentCollector collector) {
@@ -57,7 +69,8 @@ public class TridentWordCount {
         FixedBatchSpout spout = new FixedBatchSpout(new Fields("sentence"), 3,
                 new Values("the cow jumped over the moon"),
                 new Values("the man went to the store and bought some candy"),
-                new Values("four score and seven years ago"), new Values("how many apples can you eat"),
+                new Values("four score and seven years ago"),
+                new Values("how many apples can you eat"),
                 new Values("to be or not to be the person"));
         spout.setCycle(true);
         
@@ -75,9 +88,7 @@ public class TridentWordCount {
         return topology.build();
     }
     
-    static boolean   isLocal = true;
-    static LocalDRPC drpc    = null;
-    static Config    conf    = JStormHelper.getConfig(null);
+
     
     public static void test() {
         
@@ -99,13 +110,7 @@ public class TridentWordCount {
             Assert.fail("Failed");
         }
     }
-    
-    public static void main(String[] args) throws Exception {
-        
-        isLocal = false;
-        conf = JStormHelper.getConfig(args);
-        test();
-    }
+
     
     public static class DrpcValidator implements Callback {
         

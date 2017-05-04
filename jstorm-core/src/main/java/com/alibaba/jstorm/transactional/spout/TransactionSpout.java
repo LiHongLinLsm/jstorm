@@ -66,10 +66,12 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
     //妈的，居然意思是：比如top中有spout分别为：a,b,c
     //如果，此spout为b系列，则groupId为2.
     protected int groupId;
+    //当中保留了状态（active？）和groupID，和batchID。
     protected TransactionState currState;
 
     //本地缓存，用于保存提交的batch，如果已经commit，则从该treeset中移除。
     protected SortedSet<Long> committingBatches;
+    //pending队列是否已经满了。。
     protected volatile boolean isMaxPending;
     protected int MAX_PENDING_BATCH_NUM;   
     protected int MAX_FAIL_RETRY;
@@ -191,6 +193,7 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
             }
             JStormUtils.sleepMs(10);
         } else {
+            //初始化后，调用内置代理的nextTuple方法。参考Spout
             if (isActive()) {
                 spoutExecutor.nextTuple();
             } else {
@@ -202,7 +205,10 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
     protected void processCtrlEvent(TopoMasterCtrlEvent event) {
         //LOG.info("Received contronl event, {}", event.toString());
         TransactionState state = null;
+        //第一次初始化时，master处发送消息过来，event中设置了状态。
+        //此处没有transactionAck，注意spout中ack方法被禁用了。
         switch (event.getEventType()) {
+            //finised~
             case transactionInitState:
                 if (spoutStatus.equals(State.INIT)) {
                     if (event.hasEventValue()) {
@@ -257,6 +263,7 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
         if (state == null) {
             currState = new TransactionState(groupId, TransactionCommon.INIT_BATCH_ID, null, null);
         } else {
+            //transactionInitState
             currState = new TransactionState(state);
         }
         Object userState = Utils.maybe_deserialize((byte[]) currState.getUserCheckpoint());
@@ -273,6 +280,7 @@ public class TransactionSpout implements IRichSpout, ICtrlMsgSpout {
         resetSpoutState();
     }
 
+    //初始化时，（可是重启，后挂了。）
     private void resetSpoutState() {
         committingBatches.clear();
         updateMaxPendingFlag();

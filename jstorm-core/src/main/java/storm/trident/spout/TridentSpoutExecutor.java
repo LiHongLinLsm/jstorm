@@ -36,17 +36,20 @@ import storm.trident.topology.ITridentBatchBolt;
 import storm.trident.topology.MasterBatchCoordinator;
 import storm.trident.tuple.ConsList;
 
+//该类代理Emitter处理逻辑
 public class TridentSpoutExecutor implements ITridentBatchBolt {
     public static final String ID_FIELD = "$tx";
     
     public static final Logger LOG = LoggerFactory.getLogger(TridentSpoutExecutor.class);
 
+    //collector包装类，将事务ID添加到第一列
     AddIdCollector _collector;
     ITridentSpout<Object> _spout;
     ITridentSpout.Emitter<Object> _emitter;
     String _streamName;
     String _txStateId;
-    
+
+    //key:trsID.
     TreeMap<Long, TransactionAttempt> _activeBatches = new TreeMap<>();
 
     public TridentSpoutExecutor(String txStateId, String streamName, ITridentSpout<Object> spout) {

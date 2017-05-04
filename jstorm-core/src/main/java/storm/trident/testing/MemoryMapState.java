@@ -111,6 +111,7 @@ public class MemoryMapState<T> implements Snapshottable<T>, ITupleCollection, Ma
     }
 
     static ConcurrentHashMap<String, Map<List<Object>, Object>> _dbs = new ConcurrentHashMap<String, Map<List<Object>, Object>>();
+
     static class MemoryMapStateBacking<T> implements IBackingMap<T>, ITupleCollection {
 
         public static void clearAll() {

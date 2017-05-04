@@ -21,11 +21,22 @@ import java.io.Serializable;
 import java.util.Map;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 通过MutiReducerProcessor执行
+ * @param <T>
+ */
 public interface MultiReducer<T> extends Serializable {
     void prepare(Map conf, TridentMultiReducerContext context);
 
     T init(TridentCollector collector);
 
+    /**
+     *
+     * @param state
+     * @param streamIndex:代表输入消息是哪个流过来的。
+     * @param input
+     * @param collector
+     */
     void execute(T state, int streamIndex, TridentTuple input, TridentCollector collector);
 
     void complete(T state, TridentCollector collector);

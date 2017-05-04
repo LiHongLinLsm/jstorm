@@ -30,6 +30,7 @@ import storm.trident.tuple.TridentTuple;
 import storm.trident.tuple.TridentTupleView;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
+//将结果放在object【】中
 public class GroupedAggregator implements Aggregator<Object[]> {
     ProjectionFactory _groupFactory;
     ProjectionFactory _inputFactory;
@@ -38,6 +39,7 @@ public class GroupedAggregator implements Aggregator<Object[]> {
     Fields _inFields;
     Fields _groupFields;
 
+    //例如：group为“word”，input为“sentence”，outsize为2（表示：hello：1，world:1,Hello:1）
     public GroupedAggregator(Aggregator agg, Fields group, Fields input, int outSize) {
         _groupFields = group;
         _inFields = input;

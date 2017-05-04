@@ -33,6 +33,10 @@ import storm.trident.tuple.TridentTuple;
 import storm.trident.tuple.TridentTuple.Factory;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
+/**
+ * 与PartitionPersistProcessor对象对应，用于从_state对象中查询结果。
+ * 所以，与PartitionPersistProcessor通常放在一个bolt中处理。
+ */
 public class StateQueryProcessor implements TridentProcessor {
     QueryFunction _function;
     State _state;

@@ -19,6 +19,7 @@ package storm.trident.state.map;
 
 import java.util.List;
 
+//用法举例：可以将数据存储到数据库中，那么，写一个实现类就行了。。
 public interface IBackingMap<T> {
     List<T> multiGet(List<List<Object>> keys);
 

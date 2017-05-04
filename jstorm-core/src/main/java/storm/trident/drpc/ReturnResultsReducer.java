@@ -66,6 +66,7 @@ public class ReturnResultsReducer implements MultiReducer<ReturnResultsState> {
     @Override
     public void execute(ReturnResultsState state, int streamIndex, TridentTuple input, TridentCollector collector) {
         if (streamIndex == 0) {
+            //放入的是drpc服务器的地址。
             state.returnInfo = input.getString(0);
         } else {
             state.results.add(input);

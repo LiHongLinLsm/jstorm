@@ -55,6 +55,7 @@ public class TransactionBolt implements IProtoBatchBolt {
     protected Set<Integer> upstreamTasks;
     protected Set<Integer> downstreamTasks;
     protected int topologyMasterId;
+    //中间的bolt，
     protected boolean isEndBolt = false;
 
     protected ITransactionBoltExecutor boltExecutor;
@@ -65,7 +66,9 @@ public class TransactionBolt implements IProtoBatchBolt {
     protected BatchTracker currentBatchTracker;
     //key:groupId ...val:batchId
     protected ConcurrentHashMap<Integer, Long> lastSuccessfulBatch;
+    //key :groupID
     protected HashMap<Integer, Map<Long, BatchTracker>> processingBatches;
+    //该bolt对groupID和batchID的缓存。存在rockDB中
     protected BatchCache batchCache;
 
     protected SerializationFactory.IdDictionary streamIds;

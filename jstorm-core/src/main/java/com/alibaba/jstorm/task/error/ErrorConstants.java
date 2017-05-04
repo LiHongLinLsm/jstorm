@@ -22,6 +22,7 @@ import com.alibaba.jstorm.utils.JStormUtils;
 /**
  * @author Jark (wuchong.wc@alibaba-inc.com)
  */
+//We have met here~
 public class ErrorConstants {
     public static final String WARN = "warn";
     public static final String ERROR = "error";

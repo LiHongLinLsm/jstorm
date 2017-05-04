@@ -36,6 +36,7 @@ public class TransactionSpoutOutputCollector extends SpoutOutputCollectorCb {
 
     private ReadWriteLock lock;
 
+    //finished~~
     public static class BatchInfo {
         public long batchId;
         public Object endPos;

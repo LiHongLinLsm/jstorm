@@ -25,6 +25,7 @@ import storm.trident.operation.TridentCollector;
 import storm.trident.operation.TridentOperationContext;
 import storm.trident.tuple.TridentTuple;
 
+//是CombinerAggregator的执行类、
 public class CombinerAggregatorCombineImpl implements Aggregator<Result> {
     CombinerAggregator _agg;
 

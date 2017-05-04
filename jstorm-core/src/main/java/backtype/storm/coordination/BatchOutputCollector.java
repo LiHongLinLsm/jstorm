@@ -22,6 +22,7 @@ import java.util.List;
 
 //this class use delegate (@see BatchOutputCollectorImp),
 //底层，最终用的是outputCollector.
+//storm底层自动进行ack,fail机制。
 public abstract class BatchOutputCollector {
 
     /**

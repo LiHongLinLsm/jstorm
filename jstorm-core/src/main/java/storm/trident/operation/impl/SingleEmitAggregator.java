@@ -32,6 +32,7 @@ public class SingleEmitAggregator implements Aggregator<SingleEmitState> {
 
     static class SingleEmitState {
         boolean received = false;
+        //存储的临时结果。。。
         Object state;
         Object batchId;
 

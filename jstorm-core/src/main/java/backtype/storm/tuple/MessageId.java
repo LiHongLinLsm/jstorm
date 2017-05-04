@@ -33,6 +33,9 @@ public class MessageId {
     public MessageId() {
     	
     }
+    protected MessageId(Map<Long, Long> anchorsToIds) {
+        _anchorsToIds = anchorsToIds;
+    }
 
     @Deprecated
     public static long generateId() {
@@ -57,9 +60,7 @@ public class MessageId {
         return new MessageId(anchorsToIds);
     }
 
-    protected MessageId(Map<Long, Long> anchorsToIds) {
-        _anchorsToIds = anchorsToIds;
-    }
+
 
     public boolean isAnchored() {
     	return _anchorsToIds!= null && _anchorsToIds.size() > 0;

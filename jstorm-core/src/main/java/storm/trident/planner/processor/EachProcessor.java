@@ -29,11 +29,13 @@ import storm.trident.tuple.TridentTuple;
 import storm.trident.tuple.TridentTuple.Factory;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
+//finished~~
 public class EachProcessor implements TridentProcessor {
     Function _function;
+    Fields _inputFields;
+
     TridentContext _context;
     AppendCollector _collector;
-    Fields _inputFields;
     ProjectionFactory _projection;
 
     public EachProcessor(Fields inputFields, Function function) {

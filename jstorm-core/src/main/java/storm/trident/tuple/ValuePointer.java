@@ -23,7 +23,18 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+//可以认为是一个多余的工具类
 public class ValuePointer {
+    public int delegateIndex;
+    protected int index;
+    protected String field;
+
+    public ValuePointer(int delegateIndex, int index, String field) {
+        this.delegateIndex = delegateIndex;
+        this.index = index;
+        this.field = field;
+    }
+
     public static Map<String, ValuePointer> buildFieldIndex(ValuePointer[] pointers) {
         Map<String, ValuePointer> ret = new HashMap<String, ValuePointer>();
         for(ValuePointer ptr: pointers) {
@@ -43,15 +54,7 @@ public class ValuePointer {
         return ret;
     }    
     
-    public int delegateIndex;
-    protected int index;
-    protected String field;
-    
-    public ValuePointer(int delegateIndex, int index, String field) {
-        this.delegateIndex = delegateIndex;
-        this.index = index;
-        this.field = field;
-    }
+
 
     @Override
     public String toString() {

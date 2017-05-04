@@ -25,6 +25,7 @@ import storm.trident.operation.TridentCollector;
 import storm.trident.operation.TridentOperationContext;
 import storm.trident.tuple.TridentTuple;
 
+//作为ReducerAggregator的执行器
 public class ReducerAggregatorImpl implements Aggregator<Result> {
     ReducerAggregator _agg;
 

@@ -47,7 +47,9 @@ public class Bolt implements org.apache.thrift.TBase<Bolt, Bolt._Fields>, java.i
     schemes.put(TupleScheme.class, new BoltTupleSchemeFactory());
   }
 
+  //具体的执行逻辑的bolt
   private ComponentObject bolt_object; // required
+  //描述了bolt的输入和输出信息
   private ComponentCommon common; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */

@@ -443,7 +443,8 @@ public class Config extends HashMap<String, Object> {
     public static final Object NIMBUS_SUPERVISOR_TIMEOUT_SECS_SCHEMA = ConfigValidation.IntegerValidator;
 
     /**
-     * A special timeout used when a task is initially launched. During launch, this is the timeout used until the first heartbeat, overriding
+     * A special timeout used when a task is initially launched.
+     * During launch, this is the timeout used until the first heartbeat, overriding
      * nimbus.task.timeout.secs.
      * <p/>
      * <p>
@@ -1008,8 +1009,10 @@ public class Config extends HashMap<String, Object> {
     public static final String TOPOLOGY_COMPONENT_RESOURCES_ONHEAP_MEMORY_MB = "topology.component.resources.onheap.memory.mb";
 
     /**
-     * The maximum amount of memory an instance of a spout/bolt will take off heap. This enables the scheduler
-     * to allocate slots on machines with enough available memory.  A default value will be set for this config if user does not override
+     * The maximum amount of memory an instance of a spout/bolt will take off heap.
+     * This enables the scheduler
+     * to allocate slots on machines with enough available memory.
+     * A default value will be set for this config if user does not override
      */
     public static final String TOPOLOGY_COMPONENT_RESOURCES_OFFHEAP_MEMORY_MB = "topology.component.resources.offheap.memory.mb";
 
@@ -1063,7 +1066,8 @@ public class Config extends HashMap<String, Object> {
     public static final Object TOPOLOGY_ACKER_EXECUTORS_SCHEMA = ConfigValidation.IntegerValidator;
 
     /**
-     * The maximum amount of time given to the topology to fully process a message emitted by a spout. If the message is not acked within this time frame, Storm
+     * The maximum amount of time given to the topology to fully process a message emitted by a spout.
+     * If the message is not acked within this time frame, Storm
      * will fail the message on the spout. Some spouts implementations will then replay the message at a later time.
      */
     public static final String TOPOLOGY_MESSAGE_TIMEOUT_SECS = "topology.message.timeout.secs";

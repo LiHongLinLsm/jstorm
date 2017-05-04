@@ -23,6 +23,7 @@ public class SnapshotState implements Serializable {
 
     private int groupId;
 
+    //task只是某个groupiD的tasks，因为一个spout可以有很多实例。。。
     private transient Set<Integer> sourceTasks;
     private transient Set<Integer> statefulTasks;
     private transient Set<Integer> nonStatefulTasks;
@@ -32,6 +33,7 @@ public class SnapshotState implements Serializable {
     //      1  2  3  4
     //如果1和2已经成功提交了，那么，lastSuccessfulSnapshot.getBatchId = 2.
     private BatchStateTracker lastSuccessfulSnapshot;
+    ///key:batchID
     private transient RotatingMap<Long, BatchStateTracker> inprogressSnapshots;
 
     private State state;
@@ -40,6 +42,7 @@ public class SnapshotState implements Serializable {
         private static final long serialVersionUID = -3503873401193374360L;
 
         private long batchId;
+        //key:taskID
         private Map<Integer, TransactionState> spouts = new HashMap<Integer, TransactionState>();
         private Map<Integer, TransactionState> statefulBolts = new HashMap<Integer, TransactionState>();
         private transient Map<Integer, Boolean> endBolts = new HashMap<Integer, Boolean>();

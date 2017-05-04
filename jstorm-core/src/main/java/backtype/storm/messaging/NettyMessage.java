@@ -1,7 +1,7 @@
 package backtype.storm.messaging;
 
 import org.jboss.netty.buffer.ChannelBuffer;
-
+//been there......
 public interface NettyMessage {
     
     public boolean isEmpty();

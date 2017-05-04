@@ -23,6 +23,7 @@ import backtype.storm.metric.api.IMetric;
 import backtype.storm.metric.api.IReducer;
 import backtype.storm.metric.api.ReducedMetric;
 
+//easy~
 public interface IMetricsContext {
     <T extends IMetric> T registerMetric(String name, T metric, int timeBucketSizeInSecs);
 

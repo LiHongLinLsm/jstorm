@@ -19,9 +19,11 @@ package backtype.storm.spout;
 
 import java.util.List;
 
+//been there ....
 public interface ISpoutOutputCollector {
     /**
      * Returns the task ids that received the tuples.
+        if mesId is nul,then storm will not track the mesg for users.
      */
     List<Integer> emit(String streamId, List<Object> tuple, Object messageId);
 

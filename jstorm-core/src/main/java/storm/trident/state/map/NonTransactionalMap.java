@@ -27,7 +27,7 @@ public class NonTransactionalMap<T> implements MapState<T> {
     public static <T> MapState<T> build(IBackingMap<T> backing) {
         return new NonTransactionalMap<T>(backing);
     }
-    
+    //用于实际存储数据
     IBackingMap<T> _backing;
     
     protected NonTransactionalMap(IBackingMap<T> backing) {

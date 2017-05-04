@@ -45,6 +45,7 @@ public class SnapshotStateMaster {
     private Map<Integer, List<String>> groupIdToNames;
 
     private ITopologyStateOperator stateOperator;
+    //groupID-->snapshot
     private Map<Integer, SnapshotState> topologySnapshotState;
 
     private int batchSnapshotTimeout;

@@ -38,7 +38,9 @@ public class MapReducerAggStateUpdater implements StateUpdater<MapState> {
     ReducerAggregator _agg;
     Fields _groupFields;
     Fields _inputFields;
+    //根据groupFields字段隐射消息
     transient ProjectionFactory _groupFactory;
+    //根据inputFields字段隐射消息
     transient ProjectionFactory _inputFactory;
     ComboList.Factory _factory;
 
@@ -51,6 +53,7 @@ public class MapReducerAggStateUpdater implements StateUpdater<MapState> {
 
     @Override
     public void updateState(MapState map, List<TridentTuple> tuples, TridentCollector collector) {
+        //key:groupField
         Map<List<Object>, List<TridentTuple>> grouped = new HashMap<>();
         
         for(TridentTuple t: tuples) {

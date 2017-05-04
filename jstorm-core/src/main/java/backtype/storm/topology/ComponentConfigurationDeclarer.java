@@ -19,6 +19,7 @@ package backtype.storm.topology;
 
 import java.util.Map;
 
+//有点意思。。。
 public interface ComponentConfigurationDeclarer<T extends ComponentConfigurationDeclarer> extends ResourceDeclarer<T>{
     T addConfigurations(Map conf);
 

@@ -27,7 +27,7 @@ import backtype.storm.topology.ResourceDeclarer;
 import backtype.storm.utils.Utils;
 
 /**
- * @param T Must always be the type of the extending class. i.e.
+ * @param :T Must always be the type of the extending class. i.e.
  * public class SubResourceDeclarer extends DefaultResourceDeclarer<SubResourceDeclarer> {...}
  */
 public class DefaultResourceDeclarer<T extends DefaultResourceDeclarer> implements ResourceDeclarer<T>, ITridentResource {

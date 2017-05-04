@@ -27,9 +27,11 @@ import java.util.HashMap;
 import java.io.IOException;
 
 /**
- * A simple, durable, atomic K/V database. *Very inefficient*, should only be used for occasional reads/writes. Every read/write hits disk.
+ * A simple, durable, atomic K/V database. *Very inefficient*, should only be used for occasional reads/writes.
+ * Every read/write hits disk.
  * 
- * @@@ Right now, This class hasn't upgrade to storm's LocalState It is need define every type in thrift, it is too complicated to do
+ * @@@ Right now, This class hasn't upgrade to storm's LocalState
+ * It is need define every type in thrift, it is too complicated to do
  */
 public class LocalState {
     public static final Logger LOG = LoggerFactory.getLogger(LocalState.class);

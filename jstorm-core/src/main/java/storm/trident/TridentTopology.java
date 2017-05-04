@@ -97,6 +97,7 @@ public class TridentTopology {
     // is it too expensive to do a batch per drpc request?
     
     final DefaultDirectedGraph<Node, IndexedEdge> _graph;
+    //key:stateId,v:所有id相同的node,将被放到同一个bolt中执行。
     final Map<String, List<Node>> _colocate;
     final UniqueIdGen _gen;
 
@@ -119,11 +120,14 @@ public class TridentTopology {
 //        return addNode(n);
 //    }
     
-     public Stream newStream(String txId, IRichSpout spout) {
+    public Stream newStream(String txId, IRichSpout spout) {
         return newStream(txId, new RichSpoutBatchExecutor(spout));
     }
-    
+
+    //Trident会再Zookeeper中保存一小部分状态信息来追踪数据的处理情况，
+    // txId就是Zookeeper中用来存储metadata信息的Znode节点
     public Stream newStream(String txId, IBatchSpout spout) {
+        //对于wordcountTrident而言，此处的outputFields为“sentence”,txId = spout1
         Node n = new SpoutNode(getUniqueStreamId(), spout.getOutputFields(), txId, spout, SpoutNode.SpoutType.BATCH);
         return addNode(n);
     }
@@ -325,6 +329,7 @@ public class TridentTopology {
         
         
         // add identity partitions between groups
+        //异常处理，使得节点之间有分区节点。
         for(IndexedEdge<Node> e: new HashSet<>(graph.edgeSet())) {
             if(!(e.source instanceof PartitionNode) && !(e.target instanceof PartitionNode)) {                
                 Group g1 = grouper.nodeGroup(e.source);
@@ -525,7 +530,8 @@ public class TridentTopology {
 
         return ret;
     }
-    
+
+    //完成对drpcSpout和结果处理bolt的创建。
     private static void completeDRPC(DefaultDirectedGraph<Node, IndexedEdge> graph, Map<String, List<Node>> colocate, UniqueIdGen gen) {
         List<Set<Node>> connectedComponents = new ConnectivityInspector<>(graph).connectedSets();
         
@@ -808,7 +814,8 @@ public class TridentTopology {
         }
         return ret;
     }
-    
+
+    //获得节点组父类所有分区节点。
     private static Set<PartitionNode> externalGroupInputs(Group g) {
         Set<PartitionNode> ret = new HashSet<>();
         for(Node n: g.incomingNodes()) {

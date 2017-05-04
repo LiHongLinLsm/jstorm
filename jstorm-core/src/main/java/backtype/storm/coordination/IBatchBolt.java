@@ -25,6 +25,13 @@ import java.util.Map;
 
 //显著特点是，该bolt必须有个finishBatch方法。。。
 public interface IBatchBolt<T> extends Serializable, IComponent {
+    /**
+     *
+     * @param conf
+     * @param context
+     * @param collector
+     * @param id:每个事务对应于一个IBatchBolt。batch处理完后，该bolt被销毁，所以，该T id为transactionAtemp,用来唯一标记。
+     */
     void prepare(Map conf, TopologyContext context, BatchOutputCollector collector, T id);
 
     void execute(Tuple tuple);

@@ -92,9 +92,13 @@ public class TridentBoltExecutor implements IRichBolt {
             return "<Single: " + singleCount + ">";
         }
     }
-    
+
+    /**
+     * 描述当前节点与上游节点关系。
+     */
     public static class CoordSpec implements Serializable {
         public GlobalStreamId commitStream = null;
+        //key：componentID.
         public Map<String, CoordType> coords = new HashMap<>();
         
         public CoordSpec() {
@@ -111,14 +115,18 @@ public class TridentBoltExecutor implements IRichBolt {
             return ToStringBuilder.reflectionToString(this);
         }        
     }
-    
+
+    //valu:节点序号
     Map<GlobalStreamId, String> _batchGroupIds;
+    //节点组内部协调接收关系。key:batchGroup
     Map<String, CoordSpec> _coordSpecs;
     Map<String, CoordCondition> _coordConditions;
+    //即subTopBolt节点。
     ITridentBatchBolt _bolt;
     long _messageTimeoutMs;
     long _lastRotate;
-    
+
+    //跟踪节点正在处理的事务。
     RotatingMap<Object, TrackedBatch> _batches;
     
     // map from batchgroupid to coordspec
@@ -127,8 +135,12 @@ public class TridentBoltExecutor implements IRichBolt {
         _coordSpecs = coordinationSpecs;
         _bolt = bolt;        
     }
-    
+
+    /**
+     * 用于跟踪正在处理的事务
+     */
     public static class TrackedBatch {
+
         int attemptId;
         BatchInfo info;
         CoordCondition condition;
@@ -152,7 +164,10 @@ public class TridentBoltExecutor implements IRichBolt {
             return ToStringBuilder.reflectionToString(this);
         }        
     }
-    
+
+    /**
+     * 该封装类主要用于：记录发送的tuple数目。
+     */
     private static class CoordinatedOutputCollector implements IOutputCollector {
         OutputCollector _delegate;
         

@@ -20,6 +20,8 @@ package backtype.storm.messaging;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
 import org.jboss.netty.buffer.ChannelBuffers;
+
+///so easy...
 public class TaskMessage implements NettyMessage{
     public final static short NORMAL_MESSAGE = 0;
     public final static short CONTROL_MESSAGE = 1;

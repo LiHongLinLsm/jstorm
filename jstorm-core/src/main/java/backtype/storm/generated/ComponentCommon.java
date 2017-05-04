@@ -50,6 +50,7 @@ public class ComponentCommon implements org.apache.thrift.TBase<ComponentCommon,
   }
 
   private Map<GlobalStreamId,Grouping> inputs; // required
+  //该组件的输出流，key is streamid,value is info...
   private Map<String,StreamInfo> streams; // required
   private int parallelism_hint; // optional
   private String json_conf; // optional

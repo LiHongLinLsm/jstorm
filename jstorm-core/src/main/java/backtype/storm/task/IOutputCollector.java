@@ -21,6 +21,7 @@ import backtype.storm.tuple.Tuple;
 import java.util.Collection;
 import java.util.List;
 
+//顶层接口了。。。
 public interface IOutputCollector extends IErrorReporter {
     /**
      * Returns the task ids that received the tuples.

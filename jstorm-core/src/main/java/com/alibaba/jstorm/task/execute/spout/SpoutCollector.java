@@ -59,6 +59,8 @@ import backtype.storm.utils.DisruptorQueue;
  *
  * @author yannian/Longda
  */
+
+//该类为spoutExecutor初始化spout时，为spout设置的collector.所有spout归根结底是从这儿发送数据的。
 public class SpoutCollector extends SpoutOutputCollectorCb {
     private static Logger LOG = LoggerFactory.getLogger(SpoutCollector.class);
 

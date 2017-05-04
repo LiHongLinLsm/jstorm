@@ -42,12 +42,24 @@ import java.util.*;
 // TODO: memory problems?
 // TODO: can avoid these problems by adding a boltfactory abstraction, so that boltfactory is deserialized once
 //   bolt factory -> returns coordinatedbolt per task, but deserializes the batch bolt one time and caches
+
+
+/**
+ * 在tridentBoltExecutor中执行。
+ */
 public class SubtopologyBolt implements ITridentBatchBolt {
+    //整个top对应的有向图
     DirectedGraph _graph;
+    //该bolt包含的node。是graph的子集。
     Set<Node> _nodes;
+    //该bolt可以接受多个类型的流。key:streamId.
     Map<String, InitialReceiver> _roots = new HashMap();
+
     Map<Node, Factory> _outputFactories = new HashMap();
+
+    //key:Node组索引，val:对应的一些了节点，是有顺序的。
     Map<String, List<TridentProcessor>> _myTopologicallyOrdered = new HashMap();
+    //key:node,val:groupId.
     Map<Node, String> _batchGroups;
 
     // given processornodes and static state nodes
@@ -178,12 +190,18 @@ public class SubtopologyBolt implements ITridentBatchBolt {
     public Map<String, Object> getComponentConfiguration() {
         return null;
     }
-    
-    
+
+    /**
+     * 为输入做准备。
+     */
     protected static class InitialReceiver {
+        //project后的消息，依次通过此prcocessors.
         List<TridentProcessor> _receivers = new ArrayList<>();
+        //用于将tuple转化成tridentTuple.
         RootFactory _factory;
+        //其输入即是rootFactory的输出。
         ProjectionFactory _project;
+        //输入消息的streamId.
         String _stream;
 
         public InitialReceiver(String stream, Fields allFields) {
@@ -192,6 +210,9 @@ public class SubtopologyBolt implements ITridentBatchBolt {
             _stream = stream;
             _factory = new RootFactory(allFields);
             List<String> projected = new ArrayList(allFields.toList());
+            /**
+             * procssorContext中保留了batchId，此处移除掉。
+             */
             projected.remove(0);
             _project = new ProjectionFactory(_factory, new Fields(projected));
         }

@@ -25,7 +25,21 @@ import java.util.List;
 import java.util.Map;
 import java.io.Serializable;
 
+//so easy~~
 public class Fields implements Iterable<String>, Serializable {
+
+    public static void main(String[] args) {
+        Fields fields = new Fields("sentence","word","count");
+        List<Object> integers  = new ArrayList<>();
+        for (int i = 0;i<10;i++){
+            integers.add(i+1);
+        }
+        System.out.println(fields.select("count",integers));
+        //3.？？这个方法有毛用？？
+    }
+
+
+
     private List<String> _fields;
     private Map<String, Integer> _index = new HashMap<String, Integer>();
 

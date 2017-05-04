@@ -27,7 +27,8 @@ import java.util.List;
 
 /**
  * 
- * A single consumer queue that uses the LMAX Disruptor. They key to the performance is the ability to catch up to the producer by processing tuples in batches.
+ * A single consumer queue that uses the LMAX Disruptor.
+ * They key to the performance is the ability to catch up to the producer by processing tuples in batches.
  */
 public abstract class DisruptorQueue implements IStatefulObject {
     public static void setUseSleep(boolean useSleep) {

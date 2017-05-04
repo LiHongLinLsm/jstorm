@@ -21,6 +21,10 @@ import java.io.Serializable;
 import java.util.Map;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 主要进行连接操作
+ * @param <T>
+ */
 public interface GroupedMultiReducer<T> extends Serializable {
     void prepare(Map conf, TridentMultiReducerContext context);
 

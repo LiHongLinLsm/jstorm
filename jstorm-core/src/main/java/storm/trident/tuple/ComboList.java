@@ -22,7 +22,7 @@ import java.util.AbstractList;
 import java.util.List;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
+//相当于矩阵
 public class ComboList extends AbstractList<Object> {    
     public static class Factory implements Serializable {
         Pointer[] index;
