@@ -112,34 +112,6 @@ public class DisruptorTest {
     private final static int TIMEOUT = 5; // MS
     private final static int PRODUCER_NUM = 4;
 
-    // Remove the cache in disruptor queue. So comment out this tc.
-/*    @Test
-    public void testLaterStartConsumer() throws InterruptedException {
-        System.out.println("!!!!!!!!!!!!!!!Begin testLaterStartConsumer!!!!!!!!!!");
-        final AtomicBoolean messageConsumed = new AtomicBoolean(false);
-
-        // Set queue length to 1, so that the RingBuffer can be easily full
-        // to trigger consumer blocking
-        DisruptorQueue queue = createQueue("consumerHang", ProducerType.MULTI, 2);
-        push(queue, 1);
-        Runnable producer = new Producer(queue);
-        Runnable consumer = new Consumer(queue, new EventHandler<Object>() {
-            long count = 0;
-
-            @Override
-            public void onEvent(Object obj, long sequence, boolean endOfBatch) throws Exception {
-
-                messageConsumed.set(true);
-                System.out.println("Consume " + count++);
-            }
-        });
-
-        run(producer, 0, 0, consumer, 50);
-        Assert.assertTrue("disruptor message is never consumed due to consumer thread hangs", messageConsumed.get());
-
-        System.out.println("!!!!!!!!!!!!!!!!End testLaterStartConsumer!!!!!!!!!!");
-    }*/
-
     @Test
     public void testBeforeStartConsumer() throws InterruptedException {
         System.out.println("!!!!!!!!!!!!Begin testBeforeStartConsumer!!!!!!!!!");

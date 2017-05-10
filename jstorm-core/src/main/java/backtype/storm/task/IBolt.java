@@ -70,6 +70,8 @@ public interface IBolt extends Serializable {
      */
     void prepare(Map stormConf, TopologyContext context, OutputCollector collector);
 
+
+    
     /**
      * Process a single tuple of input. The Tuple object contains metadata on it about which component/stream/task it came from. The values of the Tuple can be
      * accessed using Tuple#getValue. The IBolt does not have to process the Tuple immediately. It is perfectly fine to hang onto a tuple and process it later
