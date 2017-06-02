@@ -45,6 +45,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * When worker shutdown/create, need update these connection
  *
+ *
+ * this class resides in worker ,so that worker can refresh its client conn to other workers when it has been
+ * starting or rebooting....
+ *
  * @author yannian/Longda
  */
 public class RefreshConnections extends RunnableCallback {
@@ -228,7 +232,6 @@ public class RefreshConnections extends RunnableCallback {
                             for (Integer id : worker.getTasks()) {
                                 taskNodeportTmp.put(id, worker);
                                 if (outboundTasks.contains(id)) {
-                                    
                                     need_connections.add(worker);
                                 }
                             }

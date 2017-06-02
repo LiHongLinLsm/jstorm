@@ -23,8 +23,10 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.utils.Utils;
 import java.util.List;
 
+//该类中系统自动为我们ack
 public class BasicOutputCollector implements IBasicOutputCollector {
     private OutputCollector out;
+    //用于anchor的tuple
     private Tuple inputTuple;
 
     public BasicOutputCollector(OutputCollector out) {

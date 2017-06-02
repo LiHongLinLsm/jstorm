@@ -23,10 +23,11 @@ import backtype.storm.topology.IComponent;
 import java.math.BigInteger;
 import java.util.Map;
 
+
 public interface ITransactionalSpout<T> extends IComponent {
     /**用于为对应spout的事务做资源管理。。
     **1.初始化事务meta（写入zk,用于replay,主要表示可以从哪个point恢复数据）
-    **2.通过该spout注册的kryo进行的序列话
+    **2.通过该spout注册的kryo进行的序列话meta
     **3.包括方法：初始化事务meta，判断事务是否就绪，清理资源。
      */
     public interface Coordinator<X> {
@@ -87,7 +88,7 @@ public interface ITransactionalSpout<T> extends IComponent {
     }
 
     /**
-     * The coordinator for a TransactionalSpout runs in a single thread and indicates when batches of
+     * The coordinator for a TransactionalSpout runs in a single thread(task) and indicates when batches of
      * tuples should be emitted and when transactions should
      * commit. The Coordinator that you provide in a TransactionalSpout provides metadata
      * for each transaction so that the transactions can be replayed.

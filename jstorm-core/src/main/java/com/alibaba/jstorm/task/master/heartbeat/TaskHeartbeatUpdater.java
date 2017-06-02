@@ -58,6 +58,7 @@ public class TaskHeartbeatUpdater implements TMHandler {
     private int MAX_NUM_TASK_HB_SEND;
 
     private String topologyId;
+    //topMaster'id..
     private int taskId;
 
     private Map stormConf;
@@ -68,6 +69,7 @@ public class TaskHeartbeatUpdater implements TMHandler {
 
     private StormClusterState zkCluster;
 
+    //topMaster'context
     private TopologyContext context;
 
     //TODO: topologyTasks will be changed when update topology!
@@ -81,6 +83,7 @@ public class TaskHeartbeatUpdater implements TMHandler {
     public TaskHeartbeatUpdater() {
     }
 
+    //此处的event实际就是tuple.
     @Override
     public void process(Object event) throws Exception {
         synchronized (_lock) {

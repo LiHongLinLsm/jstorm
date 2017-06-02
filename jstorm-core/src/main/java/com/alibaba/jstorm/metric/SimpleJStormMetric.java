@@ -21,7 +21,9 @@ import com.alibaba.jstorm.common.metric.*;
 import com.codahale.metrics.Gauge;
 
 /**
- * simplified metrics, only for worker metrics. all metrics are logged locally without reporting to TM or nimbus.
+ * simplified metrics, only for worker metrics.
+ *
+ * all metrics are logged locally without reporting to TM or nimbus.
  *
  * @author Cody (weiyue.wy@alibaba-inc.com)
  * @since 2.0.5

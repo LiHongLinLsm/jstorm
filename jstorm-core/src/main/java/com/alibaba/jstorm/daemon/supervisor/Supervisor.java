@@ -86,8 +86,10 @@ public class Supervisor {
      * @param sharedContext : null (right now)
      * @return SupervisorManger: which is used to shutdown all workers and supervisor
                 */
-        @SuppressWarnings("rawtypes")
-        public SupervisorManger mkSupervisor(Map conf, IContext sharedContext) throws Exception {
+
+    @SuppressWarnings("rawtypes")
+
+    public SupervisorManger mkSupervisor(Map conf, IContext sharedContext) throws Exception {
 
         LOG.info("Starting Supervisor with conf " + conf);
 

@@ -53,8 +53,8 @@ import backtype.storm.tuple.Values;
 public class TransactionalGlobalCount {
     private static final Logger LOG = LoggerFactory.getLogger(TransactionalGlobalCount.class);
     
-    public static final int                              PARTITION_TAKE_PER_BATCH = 3;
-    public static final Map<Integer, List<List<Object>>> DATA                     = new HashMap<Integer, List<List<Object>>>() {
+    public static final int        PARTITION_TAKE_PER_BATCH = 3;
+    public static final Map<Integer, List<List<Object>>> DATA        = new HashMap<Integer, List<List<Object>>>() {
         {
             put(0, new ArrayList<List<Object>>() {
                 {
@@ -97,7 +97,7 @@ public class TransactionalGlobalCount {
     
     public static Map<String, Value> DATABASE         = new HashMap<String, Value>();
     public static final String       GLOBAL_COUNT_KEY = "GLOBAL-COUNT";
-    
+    //局部计数
     public static class BatchCount extends BaseBatchBolt {
         Object               _id;
         BatchOutputCollector _collector;
@@ -127,7 +127,8 @@ public class TransactionalGlobalCount {
             declarer.declare(new Fields("id", "count"));
         }
     }
-    
+
+    //全局计数
     public static class UpdateGlobalCount extends BaseTransactionalBolt implements ICommitter {
         TransactionAttempt   _attempt;
         BatchOutputCollector _collector;

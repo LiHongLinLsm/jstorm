@@ -40,18 +40,6 @@ public class StormClientHandler extends SimpleChannelUpstreamHandler {
     }
 
     /**
-     * @@@ Comment this function
-     * 
-     * Don't allow call from low netty layer, whose call will try to obtain the lock of jstorm netty layer
-     * otherwise it will lead to deadlock 
-     */
-//    @Override
-//    public void channelInterestChanged(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-//        
-//    	client.notifyInterestChanged(e.getChannel());
-//    }
-
-    /**
      * Sometime when connect one bad channel which isn't writable, it will call this function
      */
     @Override

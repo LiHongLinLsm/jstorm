@@ -73,18 +73,6 @@ public class TaskSendTargets {
     // direct send tuple to special task
     public List<Integer> get(Integer out_task_id, String stream, List<Object> tuple, Collection<Tuple> anchors, Object root_id) {
 
-        // in order to improve acker's speed, skip checking
-        // String target_component =
-        // topologyContext.getComponentId(out_task_id);
-        // Map<String, MkGrouper> component_prouping = streamComponentgrouper
-        // .get(stream);
-        // MkGrouper grouping = component_prouping.get(target_component);
-        // if (grouping != null &&
-        // !GrouperType.direct.equals(grouping.gettype())) {
-        // throw new IllegalArgumentException(
-        // "Cannot emitDirect to a task expecting a regular grouping");
-        // }
-
         if (isDebug(anchors, root_id)) {
             LOG.info(debugIdStr + stream + " to " + out_task_id + ":" + tuple.toString());
         }
@@ -96,7 +84,7 @@ public class TaskSendTargets {
         return out_tasks;
     }
 
-    // send tuple according to grouping
+    // send tuple according to grouping,return which tasks should this tuple be send...
     public List<Integer> get(String stream, List<Object> tuple, Collection<Tuple> anchors, Object root_id) {
         List<Integer> out_tasks = new ArrayList<Integer>();
 
@@ -162,12 +150,6 @@ public class TaskSendTargets {
 
             outTasks.putAll(g.grouperBatch(batch));
         }
-
-        /*
-        if (isDebug(anchors, root_id)) {
-
-            LOG.info(debugIdStr + stream + " to " + out_tasks);
-        }*/
 
         int num_out_tasks = 0;
         for (Entry<Object, List<MsgInfo>> entry : outTasks.entrySet()) {

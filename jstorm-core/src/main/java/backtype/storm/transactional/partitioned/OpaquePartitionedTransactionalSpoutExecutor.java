@@ -62,6 +62,7 @@ public class OpaquePartitionedTransactionalSpoutExecutor implements ICommitterTr
     public class Emitter implements ICommitterTransactionalSpout.Emitter {
         IOpaquePartitionedTransactionalSpout.Emitter _emitter;
         TransactionalState _state;
+        //tranId  --->  ( partion --->  meta.)
         TreeMap<BigInteger, Map<Integer, Object>> _cachedMetas = new TreeMap<BigInteger, Map<Integer, Object>>();
         Map<Integer, RotatingTransactionalState> _partitionStates = new HashMap<Integer, RotatingTransactionalState>();
         int _index;
@@ -81,8 +82,10 @@ public class OpaquePartitionedTransactionalSpoutExecutor implements ICommitterTr
             }
         }
 
+        //由于是模糊事务，所以，不用区分重传和首传。
         @Override
         public void emitBatch(TransactionAttempt tx, Object coordinatorMeta, BatchOutputCollector collector) {
+            //key：partionIndex...
             Map<Integer, Object> metas = new HashMap<Integer, Object>();
             _cachedMetas.put(tx.getTransactionId(), metas);
             int partitions = _emitter.numPartitions();

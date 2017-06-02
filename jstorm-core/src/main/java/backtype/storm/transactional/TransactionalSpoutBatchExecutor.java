@@ -30,6 +30,7 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//事务中的spout内部top对应的发送bolt，与TransactionalSpoutCoordinator配合使用
 public class TransactionalSpoutBatchExecutor implements IRichBolt {
     public static Logger LOG = LoggerFactory.getLogger(TransactionalSpoutBatchExecutor.class);
 

@@ -175,6 +175,7 @@ public class BoltCollector extends OutputCollectorCb {
         try {
 
             if (out_task_id != null) {
+                //here outTasks == out_task_id.
                 outTasks = sendTargets.get(out_task_id, out_stream_id, values, anchors, null);
             } else {
                 outTasks = sendTargets.get(out_stream_id, values, anchors, null);

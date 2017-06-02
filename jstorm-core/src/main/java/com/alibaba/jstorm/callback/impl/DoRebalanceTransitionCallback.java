@@ -40,7 +40,10 @@ import java.util.Map.Entry;
 /**
  * Do real rebalance action.
  * 
- * After nimbus receive one rebalance command, it will do as following: 1. set topology status as rebalancing 2. delay 2 * timeout seconds 3. do this callback
+ * After nimbus receive one rebalance command, it will do as following:
+ * 1. set topology status as rebalancing
+ * 2. delay 2 * timeout seconds
+ * 3. do this callback
  * 
  * @author Xin.Li/Longda
  * 

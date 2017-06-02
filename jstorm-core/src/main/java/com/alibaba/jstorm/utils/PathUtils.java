@@ -66,6 +66,7 @@ public class PathUtils {
         return buff.toString();
     }
 
+
     public static String normalize_path(String path) {
         String rtn = toks_to_path(tokenize_path(path));
         return rtn;
@@ -79,6 +80,8 @@ public class PathUtils {
         }
         return toks_to_path(toks);
     }
+
+
 
     public static String full_path(String parent, String name) {
         return normalize_path(parent + SEPERATOR + name);
@@ -95,7 +98,6 @@ public class PathUtils {
         }
 
     }
-
     public static void local_mkdirs(String path) throws IOException {
         LOG.debug("Making dirs at" + path);
         FileUtils.forceMkdir(new File(path));
@@ -131,6 +133,7 @@ public class PathUtils {
         return rtn;
     }
 
+    //文件路径中的反斜杠变通用的。。
     public static String getCanonicalPath(String fileName) {
         String ret = null;
         File file = new File(fileName);

@@ -129,13 +129,6 @@ public class SpoutBatchCollector extends SpoutCollector {
     }
 
     protected List<Integer> sendSpoutMsg(String outStreamId, List<Object> values, Object messageId, Integer outTaskId, ICollectorCallback callback) {
-        /*java.util.List<Integer> outTasks = null;
-        // LOG.info("spout push message to " + out_stream_id);
-        List<MsgInfo> batchTobeFlushed = batchCollector.push(outStreamId, values, outTaskId, null, messageId, getRootId(messageId), callback);
-        if (batchTobeFlushed != null && batchTobeFlushed.size() > 0) {
-            outTasks = sendBatch(outStreamId, (outTaskId != null ? outTaskId.toString() : null), batchTobeFlushed);
-        }
-        return outTasks;*/
         batchCollector.pushAndSend(outStreamId, values, outTaskId, null, messageId, getRootId(messageId), callback);
         return null;
     }

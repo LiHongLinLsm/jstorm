@@ -36,11 +36,13 @@ public class SnapshotStateMaster {
 
     private String topologyId;
     private String topologyName;
+    ///rawTOp..
     private StormTopology topology;
     private Map conf;
     private OutputCollector outputCollector;
     private TopologyContext context;
 
+    //aSpout-->1 , bSpout-->2 , zSpout-->3...
     private Map<String, Integer> groupIds;
     private Map<Integer, List<String>> groupIdToNames;
 
@@ -109,7 +111,7 @@ public class SnapshotStateMaster {
                 topologySnapshotState.get(id).setState(commitState.getState());
             }
         }
-        LOG.info("topologySnapshotState=" + topologySnapshotState);
+        LOG.info("topologySn5apshotState=" + topologySnapshotState);
 
         this.batchSnapshotTimeout = ConfigExtension.getTransactionBatchSnapshotTimeout(conf);
         scheduledService = Executors.newSingleThreadScheduledExecutor();

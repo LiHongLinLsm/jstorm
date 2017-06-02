@@ -38,6 +38,9 @@ import com.alibaba.jstorm.utils.JStormUtils;
  * Periodically check whether a topology is active or not
  * and whether the metrics monitor is enabled or disabled from ZK
  *
+ *
+ * this class resides in Worker ... for checking out whether top is alive or  not ...
+ *
  * @author yannian/Longda
  */
 public class RefreshActive extends RunnableCallback {

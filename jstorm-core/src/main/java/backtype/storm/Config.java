@@ -430,8 +430,10 @@ public class Config extends HashMap<String, Object> {
     /**
      * The length of time a jar file lives in the inbox before being deleted by the cleanup thread.
      * <p/>
-     * Probably keep this value greater than or equal to NIMBUS_CLEANUP_INBOX_JAR_EXPIRATION_SECS. Note that the time it takes to delete an inbox jar file is
-     * going to be somewhat more than NIMBUS_CLEANUP_INBOX_JAR_EXPIRATION_SECS (depending on how often NIMBUS_CLEANUP_FREQ_SECS is set to).
+     * Probably keep this value greater than or equal to NIMBUS_CLEANUP_INBOX_JAR_EXPIRATION_SECS.
+     * Note that the time it takes to delete an inbox jar file is
+     * going to be somewhat more than NIMBUS_CLEANUP_INBOX_JAR_EXPIRATION_SECS
+     * (depending on how often NIMBUS_CLEANUP_FREQ_SECS is set to).
      */
     public static final String NIMBUS_INBOX_JAR_EXPIRATION_SECS = "nimbus.inbox.jar.expiration.secs";
     public static final Object NIMBUS_INBOX_JAR_EXPIRATION_SECS_SCHEMA = ConfigValidation.IntegerValidator;

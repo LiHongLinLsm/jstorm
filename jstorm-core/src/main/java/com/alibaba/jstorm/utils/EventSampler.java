@@ -30,10 +30,14 @@ import java.util.concurrent.atomic.AtomicLong;
  * 
  */
 public class EventSampler {
+
     private volatile int freq;
     private AtomicInteger i = new AtomicInteger(0);
     private volatile int target;
     private Random r = new Random();
+    private AtomicInteger counter = new AtomicInteger(0);
+    private AtomicLong sum = new AtomicLong(0);
+    private IntervalCheck intervalCheck = new IntervalCheck();
 
     public EventSampler(int freq) {
         this.freq = freq;
@@ -61,9 +65,7 @@ public class EventSampler {
         return false;
     }
 
-    private AtomicInteger counter = new AtomicInteger(0);
-    private AtomicLong sum = new AtomicLong(0);
-    private IntervalCheck intervalCheck = new IntervalCheck();
+
 
     public Integer tpsCheck() {
         int send = counter.incrementAndGet();

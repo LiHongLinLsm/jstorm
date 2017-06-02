@@ -33,6 +33,9 @@ import com.alibaba.jstorm.schedule.IToplogyScheduler;
 import com.alibaba.jstorm.schedule.TopologyAssignContext;
 import com.alibaba.jstorm.utils.FailedAssignTopologyException;
 
+
+
+//this class is used in nimbusServer....
 public class DefaultTopologyScheduler implements IToplogyScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultTopologyScheduler.class);
 

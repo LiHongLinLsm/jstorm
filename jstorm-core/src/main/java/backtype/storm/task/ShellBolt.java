@@ -40,12 +40,14 @@ import java.util.concurrent.atomic.AtomicLong;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
- * A bolt that shells out to another process to process tuples. ShellBolt communicates with that process over stdio using a special protocol. An ~100 line
- * library is required to implement that protocol, and adapter libraries currently exist for Ruby and Python.
+ * A bolt that shells out to another process to process tuples.
+ * ShellBolt communicates with that process over stdio using a special protocol.
+ * An ~100 line  library is required to implement that protocol,
+ * and adapter libraries currently exist for Ruby and Python.
  * 
  * <p>
- * To run a ShellBolt on a cluster, the scripts that are shelled out to must be in the resources directory within the jar submitted to the master. During
- * development/testing on a local machine, that resources directory just needs to be on the classpath.
+ * To run a ShellBolt on a cluster, the scripts that are shelled out to must be in the resources directory
+ * within the jar submitted to the master. During development/testing on a local machine, that resources directory just needs to be on the classpath.
  * </p>
  * 
  * <p>
@@ -119,6 +121,7 @@ public class ShellBolt implements IBolt {
 
         workerTimeoutMills = 1000 * RT.intCast(stormConf.get(Config.SUPERVISOR_WORKER_TIMEOUT_SECS));
 
+        //command就是命令行，此处为pyhton splitsentece.py....   _subprocess就是该Python进程。
         _process = new ShellProcess(_command);
 
         // subprocesses must send their pid first thing

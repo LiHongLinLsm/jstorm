@@ -87,7 +87,7 @@ public class Task implements Runnable {
     private String componentId;
     private volatile TaskStatus taskStatus;
     private Atom openOrPrepareWasCalled;
-    // running time counter
+    // running time counter,indicating how long task have been running...
     private UptimeComputer uptime = new UptimeComputer();
 
     private StormClusterState zkCluster;
@@ -227,9 +227,6 @@ public class Task implements Runnable {
 
     public TaskReceiver mkTaskReceiver() {
         String taskName = JStormServerUtils.getName(componentId, taskId);
-        //if (isTaskBatchTuple)
-        //    taskReceiver = new TaskBatchReceiver(this, taskId, stormConf, topologyContext, innerTaskTransfer, taskStatus, taskName);
-        //else
         taskReceiver = new TaskReceiver(this, taskId, stormConf, topologyContext, innerTaskTransfer, taskStatus, taskName);
         deserializeQueues.put(taskId, taskReceiver.getDeserializeQueue());
 

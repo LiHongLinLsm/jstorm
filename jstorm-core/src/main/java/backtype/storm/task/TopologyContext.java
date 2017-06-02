@@ -39,7 +39,8 @@ import java.util.*;
  * place within the topology, such as task ids, inputs and outputs, etc.
  * 
  * <p>
- * The TopologyContext is also used to declare ISubscribedState objects to synchronize state with StateSpouts this object is subscribed to.
+ * The TopologyContext is also used to declare ISubscribedState objects to synchronize state with StateSpouts
+ * this object is subscribed to.
  * </p>
  */
 

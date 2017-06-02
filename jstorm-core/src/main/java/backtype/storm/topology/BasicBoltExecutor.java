@@ -24,6 +24,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//用于封装IbasicBolt，系统自动ack
 public class BasicBoltExecutor implements IRichBolt {
     public static Logger LOG = LoggerFactory.getLogger(BasicBoltExecutor.class);
 
@@ -44,7 +45,7 @@ public class BasicBoltExecutor implements IRichBolt {
     }
 
     public void execute(Tuple input) {
-        //消息跟踪重要步骤。。
+        //消息跟踪重要步骤。。即anchor..
         _collector.setContext(input);
         try {
             _bolt.execute(input, _collector);

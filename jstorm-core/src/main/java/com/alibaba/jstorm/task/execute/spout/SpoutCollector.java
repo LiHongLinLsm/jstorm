@@ -61,13 +61,17 @@ import backtype.storm.utils.DisruptorQueue;
  */
 
 //该类为spoutExecutor初始化spout时，为spout设置的collector.所有spout归根结底是从这儿发送数据的。
+ // @see:  SpoutExecutors的init().
 public class SpoutCollector extends SpoutOutputCollectorCb {
     private static Logger LOG = LoggerFactory.getLogger(SpoutCollector.class);
-
-    protected TaskSendTargets sendTargets;
     protected Map storm_conf;
+
+    //计算得到发送目的task
+    protected TaskSendTargets sendTargets;
+    //根据上面的计算，由这个类来发送到目的地。
     protected TaskTransfer transfer_fn;
     // protected TimeCacheMap pending;
+    //rootID -->tupleInfo..
     protected TimeOutMap<Long, TupleInfo> pending;
     // topology_context is system topology context
     protected TopologyContext topology_context;
@@ -261,16 +265,9 @@ public class SpoutCollector extends SpoutOutputCollectorCb {
     protected Long getRootId(Object messageId) {
         Boolean needAck = (messageId != null) && (ackerNum > 0);
 
-        // This change storm logic
-        // Storm can't make sure root_id is unique
-        // storm's logic is root_id = MessageId.generateId(random);
-        // when duplicate root_id, it will miss call ack/fail
         Long rootId = null;
         if (needAck) {
             rootId = MessageId.generateId(random);
-/*            while (pending.containsKey(rootId)) {
-                rootId = MessageId.generateId(random);
-            }*/
         }
         return rootId;
     }

@@ -60,7 +60,7 @@ public class CoordinatedBolt implements IRichBolt {
     // use static variable to reduce zk connection
     private static ClusterState zkClient = null;
 
-    //在zk中创建文件夹，用于保存commit后的transactionID.
+    //在zk中创建文件夹，用于保存commit后的batchID.
     public void mkCommitDir(Map conf) {
 
         try {

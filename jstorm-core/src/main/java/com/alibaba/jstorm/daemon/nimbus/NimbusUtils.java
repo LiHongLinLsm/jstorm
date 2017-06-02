@@ -187,19 +187,6 @@ public class NimbusUtils {
             taskNum = Integer.valueOf(1);
         }
 
-        // don't get taskNum from component configuraiton
-        // skip .setTaskNum
-        // Integer taskNum = null;
-        // Object taskNumObject = mergeMap.get(Config.TOPOLOGY_TASKS);
-        // if (taskNumObject != null) {
-        // taskNum = JStormUtils.parseInt(taskNumObject);
-        // } else {
-        // taskNum = common.get_parallelism_hint();
-        // if (taskNum == null) {
-        // taskNum = Integer.valueOf(1);
-        // }
-        // }
-
         Object maxTaskParalismObject = mergeMap.get(Config.TOPOLOGY_MAX_TASK_PARALLELISM);
         if (maxTaskParalismObject == null) {
             return taskNum;

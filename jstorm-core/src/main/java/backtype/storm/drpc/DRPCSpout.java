@@ -50,6 +50,7 @@ public class DRPCSpout extends BaseRichSpout {
     public static Logger LOG = LoggerFactory.getLogger(DRPCSpout.class);
 
     transient SpoutOutputCollector _collector;
+    //drpc服务器可能是集群。。。
     transient List<DRPCInvocationsClient> _clients;
     transient LinkedList<Future<?>> _futures = null;
     transient ExecutorService _backround = null;

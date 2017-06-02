@@ -29,6 +29,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+//IPartitionedTransactionalSpout的协调器。。
 public class PartitionedTransactionalSpoutExecutor implements ITransactionalSpout<Integer> {
     IPartitionedTransactionalSpout _spout;
 
@@ -88,6 +89,7 @@ public class PartitionedTransactionalSpoutExecutor implements ITransactionalSpou
                 Object meta = state.getStateOrCreate(tx.getTransactionId(), new RotatingTransactionalState.StateInitializer() {
                     @Override
                     public Object init(BigInteger txid, Object lastState) {
+                        //首次发送
                         return _emitter.emitPartitionBatchNew(tx, collector, partition, lastState);
                     }
                 });
@@ -96,6 +98,7 @@ public class PartitionedTransactionalSpoutExecutor implements ITransactionalSpou
                 // b) if didn't exist and was created (in which case the StateInitializer was invoked and
                 // it was emitted
                 if (meta != null) {
+                    //重传。。
                     _emitter.emitPartitionBatch(tx, collector, partition, meta);
                 }
             }

@@ -25,7 +25,8 @@ public interface INimbus {
     void prepare(Map stormConf, String schedulerLocalDir);
 
     /**
-     * Returns all slots that are available for the next round of scheduling. A slot is available for scheduling if it is free and can be assigned to, or if it
+     * Returns all slots that are available for the next round of scheduling.
+     * A slot is available for scheduling if it is free and can be assigned to, or if it
      * is used and can be reassigned.
      */
     Collection<WorkerSlot> allSlotsAvailableForScheduling(Collection<SupervisorDetails> existingSupervisors, Topologies topologies,

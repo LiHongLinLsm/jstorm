@@ -38,8 +38,10 @@ public class MemoryTransactionalSpout implements IPartitionedTransactionalSpout<
 
     private String _id;
     private String _finishedPartitionsId;
+    //每个事务对应的数据条数。
     private int _takeAmt;
     private Fields _outFields;
+    //数据源，用三个队列模拟分区实现。
     private Map<Integer, List<List<Object>>> _initialPartitions;
 
     public MemoryTransactionalSpout(Map<Integer, List<List<Object>>> partitions, Fields outFields, int takeAmt) {
@@ -94,6 +96,7 @@ public class MemoryTransactionalSpout implements IPartitionedTransactionalSpout<
         @Override
         public MemoryTransactionalSpoutMeta emitPartitionBatchNew(TransactionAttempt tx, BatchOutputCollector collector, int partition,
                 MemoryTransactionalSpoutMeta lastPartitionMeta) {
+            //队列中数据偏移量。
             int index;
             if (lastPartitionMeta == null) {
                 index = 0;

@@ -28,6 +28,7 @@ import java.io.FileFilter;
  */
 public class OlderFileFilter implements FileFilter {
 
+    //时间间隔，比如，60ms，那么60ms以前的文件就是老文件 了。
     private int seconds;
 
     public OlderFileFilter(int seconds) {

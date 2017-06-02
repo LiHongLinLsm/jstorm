@@ -78,7 +78,8 @@ class SyncProcessEvent extends ShutdownWork {
     private SandBoxMaker sandBoxMaker;
 
     /**
-     * Due to the worker startTime is put in Supervisor memory, When supervisor restart, the starting worker is likely to be killed
+     * Due to the worker startTime is put in Supervisor memory,
+     * When supervisor restart, the starting worker is likely to be killed
      */
     private Map<String, Pair<Integer, Integer>> workerIdToStartTimeAndPort;
     /**

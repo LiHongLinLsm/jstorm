@@ -85,6 +85,7 @@ public class TopologyAssign implements Runnable {
 
     protected NimbusData nimbusData;
 
+    //schedulerName..
     protected Map<String, IToplogyScheduler> schedulers;
 
     private Thread thread;
@@ -414,7 +415,7 @@ public class TopologyAssign implements Runnable {
             aliveTasks = getAliveTasks(topologyId, allTaskIds);
 
             /*
-             * Check if the topology master task is alive first since all task 
+             * Check if the topology master task is alive first      since all task
              * heartbeat info is reported by topology master. 
              * If master is dead, do reassignment for topology master first.
              */
@@ -471,7 +472,8 @@ public class TopologyAssign implements Runnable {
     }
 
     /**
-     * make assignments for a topology The nimbus core function, this function has been totally rewrite
+     * make assignments for a topology
+     * The nimbus core function, this function has been totally rewrite
      * 
      * @throws Exception
      */
@@ -842,7 +844,8 @@ public class TopologyAssign implements Runnable {
     }
 
     /**
-     * find all alived taskid Does not assume that clocks are synchronized. Task heartbeat is only used so that nimbus knows when it's received a new heartbeat.
+     * find all alived taskid Does not assume that clocks are synchronized.
+     * Task heartbeat is only used so that nimbus knows when it's received a new heartbeat.
      * All timing is done by nimbus and tracked through task-heartbeat-cache
      * 
      * @return Set<Integer> : taskid

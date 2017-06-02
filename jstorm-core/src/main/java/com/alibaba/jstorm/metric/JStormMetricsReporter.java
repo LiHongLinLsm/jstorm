@@ -167,6 +167,7 @@ public class JStormMetricsReporter implements Refreshable {
         return metricsRegister.registerMetrics(names);
     }
 
+    //上传更新metric到nimubsServer或者topMaster.
     public void uploadMetricData() {
         if (test) {
             return;

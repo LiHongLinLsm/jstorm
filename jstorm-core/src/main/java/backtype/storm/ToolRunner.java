@@ -24,6 +24,8 @@ import org.apache.commons.cli.ParseException;
 
 import backtype.storm.utils.Utils;
 
+import java.io.IOException;
+
 /**
  * A utility to help run {@link Tool}s
  * 
@@ -68,4 +70,6 @@ public class ToolRunner {
             System.exit(1);
         }
     }
+
+
 }

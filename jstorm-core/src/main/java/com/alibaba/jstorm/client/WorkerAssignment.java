@@ -107,29 +107,6 @@ public class WorkerAssignment extends WorkerSlot implements Serializable, JSONAw
 
     @Override
     public String toJSONString() {
-        // StringBuilder sb = new StringBuilder();
-
-        // sb.append("[");
-        // sb.append("\"" + this.getNodeId() + "\"");
-        // sb.append(",");
-        // sb.append("\"" + this.hostName + "\"");
-        // sb.append(",");
-        // sb.append("\"" + String.valueOf(this.getPort()) + "\"");
-        // sb.append(",");
-        // sb.append("\"" + this.jvm + "\"");
-        // sb.append(",");
-        // sb.append("\"" + String.valueOf(this.mem) + "\"");
-        // sb.append(",");
-        // sb.append("\"" + String.valueOf(this.cpu) + "\"");
-        // sb.append(",");
-        // sb.append("{");
-        // for (Entry<String, Integer> entry : componentToNum.entrySet()) {
-        // sb.append("\"" + entry.getKey() + "\":");
-        // sb.append("\"" + String.valueOf(entry.getValue()) + "\"");
-        // sb.append(",");
-        // }
-        // sb.append("}");
-        // sb.append("]");
 
         Map<String, String> map = new HashMap<String, String>();
 

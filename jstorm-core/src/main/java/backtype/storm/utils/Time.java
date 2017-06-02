@@ -32,7 +32,9 @@ public class Time {
     private static volatile Map<Thread, AtomicLong> threadSleepTimes;
     private static final Object sleepTimesLock = new Object();
 
-    private static AtomicLong simulatedCurrTimeMs; // should this be a thread local that's allowed to keep advancing?
+    private static AtomicLong simulatedCurrTimeMs;
+    // should this be a thread local that's allowed to keep advancing?
+
 
     public static void startSimulating() {
         synchronized (sleepTimesLock) {

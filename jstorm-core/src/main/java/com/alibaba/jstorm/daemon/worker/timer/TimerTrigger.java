@@ -34,6 +34,7 @@ public class TimerTrigger implements Runnable {
 
     private static ScheduledExecutorService threadPool;
 
+    //在workerData中被初始化的。注意为静态方法。
     public static void setScheduledExecutorService(ScheduledExecutorService scheduledExecutorService) {
         threadPool = scheduledExecutorService;
     }

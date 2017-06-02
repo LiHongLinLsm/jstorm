@@ -59,6 +59,10 @@ import java.util.concurrent.TimeUnit;
  * 4.当状态是commit，被该spout发送到下游（streamId为COMMINT），被CoordinatedBolt处理时，会将batchId
  *              跟新到zk中。
  */
+
+
+
+//注意该对象并发度为1.
 public class BatchSpoutTrigger implements IRichSpout {
     /**
      *  */
@@ -75,6 +79,7 @@ public class BatchSpoutTrigger implements IRichSpout {
     private static final String ZK_NODE_PATH = "/trigger";
 
     //最小的batchId.每次初始化时，从zk中读取的数字。然后生成batchId对象。
+    //该对象并发度为1.
     private static BatchId currentBatchId = null;
 
     private Map conf;
@@ -172,7 +177,7 @@ public class BatchSpoutTrigger implements IRichSpout {
         }
     }
 
-    //4/19下午：暂时的理解是revert_commit为重新提交。提交失败（网络等原因）后，重试。
+    //4/19下午：暂时的理解是revert_commit为重新提交。提交失败（网络等原因）后，重试提交。
     protected boolean isCommitStatus(BatchStatus batchStatus) {
         if (batchStatus == BatchStatus.COMMIT) {
             return true;

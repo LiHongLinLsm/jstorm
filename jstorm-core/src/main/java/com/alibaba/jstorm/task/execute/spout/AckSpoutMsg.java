@@ -37,6 +37,8 @@ import com.alibaba.jstorm.utils.TimeUtils;
  * The action after spout receive one ack tuple
  *
  * @author yannian/Longda
+ *
+ * 当Spout接收到acker的确认消息后，该run方法会被调用。。
  */
 public class AckSpoutMsg implements IAckMsg {
     private static Logger LOG = LoggerFactory.getLogger(AckSpoutMsg.class);

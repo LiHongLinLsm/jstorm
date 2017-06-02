@@ -86,6 +86,7 @@ public class BaseExecutors extends RunnableCallback {
 
     protected ITaskReportErr report_error;
 
+    //此处为ackerQueue...
     protected DisruptorQueue exeQueue;
     protected DisruptorQueue controlQueue;
     protected Map<Integer, DisruptorQueue> innerTaskTransfer;

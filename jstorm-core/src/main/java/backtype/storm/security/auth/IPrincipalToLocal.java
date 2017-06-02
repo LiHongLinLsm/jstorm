@@ -28,7 +28,7 @@ public interface IPrincipalToLocal {
     /**
      * Invoked once immediately after construction
      * 
-     * @param conf Storm configuration
+     * @param: conf Storm configuration
      */
     void prepare(Map storm_conf);
 

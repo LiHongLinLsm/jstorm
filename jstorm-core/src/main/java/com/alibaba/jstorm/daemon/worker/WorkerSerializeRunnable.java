@@ -14,6 +14,8 @@ import java.util.Map;
 
 /**
  * @author JohnFang (xiaojian.fxj@alibaba-inc.com).
+ * 当worker启动或者挂了的时候，会序列化队列中的tuple.
+ *
  */
 public class WorkerSerializeRunnable extends RunnableCallback {
 

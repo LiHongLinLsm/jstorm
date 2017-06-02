@@ -198,13 +198,6 @@ public class SupervisorManger extends ShutdownWork implements SupervisorDaemon, 
             httpserver.shutdown();
         }
 
-        // if (this.cgroupManager != null)
-        // try {
-        // this.cgroupManager.close();
-        // } catch (IOException e) {
-        // LOG.error("Fail to close cgroup", e);
-        // }
-
         isFinishShutdown = true;
 
         JStormUtils.halt_process(0, "!!!Shutdown!!!");

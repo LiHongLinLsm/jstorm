@@ -82,10 +82,6 @@ public class WorkerShutdown implements ShutdownableDameon {
 
         Runtime.getRuntime().addShutdownHook(new Thread(this));
 
-        // PreCleanupTasks preCleanupTasks = new PreCleanupTasks();
-        // // install signals
-        // Signal sig = new Signal(HOOK_SIGNAL);
-        // Signal.handle(sig, preCleanupTasks);
     }
 
     @Override

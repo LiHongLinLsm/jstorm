@@ -37,6 +37,10 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * @author Cody (weiyue.wy@alibaba-inc.com)
  * @since 2.0.5
+ *
+ * this class is used in worker...
+ *
+ *
  */
 @SuppressWarnings({"unused", "unchecked"})
 public class JStormMetrics implements Serializable {

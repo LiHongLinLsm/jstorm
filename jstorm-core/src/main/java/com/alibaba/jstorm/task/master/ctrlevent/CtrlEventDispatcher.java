@@ -51,12 +51,12 @@ public class CtrlEventDispatcher implements TMHandler{
 		TopoMasterCtrlEvent ctlEvent = (TopoMasterCtrlEvent) input.getValues().get(0);
         if (ctlEvent != null) {
           if (ctlEvent.isTransactionEvent()) {
-                snapshotStateMaster.process(input);
-            } else {
-                String errorInfo = "Received unexpected control event, {}" + event.toString();
-                LOG.warn(errorInfo);
-                zkCluster.report_task_error(context.getTopologyId(), context.getThisTaskId(), errorInfo, ErrorConstants.WARN, ErrorConstants.CODE_USER);
-            }
+              snapshotStateMaster.process(input);
+          } else {
+              String errorInfo = "Received unexpected control event, {}" + event.toString();
+              LOG.warn(errorInfo);
+              zkCluster.report_task_error(context.getTopologyId(), context.getThisTaskId(), errorInfo, ErrorConstants.WARN, ErrorConstants.CODE_USER);
+          }
         }
 	}
 	

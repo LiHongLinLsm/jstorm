@@ -130,7 +130,8 @@ public class StatusTransition {
 
         /**
          *
-         * 1. Status: this status will be stored in ZK killed/inactive/active/rebalancing 2. action:
+         * 1. Status: this status will be stored in ZK killed/inactive/active/rebalancing
+         * 2. action:
          *
          * monitor -- every Config.NIMBUS_MONITOR_FREQ_SECS seconds will trigger this only valid when current status is active inactivate -- client will trigger
          * this action, only valid when current status is active activate -- client will trigger this action only valid when current status is inactive startup

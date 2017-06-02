@@ -584,31 +584,6 @@ public class Common {
     }
 
     public static StormTopology add_metrics_component(StormTopology topology) {
-
-        /**
-         * @@@ TODO Add metrics consumer bolt
-         */
-        // (defn metrics-consumer-bolt-specs [storm-conf topology]
-        // (let [component-ids-that-emit-metrics (cons SYSTEM-COMPONENT-ID (keys
-        // (all-components topology)))
-        // inputs (->> (for [comp-id component-ids-that-emit-metrics]
-        // {[comp-id METRICS-STREAM-ID] :shuffle})
-        // (into {}))
-        //
-        // mk-bolt-spec (fn [class arg p]
-        // (thrift/mk-bolt-spec*
-        // inputs
-        // (backtype.storm.metric.MetricsConsumerBolt. class arg)
-        // {} :p p :conf {TOPOLOGY-TASKS p}))]
-        //
-        // (map
-        // (fn [component-id register]
-        // [component-id (mk-bolt-spec (get register "class")
-        // (get register "argument")
-        // (or (get register "parallelism.hint") 1))])
-        //
-        // (metrics-consumer-register-ids storm-conf)
-        // (get storm-conf TOPOLOGY-METRICS-CONSUMER-REGISTER))))
         return topology;
     }
 

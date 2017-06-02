@@ -18,7 +18,9 @@
 package backtype.storm.testing;
 
 public class MemoryTransactionalSpoutMeta {
+    //队列第一个数据索引
     int index;
+    //打算取多少数据。。
     int amt;
 
     // for kryo compatibility

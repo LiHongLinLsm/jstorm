@@ -21,9 +21,9 @@ public class SnapshotState implements Serializable {
 
     private static final Logger LOG = getLogger(SnapshotState.class);
 
+    //比如有两个spout：sentenceSpout和kaafakSpout,那么groupid==1-->sentenceSpout..
     private int groupId;
 
-    //task只是某个groupiD的tasks，因为一个spout可以有很多实例。。。
     private transient Set<Integer> sourceTasks;
     private transient Set<Integer> statefulTasks;
     private transient Set<Integer> nonStatefulTasks;

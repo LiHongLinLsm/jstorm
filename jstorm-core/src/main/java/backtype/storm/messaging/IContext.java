@@ -29,7 +29,8 @@ import backtype.storm.utils.DisruptorQueue;
  * 
  * Messaging plugin is specified via Storm config parameter, storm.messaging.transport.
  * 
- * A messaging plugin should have a default constructor and implements IContext interface. Upon construction, we will invoke IContext::prepare(storm_conf) to
+ * A messaging plugin should have a default constructor and implements IContext interface.
+ * Upon construction, we will invoke IContext::prepare(storm_conf) to
  * enable context to be configured according to storm configuration.
  */
 public interface IContext {
@@ -50,7 +51,7 @@ public interface IContext {
      * 
      * @param topology_id topology ID
      * @param port port #
-     * @param distribute true -- receive other worker's data
+     * @param ：distribute true -- receive other worker's data
      * @return server side connection
      */
     public IConnection bind(String topology_id, int port, ConcurrentHashMap<Integer, DisruptorQueue> deserializedQueue, 
@@ -62,7 +63,7 @@ public interface IContext {
      * @param topology_id topology ID
      * @param host remote host
      * @param port remote port
-     * @param distribute true -- send other worker data
+     * @param ：distribute true -- send other worker data
      * @return client side connection
      */
     public IConnection connect(String topology_id, String host, int port);

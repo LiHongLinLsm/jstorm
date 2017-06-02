@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 该类专门处理batch，为每一个batch反序列话一个bolt进行处理。
+ * 该类专门处理batch，为每一个batch反序列话一个bolt进行处理。适配器类，将IBatchBolt转成IRichBolt
  */
 public class BatchBoltExecutor implements IRichBolt, FinishedCallback, TimeoutCallback {
     public static Logger LOG = LoggerFactory.getLogger(BatchBoltExecutor.class);

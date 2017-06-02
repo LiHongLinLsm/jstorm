@@ -45,7 +45,7 @@ public class NoopAuthorizer implements IAuthorizer {
      * 
      * @param context request context includes info about
      * @param operation operation name
-     * @param topology_storm configuration of targeted topology
+     * @param: topology_storm configuration of targeted topology
      * @return true if the request is authorized, false if reject
      */
     public boolean permit(ReqContext context, String operation, Map topology_conf) {

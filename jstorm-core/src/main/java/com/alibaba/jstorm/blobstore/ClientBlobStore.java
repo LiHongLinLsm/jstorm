@@ -29,18 +29,20 @@ import java.util.Map;
  * 2. HdfsClientBlobStore
  *
  * Create, update, read and delete are some of the basic operations defined by this interface.
- * Each operation is validated for permissions against an user. We currently have NIMBUS_ADMINS and SUPERVISOR_ADMINS
- * configuration. NIMBUS_ADMINS are given READ, WRITE and ADMIN access whereas the SUPERVISOR_ADMINS are given READ
+ * Each operation is validated for permissions against an user.
+ * We currently have NIMBUS_ADMINS and SUPERVISOR_ADMINS  configuration.
+ * NIMBUS_ADMINS are given READ, WRITE and ADMIN access whereas the SUPERVISOR_ADMINS are given READ
  * access in order to read and download the blobs form the nimbus.
  *
- * The ACLs for the blob store are validated against whether the subject is a NIMBUS_ADMIN, SUPERVISOR_ADMIN or USER
+ * The ACLs for the blob store are validated against whether the subject is a NIMBUS_ADMIN,
+ * SUPERVISOR_ADMIN or USER
  * who has read, write or admin privileges in order to perform respective operations on the blob.
  *
  * For more detailed implementation
  * @see com.alibaba.jstorm.blobstore.NimbusBlobStore
  * @see com.alibaba.jstorm.blobstore.LocalFsBlobStore
- * @see com.alibaba.jstorm.hdfs.blobstore.HdfsClientBlobStore
- * @see com.alibaba.jstorm.hdfs.blobstore.HdfsBlobStore
+ * @see :com.alibaba.jstorm.hdfs.blobstore.HdfsClientBlobStore
+ * @see: Lcom.alibaba.jstorm.hdfs.blobstore.HdfsBlobStore
  */
 public abstract class ClientBlobStore implements Shutdownable {
     protected Map conf;

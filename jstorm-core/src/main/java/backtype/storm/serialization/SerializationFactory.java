@@ -43,7 +43,7 @@ import storm.trident.tuple.ConsList;
 import java.math.BigInteger;
 import java.util.*;
 
-//finished~~
+//主要得到Kryo和context化组件和流的关系。
 public class SerializationFactory {
     public static final Logger LOG = LoggerFactory.getLogger(SerializationFactory.class);
 
@@ -130,6 +130,7 @@ public class SerializationFactory {
     }
 
     public static class IdDictionary {
+        //key:compoentName..  valu:streamName-->index
         Map<String, Map<String, Integer>> streamNametoId = new HashMap<String, Map<String, Integer>>();
         Map<String, Map<Integer, String>> streamIdToName = new HashMap<String, Map<Integer, String>>();
 

@@ -50,6 +50,7 @@ public class BlobStoreUtils {
     private static final String BLOBSTORE_SUBTREE = "/blobstore";
     private static final Logger LOG = LoggerFactory.getLogger(BlobStoreUtils.class);
 
+
     public static CuratorFramework createZKClient(Map conf) throws Exception {
         CuratorFramework zkClient = null;
         try {
@@ -67,11 +68,6 @@ public class BlobStoreUtils {
         return zkClient;
     }
 
-//    public static Subject getNimbusSubject() {
-//        Subject subject = new Subject();
-//        subject.getPrincipals().add(new NimbusPrincipal());
-//        return subject;
-//    }
 
     // Normalize state
     public static BlobKeySequenceInfo normalizeNimbusHostPortSequenceNumberInfo(String nimbusSeqNumberInfo) {

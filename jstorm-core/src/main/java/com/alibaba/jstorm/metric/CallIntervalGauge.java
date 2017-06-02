@@ -7,16 +7,20 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author JohnFang (xiaojian.fxj@alibaba-inc.com).
+ *
+ *  inside task...
  */
 public class CallIntervalGauge implements Gauge<Double> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CallIntervalGauge.class);
+
 
     private AtomicLong times = new AtomicLong(0);
     private long lastTime = System.currentTimeMillis();
     private Double value = 0.0;
 
 
+    //sending batch invoking this...
     public long incrementAndGet(){
         return times.incrementAndGet();
     }

@@ -73,7 +73,7 @@ public class AuthUtils {
     /**
      * Construct a principal to local plugin
      * 
-     * @param conf storm configuration
+     * @param: conf storm configuration
      * @return the plugin
      */
     public static IPrincipalToLocal GetPrincipalToLocalPlugin(Map storm_conf) {

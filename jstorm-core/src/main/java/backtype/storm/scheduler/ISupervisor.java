@@ -30,7 +30,8 @@ public interface ISupervisor {
     String getSupervisorId();
 
     /**
-     * The id used in assignments. This combined with confirmAssigned decides what this supervisor is responsible for. The combination of this and
+     * The id used in assignments. This combined with confirmAssigned decides what this supervisor is responsible for.
+     * The combination of this and
      * getSupervisorId allows Nimbus to assign to a single machine and have multiple supervisors on that machine execute the assignment. This is important for
      * achieving resource isolation.
      */

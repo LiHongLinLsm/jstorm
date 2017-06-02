@@ -93,11 +93,6 @@ public class TaskShutdownDameon implements ShutdownableDameon {
                 thr.cleanup();
                 JStormUtils.sleepMs(10);
                 thr.interrupt();
-                // try {
-                // //thr.join();
-                // thr.getThread().stop(new RuntimeException());
-                // } catch (Throwable e) {
-                // }
                 LOG.info("Successfully shutdown " + thr.getThread().getName());
             }
 

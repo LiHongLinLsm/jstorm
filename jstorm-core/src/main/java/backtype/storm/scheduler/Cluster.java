@@ -174,7 +174,7 @@ public class Cluster {
     /**
      * Get all the used ports of this supervisor.
      * 
-     * @param cluster
+     * @param: cluster
      * @return
      */
     public Set<Integer> getUsedPorts(SupervisorDetails supervisor) {
@@ -195,7 +195,7 @@ public class Cluster {
     /**
      * Return the available ports of this supervisor.
      * 
-     * @param cluster
+     * @param: cluster
      * @return
      */
     public Set<Integer> getAvailablePorts(SupervisorDetails supervisor) {
@@ -217,7 +217,7 @@ public class Cluster {
     /**
      * Return all the available slots on this supervisor.
      * 
-     * @param cluster
+     * @param: cluster
      * @return
      */
     public List<WorkerSlot> getAvailableSlots(SupervisorDetails supervisor) {

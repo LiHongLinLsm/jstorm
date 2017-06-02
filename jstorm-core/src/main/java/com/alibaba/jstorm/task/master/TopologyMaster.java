@@ -77,23 +77,8 @@ public class TopologyMaster implements IBolt, IDynamicComponent {
 
 
     public void createThreadPools(Map conf) {
-        // It can set thread pool size according to worker number
-//		this.threadPools = new ThreadPoolExecutor(THREAD_POOL_SIZE, 
-//		        2 * THREAD_POOL_SIZE, 60, TimeUnit.SECONDS, 
-//		        new ArrayBlockingQueue<Runnable>(1024),
-//		        new ThreadFactory() {
-//		    public static final String THREAD_POOL_NAME = "TM-ThreadPool-";
-//		    
-//		        private AtomicInteger threadCounter = new AtomicInteger();
-//                    @Override
-//                    public Thread newThread(Runnable r) {
-//                        return new Thread(r, THREAD_POOL_NAME + threadCounter.getAndIncrement());
-//                    }
-//		    
-//		});
         THREAD_POOL_SIZE = ConfigExtension.getTopologyMasterThreadPoolSize(conf);
         this.threadPools = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
-
     }
 
     public void registerHandlers() {
@@ -104,7 +89,7 @@ public class TopologyMaster implements IBolt, IDynamicComponent {
         handlers.put(UPDATE_CONFIG_NAME, hbHandler);
 
         // update metric data
-        //由worker将自己的metricInfo发送到topMaster.
+        //由worker将自己的metricInfo发送到topMaster.topMaster缓存到topMetricContext中。
         TMHandler metricUpdater = new MetricsUpdater();
         metricUpdater.init(tmContext);
         handlers.put(Common.TOPOLOGY_MASTER_METRICS_STREAM_ID, metricUpdater);

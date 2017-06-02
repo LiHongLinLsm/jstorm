@@ -144,6 +144,7 @@ public class TaskReceiver {
     class DeserializeRunnable extends RunnableCallback implements EventHandler {
 
         DisruptorQueue deserializeQueue;
+        //deserizlizeQueue中接收到的tuple，被反序列化后放到此队列，以备出离。
         DisruptorQueue exeQueue;
         int threadIndex;
         KryoTupleDeserializer deserializer;

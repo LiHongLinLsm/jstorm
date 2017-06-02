@@ -58,7 +58,38 @@ import java.util.*;
  * information on Distributed RPC.
  */
 
-//finised
+/**
+ * 该类笔记：
+ *
+ * 其中，DRPC Topology由1个DRPCSpout、1个Prepare-Request Bolt、若干个User Bolts
+ *   （即用户通过LinearDRPCTopologyBuilder添加的Bolts）、1个JoinResult Bolt和1个ReturnResults Bolt组成。
+ *   除了User Bolts以外，其他的都是由LinearDRPCTopologyBuilder内置添加到Topology中的。
+ *   接下来，我们从数据流的流动关系来 看，这些Spout和Bolts是如何工作的：
+
+ 1. DRPCSpout中维护了若干个DRPCInvocationsClient，
+ 通过fetchRequest方法从DRPC Server读取需要提交到Topology中计算的RPC请求，
+ 然后发射一条数据流给Prepare-Request Bolt：<”args”, ‘”return-info”>，
+ 其中args表示RPC请求的参数，而return-info中则包含了发起这次RPC请求的RPC Server信息（host、port、request id），
+ 用于后续在ReturnResults Bolt中返回计算结果时使用。
+
+ 2. Prepare-Request Bolt接收到数据流后，会新生成三条数据流：
+
+ <”request”, ”args”>：发给用户定义的User Bolts，提取args后进行DRPC的实际计算过程；
+ <”request”, ”return-info”>：发给JoinResult Bolt，用于和User Bolts的计算结果做join以后将结果返回给客户端；
+ <”request”>：在用户自定义Bolts实现了FinishedCallback接口的情况下，作为ID流发给用户定义的最后一级Bolt，用于判断batch是否处理完成。
+
+ 3. User Bolts按照用户定义的计算逻辑，以及RPC调用的参数args，进行业务计算，
+ 并最终输出一条数据流给JoinResult Bolt：<”request”, ”result”>。
+
+ 4. JoinResult Bolt将上游发来的<”request”, ”return-info”>和<”request”, ”result”>两条数据流做join，
+ 然后输出一条新的数据流给ReturnResults Bolt： <”result”, ”return-info”>。
+
+ 5. ReturnResults Bolt接收到数据流后，从return-info中提取出host、port、request id，
+ 根据host和port生成DRPCInvocationsClient对象，并调用result方法将request id及result返回给DRPC Server，
+ 如果result方法调用成功，则对tuple进行ack，否则对tuple进行fail，并最终在DRPCSpout中检测到tuple 失败后，
+ 调用failRequest方法通知DRPC Server该RPC请求执行失败。
+ */
+
 public class ReachTopology {
     public final static String TOPOLOGY_NAME = "reach";
     

@@ -36,7 +36,9 @@ import java.util.List;
 
 public class TupleImpl extends IndifferentAccessMap implements Seqable, Indexed, IMeta, Tuple {
     private List<Object> values;
+    //By whom the tuple is sent...
     private int taskId;
+    //Input  StreamId...
     private String streamId;
     private GeneralTopologyContext context;
     private MessageId id;
@@ -52,14 +54,6 @@ public class TupleImpl extends IndifferentAccessMap implements Seqable, Indexed,
         this.streamId = streamId;
         this.id = id;
         this.context = context;
-
-        /*
-        String componentId = context.getComponentId(taskId);
-        Fields schema = context.getComponentOutputFields(componentId, streamId);
-        if (values.size() != schema.size()) {
-            throw new IllegalArgumentException("Tuple created with wrong number of fields. " + "Expected " + schema.size() + " fields but got " + values.size()
-                    + " fields");
-        }*/
     }
 
     public TupleImpl(GeneralTopologyContext context, List<Object> values, int taskId, String streamId) {

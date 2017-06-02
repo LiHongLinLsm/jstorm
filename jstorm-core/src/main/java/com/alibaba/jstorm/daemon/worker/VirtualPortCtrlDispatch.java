@@ -58,19 +58,9 @@ public class VirtualPortCtrlDispatch extends DisruptorRunable {
     }
 
     public void shutdownRecv() {
-        // don't need send shutdown command to every task
-        // due to every task has been shutdown by workerData.active
-        // at the same time queue has been fulll
-        // byte shutdownCmd[] = { TaskStatus.SHUTDOWN };
-        // for (DisruptorQueue queue : deserializeQueues.values()) {
-        //
-        // queue.publish(shutdownCmd);
-        // }
-
         try {
             recvConnection.close();
         } catch (Exception e) {
-
         }
         recvConnection = null;
     }
@@ -84,7 +74,6 @@ public class VirtualPortCtrlDispatch extends DisruptorRunable {
     }
 
     protected Object deserialize(byte[] ser_msg, int taskId) {
-
         try {
 
             if (ser_msg == null) {

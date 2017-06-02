@@ -28,6 +28,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author xiaojian.fxj
  * @since 2.1.1
+ *
+ *
+ * @see:SimpleBatchTestSpout，其中用户定义的spout模拟发送100个消息。。实际处理流程是：
+ *      1.单个tuple发送到bolt的队列中，重点看pushAndSend方法，其中将消息封装成一个批消息类TupleImplExt。
+ *      重点看addToBatch方法。
  */
 public class BoltBatchCollector extends BoltCollector {
     private static Logger LOG = LoggerFactory.getLogger(BoltBatchCollector.class);

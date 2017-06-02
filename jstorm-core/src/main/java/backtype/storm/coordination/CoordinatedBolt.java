@@ -51,6 +51,8 @@ import backtype.storm.utils.Utils;
 /**
  * Coordination requires the request ids to be globally unique for awhile.
  * This is so it doesn't get confused in the case of retries.
+ * //该类是事务top中处理节点的封装bolt。主要作用是协调各个bolt之间稳定性，每个bolt向下游发送自己发送的个数，下游可以据此确认。
+ *
  */
 public class CoordinatedBolt implements IRichBolt {
     public static Logger LOG = LoggerFactory.getLogger(CoordinatedBolt.class);
@@ -103,6 +105,8 @@ public class CoordinatedBolt implements IRichBolt {
             _delegate.flush();
         }
 
+        //通常该类被BatchBOltExecutor封装，其execute会调用ack方法，所以，此ack会被调用。
+        //统计收到的消息数目
         public void ack(Tuple tuple) {
             Object id = tuple.getValue(0);
             synchronized (_tracked) {
@@ -162,22 +166,34 @@ public class CoordinatedBolt implements IRichBolt {
         }
     }
 
+    //用于表示哪些节点向本节点发送协调消息。
     private Map<String, SourceArgs> _sourceArgs;
+    //只要endBolt才有该值，其他为空。
+    // 该类实际就是一个简单的封装GlobalStreamId的类。
     private IdStreamSpec _idStreamSpec;
+
     private IRichBolt _delegate;
+    //该节点上游节点个数
     private Integer _numSourceReports;
-    private List<Integer> _countOutTasks = new ArrayList<Integer>();;
+    //outTasks of coorStream..
+    private List<Integer> _countOutTasks = new ArrayList<Integer>();
     private OutputCollector _collector;
     private TimeCacheMap<Object, TrackingInfo> _tracked;
 
     public static class TrackingInfo {
+        //收到上游节点的个数（已经收到其发来的消息了。）
         int reportCount = 0;
+        //上游task会发送协调消息流给下游，
         int expectedTupleCount = 0;
         int receivedTuples = 0;
         boolean failed = false;
+        //key:targetTaskId.
         Map<Integer, Integer> taskEmittedTuples = new HashMap<Integer, Integer>();
+        //对于实现了IcommiterBolt的endBolt而言，只有在收到coordinatorSpout发送的消息后，该值才为true.
+        //对于非事务提交节点，该值为true
         boolean receivedId = false;
         boolean finished = false;
+        //包括cordiantorSpout的消息和上游的协调消息。
         List<Tuple> ackTuples = new ArrayList<Tuple>();
 
         @Override
@@ -244,6 +260,7 @@ public class CoordinatedBolt implements IRichBolt {
         }
     }
 
+    //如果成功，ack，并且调用finishTran方法。
     private boolean checkFinishId(Tuple tup, TupleType type) {
         _collector.flush();
         
@@ -392,6 +409,7 @@ public class CoordinatedBolt implements IRichBolt {
     }
 
     static enum TupleType {
+        //1.正常消息  2.spout节点的提交消息   3.上游bolt节点的协调消息
         REGULAR, ID, COORD
     }
 }

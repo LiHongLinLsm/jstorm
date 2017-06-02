@@ -47,6 +47,7 @@ public class DrainerCtrlRunable extends DisruptorRunable {
     private ConcurrentHashMap<Integer, WorkerSlot> taskNodeport;
     protected AtomicReference<KryoTupleSerializer> atomKryoSerializer;
 
+    //idStr is "SendCtrl"
     public DrainerCtrlRunable(WorkerData workerData, String idStr) {
         super(workerData.getTransferCtrlQueue(), idStr);
         this.nodeportSocket = workerData.getNodeportSocket();

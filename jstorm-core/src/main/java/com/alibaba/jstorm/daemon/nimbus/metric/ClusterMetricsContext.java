@@ -306,6 +306,7 @@ public class ClusterMetricsContext {
         return (TopologyMetricDataInfo) metricCache.get(PENDING_UPLOAD_METRIC_DATA_INFO + idx);
     }
 
+    //这里的long是随机生成的metrics的ID..
     public Map<String, Long> registerMetrics(String topologyId, Set<String> metricNames) {
         TimeTicker ticker = new TimeTicker(TimeUnit.MILLISECONDS, true);
 

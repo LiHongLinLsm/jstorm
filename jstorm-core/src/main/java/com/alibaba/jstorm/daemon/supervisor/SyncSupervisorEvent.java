@@ -48,8 +48,11 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * supervisor SynchronizeSupervisor workflow (1) writer local assignment to LocalState (2) download new Assignment's topology (3) remove useless Topology (4)
- * push one SyncProcessEvent to SyncProcessEvent's EventManager
+ * supervisor SynchronizeSupervisor workflow
+ *    (1) writer local assignment to LocalState
+ *    (2) download new Assignment's topology
+ *    (3) remove useless Topology
+ *    (4) push one SyncProcessEvent to SyncProcessEvent's EventManager
  * 
  * @author Johnfang (xiaojian.fxj@alibaba-inc.com)
  */

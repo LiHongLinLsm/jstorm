@@ -33,7 +33,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
 
-//finished~~
+//tuple序列化总接口处。。。调用此即可。
 public class KryoTupleSerializer implements ITupleSerializer {
     KryoValuesSerializer _kryo;
     SerializationFactory.IdDictionary _ids;
@@ -54,7 +54,7 @@ public class KryoTupleSerializer implements ITupleSerializer {
     }
     /**
      * @@@ in the furture, it will skill serialize 'targetTask' through check some flag
-     * @see backtype.storm.serialization.ITupleSerializer#serialize(int, backtype.storm.tuple.Tuple)
+     * @see backtype.storm.serialization.ITupleSerializer：serialize(int, backtype.storm.tuple.Tuple)
      */
     private void serializeTuple(Output output, Tuple tuple) {
         try {
@@ -110,13 +110,4 @@ public class KryoTupleSerializer implements ITupleSerializer {
         return rtn;
     }
 
-    // public long crc32(Tuple tuple) {
-    // try {
-    // CRC32OutputStream hasher = new CRC32OutputStream();
-    // _kryo.serializeInto(tuple.getValues(), hasher);
-    // return hasher.getValue();
-    // } catch (IOException e) {
-    // throw new RuntimeException(e);
-    // }
-    // }
 }

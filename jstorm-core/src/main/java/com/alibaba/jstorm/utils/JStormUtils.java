@@ -261,9 +261,9 @@ public class JStormUtils {
 
 
     /**
-     * Extract dir from the jar to dest dir
+     * Extract dir of the jar file from the jarPath to dest dir
      *
-     * @param jarpath path to jar
+     * @param jarpath :
      * @param dir     dir to be extracted
      * @param destdir destination dir
      */
@@ -1268,26 +1268,6 @@ public class JStormUtils {
         return topology + "-worker-" + port + ".log";
     }
 
-    // public static String getLog4jFileName(org.apache.log4j.Logger
-    // log4jLogger) throws Exception{
-    // Enumeration<org.apache.log4j.Appender> enumAppender =
-    // log4jLogger.getAllAppenders();
-    // org.apache.log4j.FileAppender fileAppender = null;
-    // while (enumAppender.hasMoreElements()) {
-    // org.apache.log4j.Appender appender = enumAppender.nextElement();
-    // if (appender instanceof org.apache.log4j.FileAppender) {
-    // fileAppender = (org.apache.log4j.FileAppender) appender;
-    // break;
-    // }
-    // }
-    // if (fileAppender != null) {
-    // return fileAppender.getFile();
-    //
-    // }
-    //
-    // return null;
-    // }
-
     public static String getLogFileName() {
         try {
             Logger rootLogger = LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
@@ -1303,26 +1283,6 @@ public class JStormUtils {
                     }
                 }
             }
-            // else if (rootLogger instanceof org.slf4j.impl.Log4jLoggerAdapter)
-            // {
-            // // slf4j-log4j
-            // org.slf4j.impl.Log4jLoggerAdapter log4jAdapter =
-            // (org.slf4j.impl.Log4jLoggerAdapter) rootLogger;
-            // try {
-            // Field field = log4jAdapter.getClass().getDeclaredField(
-            // "logger");
-            // field.setAccessible(true);
-            // Object obj = field.get(log4jAdapter);
-            // if (obj instanceof org.apache.log4j.spi.RootLogger) {
-            // return getLog4jFileName((org.apache.log4j.spi.RootLogger) obj);
-            // }
-            // } catch (Exception e) {
-            // e.printStackTrace();
-            // }
-            //
-            // } else if (rootLogger instanceof org.apache.log4j.Logger) {
-            // return getLog4jFileName((org.apache.log4j.Logger) rootLogger);
-            // }
 
         } catch (Throwable e) {
             LOG.info("Failed to get root logger file name", e.getMessage());

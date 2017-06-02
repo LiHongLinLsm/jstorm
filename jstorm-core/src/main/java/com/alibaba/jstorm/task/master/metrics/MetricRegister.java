@@ -57,6 +57,7 @@ public class MetricRegister implements TMHandler {
     public void cleanup() {
     }
 
+    //消息由JstormMetricsReporter发送过来的。
     private void registerMetrics(Tuple input) {
         synchronized (metricNames) {
             metricNames.get().addAll((Set<String>) input.getValue(0));

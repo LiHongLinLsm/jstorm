@@ -84,9 +84,7 @@ public class JStormSignalHandler implements SignalHandler {
     	signalMap.put(31, "SYS");
     	signalMap.put(32, "UNUSED");
     }
-    
-       
-    
+
     
     protected void initSignalThread() {
     	signalThread = new Thread(new SignalRunnable());

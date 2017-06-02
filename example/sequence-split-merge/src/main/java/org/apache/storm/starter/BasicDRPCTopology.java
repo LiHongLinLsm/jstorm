@@ -84,7 +84,7 @@ public class BasicDRPCTopology {
     }
     
     public static void main(String[] args) throws Exception {
-        IBasicBolt basicBolt = null;
+     IBasicBolt basicBolt = null;
         testDrpc();
     }
 }

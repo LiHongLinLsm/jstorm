@@ -40,6 +40,7 @@ public class SupervisorInfo implements Serializable {
     private final String hostName;
     private final String supervisorId;
 
+    //lastReportedTime...
     private Integer timeSecs;
     private Integer uptimeSecs;
     private String version;

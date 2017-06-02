@@ -45,7 +45,8 @@ import com.lmax.disruptor.dsl.ProducerType;
 
 /**
  *
- * A single consumer queue that uses the LMAX Disruptor. They key to the performance is the ability to catch up to the producer by processing tuples in batches.
+ * A single consumer queue that uses the LMAX Disruptor.
+ * They key to the performance is the ability to catch up to the producer by processing tuples in batches.
  */
 public class DisruptorQueueImpl extends DisruptorQueue {
     private static final Logger LOG = LoggerFactory.getLogger(DisruptorQueueImpl.class);
@@ -64,6 +65,7 @@ public class DisruptorQueueImpl extends DisruptorQueue {
     private final SequenceBarrier _barrier;
 
     private boolean _isBatch;
+    //本地发送缓存。
     private ThreadLocalBatch _batcher;
     private int _inputBatchSize;
     private Flusher _flusher;
@@ -71,6 +73,7 @@ public class DisruptorQueueImpl extends DisruptorQueue {
     private Object _callbackLock = new Object();
     private List<Callback> _callbacks = null;
     private Object _cacheLock = new Object();
+    //里面放的是event.此处为本地接收队列
     private List<Object> _cache;
 
     // TODO: consider having a threadlocal cache of this variable to speed up

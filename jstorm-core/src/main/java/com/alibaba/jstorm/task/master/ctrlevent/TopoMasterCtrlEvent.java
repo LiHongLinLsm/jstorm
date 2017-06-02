@@ -38,7 +38,7 @@ public class TopoMasterCtrlEvent implements Serializable {
     }
 
     private EventType eventType;
-    //里面装的是TransactionState，或者batchGroupId（master通知提交了的时候）
+    //里面装的是groupId..(see:stopAndRollback)
     private List<Object> eventValue;
 
     public TopoMasterCtrlEvent() {

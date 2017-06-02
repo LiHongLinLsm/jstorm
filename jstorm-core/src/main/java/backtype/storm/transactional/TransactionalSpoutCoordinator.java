@@ -35,25 +35,36 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+////事务中的spout内部top对应的coordinator...并发度为1.与TransactionalSpoutBatchExecutor配合使用
 public class TransactionalSpoutCoordinator extends BaseRichSpout {
     public static final Logger LOG = LoggerFactory.getLogger(TransactionalSpoutCoordinator.class);
 
     public static final BigInteger INIT_TXID = BigInteger.ONE;
-
+    //定义的批事务数据流，所有下游的emitterBolt将以直接方式进行订阅。消息格式为<tx , meta , preCommitedTx>
     public static final String TRANSACTION_BATCH_STREAM_ID = TransactionalSpoutCoordinator.class.getName() + "/batch";
+    //自定义的提交流，IcommiterBolt为接收者，格式为<txID>....
     public static final String TRANSACTION_COMMIT_STREAM_ID = TransactionalSpoutCoordinator.class.getName() + "/commit";
 
+    //zk中当前等待提交的事务TX
     private static final String CURRENT_TX = "currtx";
+    ////zk中系统所有事务TX
     private static final String META_DIR = "meta";
 
+    //该spout代理的事务Spout对象。。
     private ITransactionalSpout _spout;
     private ITransactionalSpout.Coordinator _coordinator;
+
+//维护当前事务
     private TransactionalState _state;
+    //维护正在处理的事务。
     private RotatingTransactionalState _coordinatorState;
 
+    //维护当前系统事务状态信息
     TreeMap<BigInteger, TransactionStatus> _activeTx = new TreeMap<BigInteger, TransactionStatus>();
 
+
     private SpoutOutputCollector _collector;
+    //由于产生尝试序号
     private Random _rand;
     BigInteger _currTransaction;
     int _maxTransactionActive;

@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class blacklist {
 
+    //将某个节点拉黑。。保存信息到zk中的。
     public static void main(String[] args) {
         if (args == null || args.length < 2) {
             throw new InvalidParameterException("Should input action and hostname");

@@ -34,7 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Use this class to submit topologies to run on the Storm cluster. You should run your program with the "storm jar" command from the command-line, and then use
+ * Use this class to submit topologies to run on the Storm cluster.
+ * You should run your program with the "storm jar" command from the command-line, and then use
  * this class to submit your topologies.
  */
 public class StormSubmitter {
@@ -47,7 +48,8 @@ public class StormSubmitter {
     }
 
     /**
-     * Submits a topology to run on the cluster. A topology runs forever or until explicitly killed.
+     * Submits a topology to run on the cluster.
+     * A topology runs forever or until explicitly killed.
      * 
      * 
      * @param name the name of the storm.
@@ -280,6 +282,7 @@ public class StormSubmitter {
 
     /**
      * Interface use to track progress of file upload
+     * 没有用到。。。。
      */
     public interface ProgressListener {
         /**

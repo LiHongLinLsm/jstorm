@@ -32,7 +32,7 @@ import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+//only used by workData...
 public class ZkTool {
     private static final Logger LOG = LoggerFactory.getLogger(ZkTool.class);
 
@@ -286,7 +286,7 @@ public class ZkTool {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        // TODO Auto-generated method stub
+        // TODO        Auto-generated method stub
 
         if (args.length < 2) {
             System.out.println("Invalid parameter");
@@ -344,26 +344,5 @@ public class ZkTool {
         }
         return ret;
     }
-
-    // public static List<String> get_follower_hosts(ClusterState cluster_state)
-    // throws Exception {
-    // List<String> followers = cluster_state.get_children(
-    // ZkConstant.NIMBUS_SLAVE_SUBTREE, false);
-    // if (followers == null || followers.size() == 0) {
-    // return Lists.newArrayList();
-    // }
-    // return followers;
-    // }
-    //
-    // public static List<String> get_follower_hbs(ClusterState cluster_state)
-    // throws Exception {
-    // List<String> ret = Lists.newArrayList();
-    // List<String> followers = get_follower_hosts(cluster_state);
-    // for (String follower : followers) {
-    // ret.add(new String(cluster_state.get_data(ZkConstant.NIMBUS_SLAVE_SUBTREE
-    // + ZkConstant.ZK_SEPERATOR + follower, false)));
-    // }
-    // return ret;
-    // }
 
 }

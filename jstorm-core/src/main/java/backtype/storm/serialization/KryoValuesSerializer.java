@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-//finished~~~
+//用于序列化value(tuple)   ----底层实现在这里。。
 public class KryoValuesSerializer {
     Kryo _kryo;
     ListDelegate _delegate;
@@ -59,10 +59,6 @@ public class KryoValuesSerializer {
     }
 
     public void serialize(List<Object> values, Output out) throws IOException {
-        // this ensures that list of values is always written the same way, regardless
-        // of whether it's a java collection or one of clojure's persistent collections
-        // (which have different serializers)
-        // Doing this lets us deserialize as ArrayList and avoid writing the class here
         _delegate.setDelegate(values);
         _kryo.writeObject(out, _delegate);
     }

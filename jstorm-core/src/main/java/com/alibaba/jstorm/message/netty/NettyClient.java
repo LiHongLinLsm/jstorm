@@ -62,6 +62,7 @@ import backtype.storm.utils.Utils;
 class NettyClient implements IConnection {
     private static final Logger LOG = LoggerFactory.getLogger(NettyClient.class);
 
+    //remote address.
     protected String name;
 
     protected final int maxRetries;

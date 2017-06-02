@@ -29,6 +29,7 @@ public class MetricsUpdater implements TMHandler {
         this.topologyMetricContext = tmContext.getTopologyMetricContext();
     }
 
+
     @Override
     public void process(Object event) {
         Tuple input = (Tuple) event;

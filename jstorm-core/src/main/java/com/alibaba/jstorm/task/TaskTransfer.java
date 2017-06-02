@@ -64,11 +64,14 @@ public class TaskTransfer {
     private static Logger LOG = LoggerFactory.getLogger(TaskTransfer.class);
 
     protected Map stormConf;
+    //没有对应的taskId，的会通过 此队列发送。。
     protected DisruptorQueue transferControlQueue;
 /*    protected KryoTupleSerializer serializer;*/
 //key:taskId to send to , v:
     protected Map<Integer, DisruptorQueue> innerTaskTransfer;
+    //key is targetTaskID...专门发送控制消息。。。
     protected Map<Integer, DisruptorQueue> controlQueues;
+    //当tuple需要传送到外部worker时，先放在此队列，然后启动线程进行序列化。。。。
     protected DisruptorQueue serializeQueue;
     protected volatile TaskStatus taskStatus;
     protected String taskName;

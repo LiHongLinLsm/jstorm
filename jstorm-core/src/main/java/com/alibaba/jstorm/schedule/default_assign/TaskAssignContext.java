@@ -28,6 +28,7 @@ public class TaskAssignContext {
     
     private final Map<String, List<ResourceWorkerSlot>> supervisorToWorker;
 
+    //valu:is component..
     private final Map<String, Set<String>> relationship;
 
     // Map<worker, Map<component name, assigned task num in this worker>
@@ -77,6 +78,7 @@ public class TaskAssignContext {
         return relationship;
     }
 
+    ///name:componetName...
     public int getComponentNumOnSupervisor(String supervisor, String name) {
         List<ResourceWorkerSlot> workers = supervisorToWorker.get(supervisor);
         if (workers == null)

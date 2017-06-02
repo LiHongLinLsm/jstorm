@@ -18,8 +18,12 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * metrics cache. we maintain the following data in rocks DB cache: 1. all topology ids 2. topology id ==> all metrics meta(map<metric_name, metric_id>) 3.
- * topology id ==> all metrics data
+ * metrics cache. we maintain the following data in rocks DB cache:
+ * 1. all topology ids
+ * 2. topology id ==> all metrics meta(map<metric_name, metric_id>)
+ * 3. topology id ==> all metrics data
+ *
+ *          this class is used in nimbus...
  *
  * @author Cody (weiyue.wy@alibaba-inc.com)
  * @since 2.0.5

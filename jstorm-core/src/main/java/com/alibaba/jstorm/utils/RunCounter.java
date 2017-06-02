@@ -55,10 +55,11 @@ public class RunCounter implements Serializable {
         intervalCheck.setInterval(60);
     }
 
-    public Double count(long value) {
+
+    public Double count(long interval) {
         long totalValue = total.incrementAndGet();
         long timesValue = times.incrementAndGet();
-        long v = values.addAndGet(value);
+        long v = values.addAndGet(interval);
 
         Double pass = intervalCheck.checkAndGet();
         if (pass != null) {

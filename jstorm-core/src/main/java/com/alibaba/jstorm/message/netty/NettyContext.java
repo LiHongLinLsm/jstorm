@@ -99,15 +99,7 @@ public class NettyContext implements IContext {
      * terminate this context
      */
     public void term() {
-/*        clientScheduleService.shutdown();
-        try {
-            clientScheduleService.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            LOG.error("Error when shutting down client scheduler", e);
-        }*/
-
         clientChannelFactory.releaseExternalResources();
-
         reconnector.shutdown();
     }
 

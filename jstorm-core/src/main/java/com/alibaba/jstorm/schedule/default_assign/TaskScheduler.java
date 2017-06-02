@@ -48,12 +48,15 @@ public class TaskScheduler {
     private int workerNum;
 
     /**
-     * For balance purpose, default scheduler is trying to assign the same number of tasks to a worker. e.g. There are 4 tasks and 3 available workers. Each
+     * For balance purpose, default scheduler is trying to assign the same number of tasks to a worker.
+     * e.g. There are 4 tasks and 3 available workers. Each
      * worker will be assigned one task first. And then one worker is chosen for the last one.
      */
     private int avgTaskNum;
+    //上面例子中，为1 = 4 % 3.
     private int leftTaskNum;
 
+    //不包括hm.
     private Set<Integer> tasks;
 
     private DefaultTopologyAssignContext context;

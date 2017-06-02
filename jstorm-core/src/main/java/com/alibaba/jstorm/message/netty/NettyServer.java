@@ -70,6 +70,7 @@ class NettyServer implements IConnection {
     private boolean isBackpressureEnable;
     private float lowMark;
     private float highMark;
+    //消息队列是否启动，可以接收了。
     private volatile boolean bstartRec;
 
     private final Set<Integer> workerTasks;

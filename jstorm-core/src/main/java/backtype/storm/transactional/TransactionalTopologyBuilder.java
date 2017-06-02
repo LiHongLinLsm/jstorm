@@ -66,6 +66,7 @@ public class TransactionalTopologyBuilder {
 
     // id is used to store the state of this transactionalspout in zookeeper
     // it would be very dangerous to have 2 topologies active with the same id in the same cluster
+    //主要构造函数，其他为适配类型。。。。
     public TransactionalTopologyBuilder(String id, String spoutId, ITransactionalSpout spout, Number spoutParallelism) {
         _id = id;
         _spoutId = spoutId;
@@ -134,7 +135,6 @@ public class TransactionalTopologyBuilder {
         // Transaction is not compatible with jstorm batch mode(task.batch.tuple)
         // so we close batch mode via system property
         System.setProperty(ConfigExtension.TASK_BATCH_TUPLE, "false");
-        
         String coordinator = _spoutId + "/coordinator";
         TopologyBuilder builder = new TopologyBuilder();
         SpoutDeclarer declarer = builder.setSpout(coordinator, new TransactionalSpoutCoordinator(_spout));
@@ -154,6 +154,7 @@ public class TransactionalTopologyBuilder {
             Component component = _bolts.get(id);
             Map<String, SourceArgs> coordinatedArgs = new HashMap<String, SourceArgs>();
             for (String c : componentBoltSubscriptions(component)) {
+                //上游componetName--->sourceArges
                 coordinatedArgs.put(c, SourceArgs.all());
             }
 

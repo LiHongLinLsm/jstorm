@@ -40,9 +40,7 @@ public class WorkerScheduler {
 
 	private static WorkerScheduler instance;
 
-	private WorkerScheduler() {
-
-	}
+	private WorkerScheduler() {   }
 
 	public static WorkerScheduler getInstance() {
 		if (instance == null) {
@@ -345,8 +343,7 @@ public class WorkerScheduler {
 		List<WorkerAssignment> re = new ArrayList<WorkerAssignment>();
 		for (WorkerAssignment worker : workers) {
 			for (ResourceWorkerSlot unstopped : unstoppedWorkers) {
-				if (unstopped
-						.compareToUserDefineWorker(worker, taskToComponent))
+				if (unstopped.compareToUserDefineWorker(worker, taskToComponent))
 					re.add(worker);
 			}
 		}

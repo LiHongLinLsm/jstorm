@@ -50,6 +50,7 @@ public class MkLocalFirst extends Shuffer {
     private boolean isLocalWorkerAvail;
     private WorkerData workerData;
     private IntervalCheck intervalCheck;
+    //ptc不能超过该值，否则认为队列满了。
     private float loadMark;
 
     public MkLocalFirst(List<Integer> workerTasks, List<Integer> allOutTasks, WorkerData workerData) {
@@ -123,6 +124,7 @@ public class MkLocalFirst extends Shuffer {
         return JStormUtils.mk_list(remoteOutTasks.get(index));
     }
 
+    //首先从本进程中tasks中寻找，如果没有活跃的，再在远程中寻找一个task。
     public List<Integer> grouper(List<Object> values) {
         List<Integer> ret;
         ret = intraGroup(values);

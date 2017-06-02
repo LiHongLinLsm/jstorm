@@ -35,16 +35,19 @@ import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 
+//保存事务元数据，并写到zk中。
 public class TransactionalState {
     CuratorFramework _curator;
     KryoValuesSerializer _ser;
     KryoValuesDeserializer _des;
     List<ACL> _zkAcls = null;
 
+    //id 为协调spout节点名字。。。
     public static TransactionalState newUserState(Map conf, String id, Map componentConf) {
         return new TransactionalState(conf, id, componentConf, "user");
     }
 
+    //zk中存放coordinator的元数据的目录。。。
     public static TransactionalState newCoordinatorState(Map conf, String id, Map componentConf) {
         return new TransactionalState(conf, id, componentConf, "coordinator");
     }

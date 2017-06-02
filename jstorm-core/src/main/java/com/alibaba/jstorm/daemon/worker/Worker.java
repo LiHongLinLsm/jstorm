@@ -403,6 +403,8 @@ public class Worker {
      *
      * @param args worker start args
      */
+    //该类在SyncProcessEvent中的getWorkerParameter中被调用。。。
+
     @SuppressWarnings("rawtypes")
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();
