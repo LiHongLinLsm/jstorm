@@ -34,7 +34,8 @@ import backtype.storm.utils.Time;
 public class NthLastModifiedTimeTracker {
     
     private static final int MILLIS_IN_SEC = 1000;
-    
+
+    //vaule is 5...in our eg.
     private final CircularFifoBuffer lastModifiedTimesMillis;
     
     public NthLastModifiedTimeTracker(int numTimesToTrack) {

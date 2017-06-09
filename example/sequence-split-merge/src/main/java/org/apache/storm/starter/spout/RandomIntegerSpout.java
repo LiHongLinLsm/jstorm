@@ -40,6 +40,8 @@ public class RandomIntegerSpout extends BaseRichSpout {
     private SpoutOutputCollector collector;
     private Random               rand;
     private long                 msgId = 0;
+
+
     
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {

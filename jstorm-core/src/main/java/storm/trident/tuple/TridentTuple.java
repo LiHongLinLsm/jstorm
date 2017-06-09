@@ -30,7 +30,7 @@ public interface TridentTuple extends ITuple, List<Object> {
         List<String> getOutputFields();
 
         /**
-         * @return:返回实际的IpersisentVector数目。
+         * @return:返回实际的IpersisentVector数目。即是tuple长度。
          */
         int numDelegates();
     }

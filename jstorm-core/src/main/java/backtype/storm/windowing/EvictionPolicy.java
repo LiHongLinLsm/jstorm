@@ -52,7 +52,7 @@ public interface EvictionPolicy<T> {
      * window or kept for later processing.
      *
      * @param event the input event
-     * @return the {@link org.apache.storm.windowing.EvictionPolicy.Action} to be taken based on the input event
+     * @return the {@link:  org.apache.storm.windowing.EvictionPolicy.Action} to be taken based on the input event
      */
     Action evict(Event<T> event);
 

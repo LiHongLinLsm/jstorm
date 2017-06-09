@@ -44,7 +44,7 @@ public class CheckPointState {
          */
         COMMITTED,
         /**
-         * The checkpoint spout has started committing the transaction
+         * The checkpoint spout has started  committing the transaction
          * and the commit is in progress.
          */
         COMMITTING,

@@ -21,6 +21,8 @@ import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IBasicBolt;
 import java.util.Map;
 
+//base means :we help you dumyInplement some method ...
+//basic means: we ack for you ..
 public abstract class BaseBasicBolt extends BaseComponent implements IBasicBolt {
 
     @Override

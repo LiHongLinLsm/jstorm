@@ -26,7 +26,8 @@ import storm.trident.operation.TridentCollector;
 import storm.trident.topology.TransactionAttempt;
 
 /**
- * This defines a transactional spout which does *not* necessarily replay the same batch every time it emits a batch for a transaction id.
+ * This defines a transactional spout which does *not* necessarily replay
+ * the same batch every time it emits a batch for a transaction id.
  * 
  */
 public interface IOpaquePartitionedTridentSpout<Partitions, Partition extends ISpoutPartition, M> extends Serializable {

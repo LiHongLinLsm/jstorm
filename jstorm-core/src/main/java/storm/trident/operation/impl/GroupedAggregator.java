@@ -35,11 +35,13 @@ public class GroupedAggregator implements Aggregator<Object[]> {
     ProjectionFactory _groupFactory;
     ProjectionFactory _inputFactory;
     Aggregator _agg;
+
     ComboList.Factory _fact;
     Fields _inFields;
+    //分组依据，比如word..
     Fields _groupFields;
 
-    //例如：group为“word”，input为“sentence”，outsize为2（表示：hello：1，world:1,Hello:1）
+    //例如：group为“word”，input为“sentence”，outsize为1（表示：hello：1，world:1,Hello:1）
     public GroupedAggregator(Aggregator agg, Fields group, Fields input, int outSize) {
         _groupFields = group;
         _inFields = input;
@@ -59,6 +61,7 @@ public class GroupedAggregator implements Aggregator<Object[]> {
 
     @Override
     public Object[] init(Object batchId, TridentCollector collector) {
+        //hashMap:key:cat-->3     batchId = transId.
         return new Object[] { new GroupCollector(collector, _fact), new HashMap(), batchId };
     }
 

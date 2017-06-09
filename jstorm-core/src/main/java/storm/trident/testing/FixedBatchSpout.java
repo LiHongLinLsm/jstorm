@@ -36,6 +36,7 @@ public class FixedBatchSpout implements IBatchSpout {
     //相当于tuple.
     List<Object>[] outputs;
     int maxBatchSize;
+    //batchId..>tupless..
     HashMap<Long, List<List<Object>>> batches = new HashMap<Long, List<List<Object>>>();
     
     public FixedBatchSpout(Fields fields, int maxBatchSize, List<Object>... outputs) {

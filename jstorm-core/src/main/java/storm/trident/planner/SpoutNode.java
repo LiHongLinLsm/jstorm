@@ -26,6 +26,7 @@ public class SpoutNode extends Node {
     }
 
     public Object spout;
+    //herr is  spout1..
     public String txId; // where state is stored in zookeeper (only for batch spout types)
     public SpoutType type;
 

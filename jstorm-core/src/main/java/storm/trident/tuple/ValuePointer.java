@@ -25,6 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 //可以认为是一个多余的工具类
 public class ValuePointer {
+    //比如：sentence-->word  ...如果该类为word中，那么，该值为1，
     public int delegateIndex;
     protected int index;
     protected String field;

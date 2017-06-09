@@ -56,10 +56,12 @@ public abstract class NodePool {
     }
 
     /**
-     * Place executors into slots in a round robin way, taking into account component spreading among different hosts.
+     * Place executors into slots in a round robin way,
+     * taking into account component spreading among different hosts.
      */
     public static class RoundRobinSlotScheduler {
         private Map<String, Set<String>> _nodeToComps;
+        //不同的组件，被分配到不同 的主机上。
         private HashMap<String, List<ExecutorDetails>> _spreadToSchedule;
         private LinkedList<Set<ExecutorDetails>> _slots;
         private Set<ExecutorDetails> _lastSlot;

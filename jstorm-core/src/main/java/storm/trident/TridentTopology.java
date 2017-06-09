@@ -112,13 +112,7 @@ public class TridentTopology {
         _colocate = colocate;
         _gen = gen;
     }
-    
-    
-    // automatically turn it into a batch spout, should take parameters as to how much to batch
-//    public Stream newStream(IRichSpout spout) {
-//        Node n = new SpoutNode(getUniqueStreamId(), TridentUtils.getSingleOutputStreamFields(spout), null, spout, SpoutNode.SpoutType.BATCH);
-//        return addNode(n);
-//    }
+
     
     public Stream newStream(String txId, IRichSpout spout) {
         return newStream(txId, new RichSpoutBatchExecutor(spout));
@@ -126,6 +120,7 @@ public class TridentTopology {
 
     //Trident会再Zookeeper中保存一小部分状态信息来追踪数据的处理情况，
     // txId就是Zookeeper中用来存储metadata信息的Znode节点
+    //此处的txId,为spout1.
     public Stream newStream(String txId, IBatchSpout spout) {
         //对于wordcountTrident而言，此处的outputFields为“sentence”,txId = spout1
         Node n = new SpoutNode(getUniqueStreamId(), spout.getOutputFields(), txId, spout, SpoutNode.SpoutType.BATCH);
@@ -354,9 +349,11 @@ public class TridentTopology {
         // this is because can't currently merge splitting logic into a spout
         // not the most kosher algorithm here, since the grouper indexes are being trounced via the adding of nodes to random groups, but it 
         // works out
+        //该段代码    懵逼了。。。
         List<Node> forNewGroups = new ArrayList<>();
         for(Group g: mergedGroups) {
             for(PartitionNode n: extraPartitionInputs(g)) {
+                //partitonNode后添加了ProcessorNode..
                 Node idNode = makeIdentityNode(n.allOutputFields);
                 Node newPartitionNode = new PartitionNode(idNode.streamId, n.name, idNode.allOutputFields, n.thriftGrouping);
                 Node parentNode = TridentUtils.getParent(graph, n);
@@ -394,7 +391,7 @@ public class TridentTopology {
         grouper.reindex();
         mergedGroups = grouper.getAllGroups();
                 
-        
+        //val:groupId...
         Map<Node, String> batchGroupMap = new HashMap<>();
         List<Set<Node>> connectedComponents = new ConnectivityInspector<>(graph).connectedSets();
         for(int i=0; i<connectedComponents.size(); i++) {
@@ -450,6 +447,7 @@ public class TridentTopology {
         for(Group g: mergedGroups) {
             if(!isSpoutGroup(g)) {
                 Integer p = parallelisms.get(g);
+                //output  streamId --> groupId..
                 Map<String, String> streamToGroup = getOutputStreamBatchGroups(g, batchGroupMap);
                 Map<String, Number> groupRes = mergeDefaultResources(g.getResources(), defaults);
 
@@ -458,7 +456,7 @@ public class TridentTopology {
                 Number cpuLoad = groupRes.get(Config.TOPOLOGY_COMPONENT_CPU_PCORE_PERCENT);
 
                 BoltDeclarer d = builder.setBolt(boltIds.get(g), new SubtopologyBolt(graph, g.nodes, batchGroupMap), p,
-                                                 committerBatches(g, batchGroupMap), streamToGroup)
+                        committerBatches(g, batchGroupMap), streamToGroup)
                     .setMemoryLoad(onHeap, offHeap)
                     .setCPULoad(cpuLoad);
                 Collection<PartitionNode> inputs = uniquedSubscriptions(externalGroupInputs(g));
@@ -550,7 +548,8 @@ public class TridentTopology {
                          .batchGlobal(),
                         lastStream.batchGlobal(),
                         new ReturnResultsReducer(),
-                        new Fields());
+                        new Fields()
+                );
             }
         }                
     }
@@ -674,7 +673,12 @@ public class TridentTopology {
         }        
         return ret;
     }
-    
+
+    /**
+     * @param g
+     * @param batchGroupMap
+     * @return : 所有含有state的节点所在的组。。
+     */
     private static Set<String> committerBatches(Group g, Map<Node, String> batchGroupMap) {
         Set<String> ret = new HashSet<>();
         for(Node n: g.nodes) {

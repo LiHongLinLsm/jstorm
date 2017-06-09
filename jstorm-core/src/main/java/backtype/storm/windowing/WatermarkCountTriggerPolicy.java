@@ -26,6 +26,7 @@ import java.util.List;
  * @param <T> the type of event tracked by this policy.
  */
 public class WatermarkCountTriggerPolicy<T> implements TriggerPolicy<T> {
+    /// eg:5 个。。
     private final int count;
     private final TriggerHandler handler;
     private final EvictionPolicy<T> evictionPolicy;

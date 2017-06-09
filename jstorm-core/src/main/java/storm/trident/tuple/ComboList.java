@@ -26,6 +26,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class ComboList extends AbstractList<Object> {    
     public static class Factory implements Serializable {
         Pointer[] index;
+        //里面放的是index行对应的list长度，如sizes[1] = 3,表示，矩阵第二行有三个元素。
         int[] sizes;
         
         public Factory(int... sizes) {

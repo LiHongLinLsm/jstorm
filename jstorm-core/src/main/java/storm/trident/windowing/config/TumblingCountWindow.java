@@ -22,7 +22,8 @@ import storm.trident.windowing.strategy.TumblingCountWindowStrategy;
 import storm.trident.windowing.strategy.WindowStrategy;
 
 /**
- * Represents tumbling count window configuration. Window tumbles at each given {@code windowLength} count of events.
+ * Represents tumbling count window configuration.
+ * Window tumbles at each given {@code windowLength} count of events.
  */
 public final class TumblingCountWindow extends BaseWindowConfig {
 

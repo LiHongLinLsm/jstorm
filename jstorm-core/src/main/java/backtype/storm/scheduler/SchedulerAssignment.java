@@ -20,6 +20,7 @@ package backtype.storm.scheduler;
 import java.util.Map;
 import java.util.Set;
 
+//目前已经被分配的消息。
 public interface SchedulerAssignment {
     /**
      * Does this slot occupied by this assignment?

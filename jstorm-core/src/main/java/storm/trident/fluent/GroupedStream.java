@@ -34,6 +34,7 @@ import storm.trident.state.map.MapReducerAggStateUpdater;
 import storm.trident.util.TridentUtils;
 
 public class GroupedStream implements IAggregatableStream, GlobalAggregationScheme<GroupedStream> {
+    //分组依据：word..
     Fields _groupFields;
     //分组流的父流。
     Stream _stream;

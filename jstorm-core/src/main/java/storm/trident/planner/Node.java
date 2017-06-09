@@ -33,6 +33,7 @@ public class Node extends DefaultResourceDeclarer<Node> implements Serializable 
 
     public String name = null;
     public Fields allOutputFields;
+    //outputStream..
     public String streamId;
 
     public Integer parallelismHint = null;

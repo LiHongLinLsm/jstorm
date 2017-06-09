@@ -21,7 +21,8 @@ package storm.trident.operation.builtin;
 import java.util.Comparator;
 
 /**
- * This aggregator computes the minimum of aggregated tuples in a stream. It uses given @{code comparator} for comparing
+ * This aggregator computes the minimum of aggregated tuples in a stream.
+ * It uses given @{code comparator} for comparing
  * two values in a stream.
  *
  */

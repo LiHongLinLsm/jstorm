@@ -21,13 +21,14 @@ package storm.trident.topology.state;
 import backtype.storm.Config;
 import java.util.List;
 import java.util.Map;
-//用于维护zk中trident事务元数据。
+//用于维护zk中trident事务元数据。该类
 public class TransactionalState {
 
     public static final String USER = "user";
     public static final String COORDINATOR = "coordinator";
     private ITransactionalStateStorage transactionalStateStorage;
 
+    //spoutID..
     public static TransactionalState newUserState(Map conf, String id) {
         return new TransactionalState(conf, id, USER);
     }

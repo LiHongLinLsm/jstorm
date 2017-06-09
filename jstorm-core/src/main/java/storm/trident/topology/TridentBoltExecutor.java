@@ -45,7 +45,8 @@ import storm.trident.spout.IBatchID;
 
 public class TridentBoltExecutor implements IRichBolt {
     public static final String COORD_STREAM_PREFIX = "$coord-";
-    
+
+    //batch为节点组序号。。。
     public static String COORD_STREAM(String batch) {
         return COORD_STREAM_PREFIX + batch;
     }
@@ -98,7 +99,7 @@ public class TridentBoltExecutor implements IRichBolt {
      */
     public static class CoordSpec implements Serializable {
         public GlobalStreamId commitStream = null;
-        //key：componentID.
+        //
         public Map<String, CoordType> coords = new HashMap<>();
         
         public CoordSpec() {
@@ -108,6 +109,7 @@ public class TridentBoltExecutor implements IRichBolt {
     public static class CoordCondition implements Serializable {
         public GlobalStreamId commitStream;
         public int expectedTaskReports;
+        //向下游发送协调消息
         Set<Integer> targetTasks;
 
         @Override
@@ -118,7 +120,7 @@ public class TridentBoltExecutor implements IRichBolt {
 
     //valu:节点序号
     Map<GlobalStreamId, String> _batchGroupIds;
-    //节点组内部协调接收关系。key:batchGroup
+    //节点组内部协调接收关系。key:batchGroup 节点组序号。。
     Map<String, CoordSpec> _coordSpecs;
     Map<String, CoordCondition> _coordConditions;
     //即subTopBolt节点。
@@ -144,6 +146,7 @@ public class TridentBoltExecutor implements IRichBolt {
         int attemptId;
         BatchInfo info;
         CoordCondition condition;
+        //表示已经向该节点发送协调流的节点。
         int reportedTasks = 0;
         int expectedTupleCount = 0;
         int receivedTuples = 0;

@@ -37,6 +37,7 @@ public abstract class ComparisonAggregator<T> extends BaseAggregator<ComparisonA
         TridentTuple previousTuple;
     }
 
+    //which is used as comparing field in the tuple....
     private final String inputFieldName;
 
     public ComparisonAggregator(String inputFieldName) {

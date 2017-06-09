@@ -17,6 +17,8 @@
  */
 package storm.trident.operation;
 
+import java.util.Map;
+
 public abstract class BaseFunction extends BaseOperation implements Function {
 
 }

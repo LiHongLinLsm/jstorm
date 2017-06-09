@@ -28,6 +28,7 @@ import storm.trident.tuple.TridentTuple.Factory;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
 public class ProjectedProcessor implements TridentProcessor {
+    //the field to keep in the stream ...
     Fields _projectFields;
     ProjectionFactory _factory;
     TridentContext _context;

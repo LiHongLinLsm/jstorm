@@ -39,12 +39,14 @@ import storm.trident.topology.TridentBoltExecutor;
 import storm.trident.tuple.ConsList;
 import storm.trident.util.TridentUtils;
 
+//代理drpc.
 public class RichSpoutBatchTriggerer implements IRichSpout {
 
     String _stream;
     IRichSpout _delegate;
     List<Integer> _outputTasks;
     Random _rand;
+    //"$cord"+batchGroupId ,及该spout属于哪个组。。的编号。
     String _coordStream;
 
     public RichSpoutBatchTriggerer(IRichSpout delegate, String streamName, String batchGroup) {
@@ -126,6 +128,7 @@ public class RichSpoutBatchTriggerer implements IRichSpout {
     }
     
     static class FinishCondition {
+        //batchiDs..
         Set<Long> vals = new HashSet<>();
         Object msgId;
     }
@@ -160,6 +163,7 @@ public class RichSpoutBatchTriggerer implements IRichSpout {
 
         @Override
         public List<Integer> emit(String ignore, List<Object> values, Object msgId) {
+            //事务序号。
             long batchIdVal = _rand.nextLong();
             Object batchId = new RichSpoutBatchId(batchIdVal);
             FinishCondition finish = new FinishCondition();

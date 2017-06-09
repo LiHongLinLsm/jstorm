@@ -73,6 +73,12 @@ public class MultiReducerProcessor implements TridentProcessor {
         processorContext.state[_context.getStateIndex()] = _reducer.init(_collector);
     }
 
+    /**
+     *
+     * @param processorContext
+     * @param streamId :该流索引，因为为multIReduce,即对很多流计算。
+     * @param tuple
+     */
     @Override
     public void execute(ProcessorContext processorContext, String streamId, TridentTuple tuple) {
         _collector.setContext(processorContext);

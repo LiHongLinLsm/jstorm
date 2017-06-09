@@ -55,11 +55,11 @@ public class MasterBatchCoordinator extends BaseRichSpout {
     private List<TransactionalState> _states = new ArrayList();
     //保存每个事务的尝试状态
     TreeMap<Long, TransactionStatus> _activeTx = new TreeMap<Long, TransactionStatus>();
-    //保存每个事务当前的尝试
+    //保存每个事务当前的尝试，比如_currTransaction=10,_maxTransactionActive=3，那么是：,10->100,11->1225,12->2323...
     TreeMap<Long, Integer> _attemptIds;
     
     private SpoutOutputCollector _collector;
-    //下一个需要提交的事务
+    //下一个需要提交的事务,恢复时，从zk中拿出每个spout对应的最大值？？？
     Long _currTransaction;
     int _maxTransactionActive;
 

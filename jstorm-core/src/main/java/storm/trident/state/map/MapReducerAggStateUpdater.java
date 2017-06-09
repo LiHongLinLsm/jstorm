@@ -33,6 +33,7 @@ import storm.trident.tuple.ComboList;
 import storm.trident.tuple.TridentTuple;
 import storm.trident.tuple.TridentTupleView.ProjectionFactory;
 
+//groupBy后，进行reduce。。此处map就是groupBy someField..
 public class MapReducerAggStateUpdater implements StateUpdater<MapState> {
     private static final long serialVersionUID = 8667174018978959987L;
     ReducerAggregator _agg;

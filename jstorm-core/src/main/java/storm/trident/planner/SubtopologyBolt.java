@@ -57,7 +57,7 @@ public class SubtopologyBolt implements ITridentBatchBolt {
 
     Map<Node, Factory> _outputFactories = new HashMap();
 
-    //key:Node组索引，val:对应的一些了节点，是有顺序的。
+    //key:Node组索引，val:对应的一些了节点，是有顺序的。  比如，在有drpc的top中，查询和保存状态的节点可能放在一个bolt中执行。
     Map<String, List<TridentProcessor>> _myTopologicallyOrdered = new HashMap();
     //key:node,val:groupId.
     Map<Node, String> _batchGroups;

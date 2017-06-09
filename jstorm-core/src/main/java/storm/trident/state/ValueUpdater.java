@@ -18,6 +18,7 @@
 package storm.trident.state;
 
 
+//如何对txId对应的数据跟新。。StateUpdater是粒度更大的跟新。
 public interface ValueUpdater<T> {
     T update(T stored);
 }

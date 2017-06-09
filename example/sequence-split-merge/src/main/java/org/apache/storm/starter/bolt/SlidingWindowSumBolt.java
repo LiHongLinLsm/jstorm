@@ -38,7 +38,7 @@ import backtype.storm.windowing.TupleWindow;
 public class SlidingWindowSumBolt extends BaseWindowedBolt {
     private static final Logger LOG = LoggerFactory.getLogger(SlidingWindowSumBolt.class);
     
-    private int             sum = 0;
+    private int    sum = 0;
     private OutputCollector collector;
     
     @Override

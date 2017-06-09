@@ -29,6 +29,7 @@ public class CountEvictionPolicy<T> implements EvictionPolicy<T> {
     private final int threshold;
     protected final AtomicInteger currentCount;
 
+    //cout : windowLengh.value.   eg:10
     public CountEvictionPolicy(int count) {
         this.threshold = count;
         this.currentCount = new AtomicInteger();

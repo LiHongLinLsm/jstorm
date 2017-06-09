@@ -33,7 +33,7 @@ import backtype.storm.topology.FailedException;
  */
 public class TimeTriggerPolicy<T> implements TriggerPolicy<T> {
     private static final Logger LOG = LoggerFactory.getLogger(TimeTriggerPolicy.class);
-
+    //eg:5ms..
     private long duration;
     private final TriggerHandler handler;
     private final ScheduledExecutorService executor;

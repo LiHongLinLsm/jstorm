@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @param <T> the type of event tracked by this policy.
  */
 public class CountTriggerPolicy<T> implements TriggerPolicy<T> {
+    //count : slidingLenght.... eg:5.
     private final int count;
     private final AtomicInteger currentCount;
     private final TriggerHandler handler;

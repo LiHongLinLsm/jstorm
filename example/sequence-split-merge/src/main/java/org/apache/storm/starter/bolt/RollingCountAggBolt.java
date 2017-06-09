@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public class RollingCountAggBolt extends BaseRichBolt {
     private static final long               serialVersionUID = 5537727428628598519L;
     private static final Logger LOG              = LoggerFactory.getLogger(RollingCountAggBolt.class);
-    // Mapping of key->upstreamBolt->count
+    // Mapping of key->ueampstrBolt->count
     private Map<Object, Map<Integer, Long>> counts           = new HashMap<Object, Map<Integer, Long>>();
     private OutputCollector                 collector;
     

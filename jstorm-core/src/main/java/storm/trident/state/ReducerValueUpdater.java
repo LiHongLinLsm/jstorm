@@ -21,6 +21,8 @@ import java.util.List;
 import storm.trident.operation.ReducerAggregator;
 import storm.trident.tuple.TridentTuple;
 
+//reduce表示本机内部，合并操作
+//combiner表示经过reduce和再不同机器见reduce。。
 public class ReducerValueUpdater implements ValueUpdater<Object> {
     List<TridentTuple> tuples;
     ReducerAggregator agg;

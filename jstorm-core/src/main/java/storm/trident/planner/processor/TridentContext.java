@@ -35,7 +35,7 @@ public class TridentContext {
     //表示哪些处理节点将接受该节点的消息。
     List<TupleReceiver> receivers;
     String outStreamId;
-    //该处理节点的编号，为subtopBolt中的统一编号。
+    //该处理节点的编号，为subtopBolt中的统一编号。表示该context代表的Node在本bolt中排序索引。
     int stateIndex;
     BatchOutputCollector collector;
     

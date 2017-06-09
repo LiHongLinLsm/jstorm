@@ -22,6 +22,7 @@ import storm.trident.operation.Operation;
 import storm.trident.operation.TridentCollector;
 import storm.trident.tuple.TridentTuple;
 
+//整体状态跟新。与valueUpdater相比，粒度更细。
 public interface StateUpdater<S extends State> extends Operation {
     // maybe it needs a start phase (where it can do a retrieval, an update phase, and then a finish phase...?
     // shouldn't really be a one-at-a-time interface, since we have all the tuples already?

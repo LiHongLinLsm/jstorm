@@ -23,6 +23,7 @@ public class ProcessorNode extends Node {
 
     public boolean committer; // for partitionpersist
     public TridentProcessor processor;
+    //一般为new field()..空。
     public Fields selfOutFields;
 
     public ProcessorNode(String streamId, String name, Fields allOutputFields, Fields selfOutFields, TridentProcessor processor) {

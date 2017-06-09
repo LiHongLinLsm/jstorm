@@ -256,6 +256,8 @@ public class TopologyBuilder {
      * @return use the returned object to declare the inputs to this component
      * @throws IllegalArgumentException if {@code parallelism_hint} is not positive
      */
+
+    //never been used ... maybe  trident substitutes for that ...
     public <T extends State> BoltDeclarer setBolt(String id, IStatefulWindowedBolt<T> bolt, Number parallelism_hint) throws IllegalArgumentException {
         hasStatefulBolt = true;
         return setBolt(id, new StatefulBoltExecutor<T>(new StatefulWindowedBoltExecutor<T>(bolt)), parallelism_hint);
@@ -303,8 +305,9 @@ public class TopologyBuilder {
         return setSpout(id, new ControlSpoutExecutor(spout), parallelism_hint);
     }
     /**
-     * Define a new bolt in this topology. This defines a control bolt, which is a simpler to use but more restricted kind of bolt. Control bolts are intended for
-     * making sending control message more simply
+     * Define a new bolt in this topology. This defines a control bolt,
+     * which is a simpler to use but more restricted kind of bolt.
+     * Control bolts are intended for making sending control message more simply
      * @param id the id of this component. This id is referenced by other components that want to consume this bolt's outputs.
      * @param bolt the control bolt
      * @param parallelism_hint the number of tasks that should be assigned to execute this bolt. Each task will run on a thread in a process somwehere around

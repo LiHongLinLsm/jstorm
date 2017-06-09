@@ -29,6 +29,7 @@ public class TransactionalMap<T> implements MapState<T> {
         return new TransactionalMap<T>(backing);
     }
 
+    //本地缓存数据。。。事务和处理结果。
     CachedBatchReadsMap<TransactionalValue> _backing;
     Long _currTx;
     

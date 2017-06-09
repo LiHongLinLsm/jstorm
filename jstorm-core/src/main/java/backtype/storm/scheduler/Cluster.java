@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+//保存了任务分配的所有map...
 public class Cluster {
 
     /**

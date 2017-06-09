@@ -34,8 +34,10 @@ import java.util.*;
 
 // based on transactional topologies
 public class TridentTopologyBuilder {
+    //val:grouId...
     Map<GlobalStreamId, String> _batchIds = new HashMap();
     Map<String, TransactionalSpoutComponent> _spouts = new HashMap();
+    //this is for drpcSpout...
     Map<String, SpoutComponent> _batchPerTupleSpouts = new HashMap();
     Map<String, Component> _bolts = new HashMap();
         
@@ -244,6 +246,7 @@ public class TridentTopologyBuilder {
         public Object spout;
         public Integer parallelism;
         public List<Map<String, Object>> componentConfs = new ArrayList<>();
+        //该spout属于哪个组  的 编号。
         String batchGroupId;
         String streamName;
         
@@ -261,7 +264,8 @@ public class TridentTopologyBuilder {
     }
     
     private static class TransactionalSpoutComponent extends SpoutComponent {
-        public String commitStateId; 
+        //zk中存储路径。
+        public String commitStateId;
         
         public TransactionalSpoutComponent(Object spout, String streamName, Integer parallelism, String commitStateId, String batchGroupId) {
             super(spout, streamName, parallelism, batchGroupId);
@@ -279,6 +283,7 @@ public class TridentTopologyBuilder {
         public Integer parallelism;
         public List<InputDeclaration> declarations = new ArrayList<>();
         public List<Map<String, Object>> componentConfs = new ArrayList<>();
+        //GroupNames...
         public Set<String> committerBatches;
         
         public Component(ITridentBatchBolt bolt, Integer parallelism,Set<String> committerBatches) {

@@ -39,7 +39,9 @@ public class ChainedAggregatorDeclarer implements ChainedFullAggregatorDeclarer,
         Stream partition(Stream input);
     }
 
+
     private static enum AggType {
+        //分别表示，某个分区聚集，全部分区聚集，先单后全。
         PARTITION, FULL, FULL_COMBINE
     }
 

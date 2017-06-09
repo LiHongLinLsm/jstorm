@@ -41,7 +41,8 @@ import storm.trident.windowing.config.WindowConfig;
 import storm.trident.windowing.strategy.WindowStrategy;
 
 /**
- * Basic functionality to manage trident tuple events using {@code WindowManager} and {@code WindowsStore} for storing
+ * Basic functionality to manage trident tuple events using {@code WindowManager}
+ * and {@code WindowsStore} for storing
  * tuples and triggers related information.
  *
  */
